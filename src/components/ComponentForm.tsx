@@ -256,7 +256,7 @@ export default function ComponentForm() {
           {(field) => (
             <div>
               <label className="block font-medium mb-1">Relations</label>
-              {field.state.value.map((rel, idx) => (
+              {field.state.value.map((_rel, idx) => (
                 <div key={idx} className="flex gap-2 mb-2 items-center">
                   <Combobox
                     selectableName="type"
