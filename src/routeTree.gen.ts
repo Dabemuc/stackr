@@ -10,11 +10,23 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as StackRouteImport } from './routes/stack'
+import { Route as Add_oldRouteImport } from './routes/add_old'
+import { Route as AddRouteImport } from './routes/add'
 import { Route as IndexRouteImport } from './routes/index'
 
 const StackRoute = StackRouteImport.update({
   id: '/stack',
   path: '/stack',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Add_oldRoute = Add_oldRouteImport.update({
+  id: '/add_old',
+  path: '/add_old',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AddRoute = AddRouteImport.update({
+  id: '/add',
+  path: '/add',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -25,27 +37,35 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/add': typeof AddRoute
+  '/add_old': typeof Add_oldRoute
   '/stack': typeof StackRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/add': typeof AddRoute
+  '/add_old': typeof Add_oldRoute
   '/stack': typeof StackRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/add': typeof AddRoute
+  '/add_old': typeof Add_oldRoute
   '/stack': typeof StackRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/stack'
+  fullPaths: '/' | '/add' | '/add_old' | '/stack'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/stack'
-  id: '__root__' | '/' | '/stack'
+  to: '/' | '/add' | '/add_old' | '/stack'
+  id: '__root__' | '/' | '/add' | '/add_old' | '/stack'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AddRoute: typeof AddRoute
+  Add_oldRoute: typeof Add_oldRoute
   StackRoute: typeof StackRoute
 }
 
@@ -56,6 +76,20 @@ declare module '@tanstack/react-router' {
       path: '/stack'
       fullPath: '/stack'
       preLoaderRoute: typeof StackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/add_old': {
+      id: '/add_old'
+      path: '/add_old'
+      fullPath: '/add_old'
+      preLoaderRoute: typeof Add_oldRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/add': {
+      id: '/add'
+      path: '/add'
+      fullPath: '/add'
+      preLoaderRoute: typeof AddRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -70,6 +104,8 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AddRoute: AddRoute,
+  Add_oldRoute: Add_oldRoute,
   StackRoute: StackRoute,
 }
 export const routeTree = rootRouteImport

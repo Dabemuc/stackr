@@ -1,14 +1,26 @@
-export type ComponentType =
-  | "Framework"
-  | "Database"
-  | "Package"
-  | "Tool"
-  | "Service"
-  | "Platform";
+// --- source of truth ---
+export const componentTypes = [
+  "Framework",
+  "Database",
+  "Package",
+  "Tool",
+  "Service",
+  "Platform",
+] as const;
 
-export type ComponentStatus =
-  | "Experimental"
-  | "Production-ready"
-  | "Deprecated";
+export const componentStatuses = [
+  "Experimental",
+  "Production-ready",
+  "Deprecated",
+] as const;
 
-export type ComponentRelation = "Depends on" | "Alternative to" | "Complements";
+export const relationTypes = [
+  "Depends on",
+  "Alternative to",
+  "Complements",
+] as const;
+
+// --- inferred types ---
+export type ComponentType = (typeof componentTypes)[number];
+export type ComponentStatus = (typeof componentStatuses)[number];
+export type ComponentRelation = (typeof relationTypes)[number];
