@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Popover, PopoverAnchor, PopoverContent } from "./ui/popover";
 import { Input } from "./ui/input";
 import { cn } from "@/lib/utils";
@@ -9,17 +9,22 @@ function AutocompleteSearchbox({
   items,
   placeholder = "Search...",
   onSelect,
+  onCreate,
 }: {
   items: Option[];
   placeholder?: string;
   onSelect: (value: string) => void;
+  onCreate?: (label: string) => void;
 }) {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return q ? items.filter((i) => i.label.toLowerCase().includes(q)) : items;
+    const updated = q
+      ? items.filter((i) => i.label.toLowerCase().includes(q))
+      : items;
+    return updated;
   }, [items, query]);
 
   const handleSelect = (val: string) => {
@@ -32,8 +37,9 @@ function AutocompleteSearchbox({
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverAnchor asChild>
         <Input
-          className="w-[--radix-popover-trigger-width]"
+          className="w-[200px]"
           placeholder={placeholder}
+          formNoValidate
           value={query}
           onChange={(e) => {
             setQuery(e.target.value);
@@ -41,9 +47,16 @@ function AutocompleteSearchbox({
           }}
           onFocus={() => setOpen(true)}
           onKeyDown={(e) => {
-            if (e.key === "Enter" && filtered.length > 0) {
+            if (e.key === "Enter") {
               e.preventDefault();
-              handleSelect(filtered[0].value);
+              if (filtered.length > 0) {
+                // select first matching item
+                handleSelect(filtered[0].value);
+              } else if (query.trim()) {
+                // create new
+                onCreate?.(query.trim());
+                handleSelect(query.trim());
+              }
             } else if (e.key === "Escape") {
               setOpen(false);
             }
@@ -52,7 +65,7 @@ function AutocompleteSearchbox({
       </PopoverAnchor>
       <PopoverContent
         align="start"
-        className="w-[--radix-popover-trigger-width] p-0"
+        className="w-[200px] p-0"
         onOpenAutoFocus={(e) => e.preventDefault()}
       >
         <ul className="max-h-48 overflow-y-auto">
@@ -69,9 +82,19 @@ function AutocompleteSearchbox({
                 {item.label}
               </li>
             ))
+          ) : query.trim() ? (
+            <li
+              className="cursor-pointer px-3 py-2 text-sm text-muted-foreground"
+              onClick={() => {
+                onCreate?.(query.trim());
+                handleSelect(query.trim());
+              }}
+            >
+              Create “{query}”
+            </li>
           ) : (
             <li className="px-3 py-2 text-sm text-muted-foreground">
-              No results
+              Start typing ...
             </li>
           )}
         </ul>
@@ -81,7 +104,7 @@ function AutocompleteSearchbox({
 }
 
 export function MultiTagSelect({
-  items,
+  items: initialItems,
   selected,
   onChange,
 }: {
@@ -89,6 +112,12 @@ export function MultiTagSelect({
   selected: string[];
   onChange: (newSelected: string[]) => void;
 }) {
+  const [items, setItems] = useState(initialItems);
+
+  useEffect(() => {
+    setItems(initialItems);
+  }, [initialItems]);
+
   const available = useMemo(
     () => items.filter((i) => !selected.includes(i.value)),
     [items, selected],
@@ -100,12 +129,10 @@ export function MultiTagSelect({
         {selected.map((val) => {
           const tag = items.find((i) => i.value === val);
           return (
-            <Badge key={val} className="px-2 py-1 flex items-center gap-1">
-              {tag?.label}
+            <Badge key={val}>
+              {tag?.label ?? val}
               <button
-                type="button"
                 onClick={() => onChange(selected.filter((s) => s !== val))}
-                aria-label={`Remove ${tag?.label}`}
               >
                 ✕
               </button>
@@ -121,6 +148,10 @@ export function MultiTagSelect({
           if (!selected.includes(val)) {
             onChange([...selected, val]);
           }
+        }}
+        onCreate={(label) => {
+          const newTag = { value: label, label };
+          setItems((prev) => [...prev, newTag]);
         }}
       />
     </div>
