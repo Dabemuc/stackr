@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 
 import ClerkHeader from "../integrations/clerk/clerk-header.tsx";
+import { ModeToggle } from "./ModeToggle.tsx";
 
 export default function Header() {
   const headerElems: { name: string; to: string }[] = [
@@ -9,7 +10,7 @@ export default function Header() {
   ];
 
   return (
-    <header className="p-2 flex gap-2 bg-white text-black justify-between">
+    <header className="p-2 flex gap-2 justify-between">
       <div className="flex justify-start">
         <div className="mx-15">Logo</div>
 
@@ -22,8 +23,12 @@ export default function Header() {
         </nav>
       </div>
 
-      <div>
-        <ClerkHeader />
+      <div className="flex justify-end gap-3">
+        <ModeToggle />
+
+        <div>
+          <ClerkHeader />
+        </div>
       </div>
     </header>
   );
