@@ -1,4 +1,5 @@
-import { ComponentStatus, ComponentType } from "@/db/types";
+import { ComponentRelation, ComponentStatus, ComponentType } from "@/db/types";
+import { InferInsertModel, InferSelectModel, sql } from "drizzle-orm";
 import {
   pgTable,
   unique,
@@ -21,13 +22,19 @@ export const components = pgTable(
       cache: 1,
     }),
     name: varchar({ length: 255 }).notNull(),
-    type: varchar({ length: 255 }).$type<ComponentType>().array(),
+    type: varchar({ length: 255 }).$type<ComponentType>().array().notNull(),
     description: text(),
     links: text().array(),
-    status: varchar({ length: 255 }).$type<ComponentStatus>(),
+    status: varchar({ length: 255 }).$type<ComponentStatus>().notNull(),
   },
-  (table) => [unique("components_name_unique").on(table.name)],
+  (table) => [
+    unique("components_name_unique").on(table.name),
+    sql`CHECK (cardinality(${table.type}) > 0)`,
+  ],
 );
+
+export type Component = InferSelectModel<typeof components>;
+export type NewComponent = InferInsertModel<typeof components>;
 
 // ------------------ Tags ------------------
 export const tags = pgTable(
@@ -39,8 +46,11 @@ export const tags = pgTable(
       onDelete: "set null",
     }),
   },
-  (table) => [unique("tags_name_unique").on(table.name)],
+  // (table) => [unique("tags_name_unique").on(table.name)],
 );
+
+export type Tag = InferSelectModel<typeof tags>;
+export type NewTag = InferInsertModel<typeof tags>;
 
 // ------------------ Components ↔ Tags (many-to-many) ------------------
 export const componentsTags = pgTable(
@@ -69,7 +79,7 @@ export const relations = pgTable(
     targetId: integer("target_id")
       .notNull()
       .references(() => components.id, { onDelete: "cascade" }),
-    relationType: varchar({ length: 255 }).notNull(),
+    relationType: varchar({ length: 255 }).$type<ComponentRelation>().notNull(),
   },
   (table) => [
     unique("relations_unique").on(

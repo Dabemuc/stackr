@@ -15,6 +15,13 @@
       "when": 1755350056963,
       "tag": "0001_remarkable_maverick",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1755438794198,
+      "tag": "0002_lean_miek",
+      "breakpoints": true
     }
   ]
 }

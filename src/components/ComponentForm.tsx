@@ -13,6 +13,7 @@ import {
   relationTypes,
 } from "@/db/types";
 import { MultiTagSelect } from "./MultiTagSelect";
+import { findComponents, findHierarchicalTags, insertComponent } from "@/db/db";
 
 // Helper to show validation state
 function FieldInfo({ field }: { field: AnyFieldApi }) {
@@ -47,6 +48,18 @@ const relationTypeOptions = relationTypes.map((value) => ({
   label: value,
 }));
 
+const defFormVals = {
+  name: "",
+  type: [] as ComponentType[],
+  description: "",
+  links: [] as string[],
+  status: "Production-ready" as ComponentStatus,
+  tags: [] as string[],
+  relations: [] as { targetId: string; relationType: ComponentRelation }[],
+};
+
+export type ComponentFormData = typeof defFormVals;
+
 export default function ComponentForm() {
   const [tags, setTags] = useState<{ value: string; label: string }[]>([]);
   const [components, setComponents] = useState<
@@ -56,19 +69,10 @@ export default function ComponentForm() {
   // Fetch tags and components from API/db
   useEffect(() => {
     async function fetchData() {
-      // TODO: Actually fetch data from API
-      const tagsRes = await Promise.resolve([
-        { id: 1, name: "Frontend" },
-        { id: 2, name: "Backend" },
-        { id: 3, name: "Database" },
-      ]);
-      setTags(tagsRes.map((t) => ({ value: String(t.id), label: t.name })));
+      const tagsRes = await findHierarchicalTags();
+      setTags(tagsRes.map((t) => ({ value: String(t.path), label: t.path })));
 
-      const compsRes = await Promise.resolve([
-        { id: 10, name: "React" },
-        { id: 11, name: "Postgres" },
-        { id: 12, name: "Redis" },
-      ]);
+      const compsRes = await findComponents();
       setComponents(
         compsRes.map((c) => ({ value: String(c.id), label: c.name })),
       );
@@ -77,18 +81,17 @@ export default function ComponentForm() {
   }, []);
 
   const form = useForm({
-    defaultValues: {
-      name: "",
-      type: [] as ComponentType[],
-      description: "",
-      links: [] as string[],
-      status: undefined as ComponentStatus | undefined,
-      tags: [] as string[],
-      relations: [] as { targetId: string; relationType: ComponentRelation }[],
-    },
+    defaultValues: defFormVals,
     onSubmit: async ({ value }) => {
       console.log("Form submitted:", value);
-      // TODO: call API to persist component
+
+      if (value.type === undefined) {
+        console.error(
+          "Trying to insert component with undefined status. This should never happen!",
+        );
+      }
+
+      insertComponent({ data: value });
     },
   });
 

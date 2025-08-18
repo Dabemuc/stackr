@@ -7,7 +7,12 @@
     "start": "node .output/server/index.mjs",
     "build": "vite build",
     "serve": "vite preview",
-    "test": "vitest run"
+    "test": "vitest run",
+    "drizzle:generate": "drizzle-kit generate",
+    "drizzle:dev:push": "dotenv -e .env.development -- drizzle-kit push",
+    "drizzle:prod:push": "dotenv -e .env.production -- drizzle-kit push",
+    "drizzle:dev:migrate": "dotenv -e .env.development -- drizzle-kit migrate",
+    "drizzle:prod:migrate": "dotenv -e .env.production -- drizzle-kit migrate"
   },
   "dependencies": {
     "@clerk/clerk-react": "^5.22.13",
@@ -44,6 +49,7 @@
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
     "@vitejs/plugin-react": "^4.3.4",
+    "dotenv-cli": "^10.0.0",
     "drizzle-kit": "^0.31.4",
     "jsdom": "^26.0.0",
     "tsx": "^4.20.4",
