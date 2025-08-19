@@ -15,6 +15,7 @@ import appCss from "../styles.css?url";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { NoThemeFlashScript } from "@/components/NoThemeFlashScript";
 import { Button } from "@/components/ui/button";
+import { seedDb } from "@/db/db";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -75,7 +76,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
                   name: "Stackr DevTools",
                   render: (
                     <div className="p-3">
-                      <Button>Seed db</Button>
+                      <Button onClick={() => seedDb()}>Seed db</Button>
                     </div>
                   ),
                 },
