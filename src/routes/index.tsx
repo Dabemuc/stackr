@@ -1,3 +1,4 @@
+import ComponentsVisualizer from "@/components/ComponentsVisualizer";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
@@ -5,5 +6,9 @@ export const Route = createFileRoute("/")({
 });
 
 function App() {
-  return <div className="text-center">Hello "/"!</div>;
+  return (
+    <div className="text-center">
+      <ComponentsVisualizer />
+    </div>
+  );
 }

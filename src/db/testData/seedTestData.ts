@@ -1,5 +1,5 @@
 import { components, tags, componentsTags, relations } from "@/db/schema";
-import { tagsData, componentsData, relationsData } from "./testData";
+import { tagsData, componentsData, relationsData, tagLinks } from "./testData";
 import { NeonDatabase } from "drizzle-orm/neon-serverless";
 import { Pool } from "@neondatabase/serverless";
 
@@ -33,28 +33,6 @@ export async function seed(
   );
 
   console.log("🔗 Linking tags to components...");
-  const tagLinks = [
-    { comp: "React", tags: ["UI"] },
-    { comp: "Next.js", tags: ["UI", "Authentication"] },
-    { comp: "Angular", tags: ["UI"] },
-    { comp: "Vue.js", tags: ["UI"] },
-    { comp: "PostgreSQL", tags: ["Cloud"] },
-    { comp: "MongoDB", tags: ["Cloud"] },
-    { comp: "Prisma", tags: ["ORM"] },
-    { comp: "TypeORM", tags: ["ORM"] },
-    { comp: "Firebase Auth", tags: ["Authentication"] },
-    { comp: "Supabase", tags: ["Cloud", "Authentication"] },
-    { comp: "Auth0", tags: ["Authentication"] },
-    { comp: "Jest", tags: ["Testing"] },
-    { comp: "Playwright", tags: ["Testing"] },
-    { comp: "Docker", tags: ["DevOps"] },
-    { comp: "Kubernetes", tags: ["DevOps"] },
-    { comp: "Stripe API", tags: ["API"] },
-    { comp: "Segment", tags: ["Analytics"] },
-    { comp: "GitHub Actions", tags: ["CI/CD"] },
-    { comp: "CircleCI", tags: ["CI/CD"] },
-    { comp: "Terraform", tags: ["DevOps"] },
-  ];
 
   await db.insert(componentsTags).values(
     tagLinks.flatMap(({ comp, tags }) =>

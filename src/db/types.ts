@@ -6,6 +6,8 @@ export const componentTypes = [
   "Tool",
   "Service",
   "Platform",
+  "Webapp",
+  "API",
 ] as const;
 
 export const componentStatuses = [

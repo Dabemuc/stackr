@@ -5,8 +5,9 @@ import { upsertHierarchicalTag } from "./db_helper";
 import { sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/neon-serverless";
 import { seed } from "./testData/seedTestData";
+import { findComponentsGroupedByTagThenTypeHandler } from "./handlers/findComponentsGroupedByTagThenTypeHandler";
 
-const db = drizzle(process.env.DATABASE_URL!);
+export const db = drizzle(process.env.DATABASE_URL!);
 
 export const seedDb = createServerFn({ method: "POST" }).handler(async () => {
   console.log("🌱 Running seed data...");
@@ -63,6 +64,10 @@ export const findComponents = createServerFn({ method: "GET" }).handler(
     return result;
   },
 );
+
+export const findComponentsGroupedByTag = createServerFn({
+  method: "GET",
+}).handler(findComponentsGroupedByTagThenTypeHandler);
 
 export const findTags = createServerFn({ method: "GET" }).handler(async () => {
   console.log("Finding Tags");

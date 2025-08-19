@@ -10,8 +10,31 @@ export const tagsData: NewTag[] = [
   { name: "Analytics" },
   { name: "DevOps" },
   { name: "Testing" },
-  { name: "API" },
-  { name: "CI/CD" },
+  { name: "Payments" },
+  { name: "CICD" },
+];
+
+export const tagLinks = [
+  { comp: "React", tags: ["UI"] },
+  { comp: "Next.js", tags: ["UI", "Authentication"] },
+  { comp: "Angular", tags: ["UI"] },
+  { comp: "Vue.js", tags: ["UI"] },
+  { comp: "PostgreSQL", tags: ["Cloud"] },
+  { comp: "MongoDB", tags: ["Cloud"] },
+  { comp: "Prisma", tags: ["ORM"] },
+  { comp: "TypeORM", tags: ["ORM"] },
+  { comp: "Firebase Auth", tags: ["Authentication"] },
+  { comp: "Supabase", tags: ["Cloud", "Authentication"] },
+  { comp: "Auth0", tags: ["Authentication"] },
+  { comp: "Jest", tags: ["Testing"] },
+  { comp: "Playwright", tags: ["Testing"] },
+  { comp: "Docker", tags: ["DevOps"] },
+  { comp: "Kubernetes", tags: ["DevOps"] },
+  { comp: "Stripe API", tags: ["Payments"] },
+  { comp: "Segment", tags: ["Analytics"] },
+  { comp: "GitHub Actions", tags: ["CICD"] },
+  { comp: "CircleCI", tags: ["CICD"] },
+  { comp: "Terraform", tags: ["DevOps"] },
 ];
 
 // ---------------- Components ----------------
