@@ -14,6 +14,7 @@ import ClerkProvider from "../integrations/clerk/provider";
 import appCss from "../styles.css?url";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { NoThemeFlashScript } from "@/components/NoThemeFlashScript";
+import { Button } from "@/components/ui/button";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -69,6 +70,14 @@ function RootDocument({ children }: { children: React.ReactNode }) {
                 {
                   name: "Tanstack Router",
                   render: <TanStackRouterDevtoolsPanel />,
+                },
+                {
+                  name: "Stackr DevTools",
+                  render: (
+                    <div className="p-3">
+                      <Button>Seed db</Button>
+                    </div>
+                  ),
                 },
               ]}
             />
