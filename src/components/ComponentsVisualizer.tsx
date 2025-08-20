@@ -12,13 +12,13 @@ export default function ComponentsVisualizer() {
     async function fetch() {
       const fetchedData = await findComponentsGroupedByTag();
       setTags(fetchedData);
-      console.log(fetchedData);
     }
 
     fetch();
   }, []);
+
   return (
-    <div className="grid grid-cols-3 gap-3 p-3">
+    <div className="p-6 grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
       {tags.map((t, index) => (
         <TagCard tag={t} key={"tag" + index} />
       ))}
