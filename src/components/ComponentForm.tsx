@@ -316,7 +316,11 @@ export default function ComponentForm() {
           selector={(state) => [state.canSubmit, state.isSubmitting]}
         >
           {([canSubmit, isSubmitting]) => (
-            <Button type="submit" disabled={!canSubmit}>
+            <Button
+              type="submit"
+              disabled={!canSubmit}
+              className="bg-gradient-to-tl from-accent-gradiant-from via-accent-gradiant-from to-accent-gradiant-to"
+            >
               {isSubmitting ? "..." : "Submit"}
             </Button>
           )}

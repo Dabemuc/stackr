@@ -63,10 +63,11 @@ code {
 }
 
 .dark {
-  --bg-dark: oklch(0 0 0);
-  --bg: oklch(0.15 0 0);
-  --bg-light: oklch(0.2 0 0);
-  --bg-light-hover: oklch(0.23 0 0);
+  --bg-dark: oklch(0.2 0 0);
+  /* --bg-dark: hsl(0 0 10); */
+  --bg: oklch(0.25 0 0);
+  --bg-light: oklch(0.3 0 0);
+  --bg-light-hover: oklch(0.33 0 0);
   --highlight: oklch(0.6 0 0);
   --text: oklch(0.95 0 0);
   --text-muted: oklch(0.7 0 0);
@@ -117,16 +118,8 @@ code {
   --shadow-custom:
     0px 2px 2px hsla(0, 0%, 0%, 0.07), 0px 4px 4px hsla(0, 0%, 0%, 0.15);
   --color-custom-border: 1px solid var(--bg-light);
-  --color-highlight-gradient: linear-gradient(
-    0deg,
-    var(--bg),
-    var(--highlight)
-  );
-  --color-highlight-gradient-subtle: linear-gradient(
-    0deg,
-    var(--bg-light),
-    var(--bg)
-  );
+  --color-accent-gradiant-from: #6aff5e;
+  --color-accent-gradiant-to: #0dfff7;
   /*Shadcn*/
   --color-background: var(--background);
   --color-foreground: var(--foreground);
