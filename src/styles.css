@@ -65,7 +65,7 @@ code {
 .dark {
   --bg-dark: oklch(0.2 0 0);
   /* --bg-dark: hsl(0 0 10); */
-  --bg: oklch(0.25 0 0);
+  --bg: oklch(0.23 0 0);
   --bg-light: oklch(0.3 0 0);
   --bg-light-hover: oklch(0.33 0 0);
   --highlight: oklch(0.6 0 0);
@@ -73,6 +73,11 @@ code {
   --text-muted: oklch(0.7 0 0);
   /* --background: oklch(0.141 0.005 285.823); */
   --background: var(--bg-dark);
+  --background-image: radial-gradient(
+    circle at 0% 10%,
+    rgba(16, 69, 29, 0.1) 0%,
+    var(--background) 50%
+  );
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.141 0.005 285.823);
   --card-foreground: oklch(0.985 0 0);
@@ -116,7 +121,8 @@ code {
   --color-text: var(--text);
   --color-text-muted: var(--text-muted);
   --shadow-custom:
-    0px 2px 2px hsla(0, 0%, 0%, 0.07), 0px 4px 4px hsla(0, 0%, 0%, 0.15);
+    0px 2px 2px hsla(0, 0%, 0%, 0.2) /*shorter darker*/,
+    0px 4px 4px hsla(0, 0%, 0%, 0.1); /*longer lighter*/
   --color-custom-border: 1px solid var(--bg-light);
   --color-accent-gradiant-from: #6aff5e;
   --color-accent-gradiant-to: #0dfff7;
@@ -164,6 +170,9 @@ code {
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    /* @apply bg-background text-foreground; */
+    background-image: var(--background-image);
+    background-color: var(--background);
+    color: var(--foreground);
   }
 }

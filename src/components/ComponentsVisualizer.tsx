@@ -11,16 +11,18 @@ export default function ComponentsVisualizer() {
   useEffect(() => {
     async function fetch() {
       const fetchedData = await findComponentsGroupedByTag();
+      fetchedData.sort((a, b) => a.tagName.localeCompare(b.tagName));
       setTags(fetchedData);
     }
-
     fetch();
   }, []);
 
   return (
-    <div className="p-6 grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+    <div className="p-6 columns-1 sm:columns-2 lg:columns-3 gap-6">
       {tags.map((t, index) => (
-        <TagCard tag={t} key={"tag" + index} />
+        <div key={"tag" + index} className="mb-6 break-inside-avoid">
+          <TagCard tag={t} />
+        </div>
       ))}
     </div>
   );
