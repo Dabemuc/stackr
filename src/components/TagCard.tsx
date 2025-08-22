@@ -4,6 +4,9 @@ import { GroupedByTypeJson } from "@/db/handlers/findComponentsGroupedByTagThenT
 import { cn } from "@/lib/utils";
 import { matchStatusToColor } from "./utils/matchStatusToColor";
 import { ComponentStatus } from "@/db/types";
+import { HoverCard, HoverCardTrigger } from "./ui/hover-card";
+import { HoverCardContent } from "@radix-ui/react-hover-card";
+import { components } from "@/db/schema";
 
 type Props = {
   tag: {
@@ -37,12 +40,35 @@ export default function TagCard({ tag }: Props) {
                   key={tag.tagName + "-" + type.type + "-component-" + j}
                   className="flex items-center justify-between bg-bg-light hover:bg-bg-light-hover p-2 rounded-lg transition"
                 >
-                  <Link
-                    to={"/view?id=" + component.id}
-                    className="text-accent-foreground hover:underline font-medium"
-                  >
-                    {component.name}
-                  </Link>
+                  <HoverCard>
+                    <HoverCardTrigger>
+                      <Link
+                        to={"/view?id=" + component.id}
+                        className="text-accent-foreground hover:underline font-medium"
+                      >
+                        {component.name}
+                      </Link>
+                    </HoverCardTrigger>
+                    <HoverCardContent className="w-80 max-h-96 bg-bg rounded-2xl p-4 border-custom-border border z-10">
+                      <div className="flex justify-between gap-4">
+                        <div className="space-y-1">
+                          <Link
+                            to={"/view?id=" + component.id}
+                            className="text-sm font-semibold hover:underline"
+                          >
+                            {component.name}
+                          </Link>
+
+                          <p className="text-sm overflow-scroll">
+                            {component.description}
+                          </p>
+                          <div className="text-muted-foreground text-xs">
+                            {component.status}
+                          </div>
+                        </div>
+                      </div>
+                    </HoverCardContent>
+                  </HoverCard>
 
                   <div
                     className={cn(

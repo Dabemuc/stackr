@@ -123,7 +123,7 @@ code {
   --shadow-custom:
     0px 2px 2px hsla(0, 0%, 0%, 0.2) /*shorter darker*/,
     0px 4px 4px hsla(0, 0%, 0%, 0.1); /*longer lighter*/
-  --color-custom-border: 1px solid var(--bg-light);
+  --color-custom-border: var(--bg-light);
   --color-accent-gradiant-from: #6aff5e;
   --color-accent-gradiant-to: #0dfff7;
   /*Shadcn*/
