@@ -5,7 +5,7 @@ import { ModeToggle } from "./ModeToggle.tsx";
 
 export default function Header() {
   const headerElems: { name: string; to: string }[] = [
-    { name: "Home", to: "/" },
+    { name: "Overview", to: "/" },
     { name: "Build your stack", to: "/stack" },
   ];
 

@@ -49,7 +49,7 @@ export default function TagCard({ tag }: Props) {
                         {component.name}
                       </Link>
                     </HoverCardTrigger>
-                    <HoverCardContent className="w-80 max-h-96 bg-bg rounded-2xl p-4 border-custom-border border z-10">
+                    <HoverCardContent className="w-80 max-h-96 bg-bg bg-gradient-to-br from-accent-gradiant-to/10 via-bg to-bg rounded-2xl p-4 border-custom-border border shadow-custom z-10">
                       <div className="flex justify-between gap-4">
                         <div className="space-y-1">
                           <Link
