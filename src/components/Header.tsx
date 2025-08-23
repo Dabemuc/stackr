@@ -10,25 +10,28 @@ export default function Header() {
   ];
 
   return (
-    <header className="p-2 flex gap-2 justify-between">
-      <div className="flex justify-start">
-        <div className="mx-15">Logo</div>
+    <header className="flex items-center justify-between px-6 py-3 shadow-sm bg-background">
+      {/* Left section: Logo + Nav */}
+      <div className="flex items-center gap-8">
+        <div className="text-xl font-extrabold tracking-tight">Stackr</div>
 
-        <nav className="flex flex-row">
+        <nav className="flex items-center gap-6">
           {headerElems.map((elem, index) => (
-            <div className="px-2 font-bold" key={"header-" + index}>
-              <Link to={elem.to}>{elem.name}</Link>
-            </div>
+            <Link
+              key={"header-" + index}
+              to={elem.to}
+              className="text-sm font-medium transition-colors hover:text-primary hover:underline"
+            >
+              {elem.name}
+            </Link>
           ))}
         </nav>
       </div>
 
-      <div className="flex justify-end gap-3">
+      {/* Right section: Mode toggle + Clerk */}
+      <div className="flex items-center gap-4">
         <ModeToggle />
-
-        <div>
-          <ClerkHeader />
-        </div>
+        <ClerkHeader />
       </div>
     </header>
   );
