@@ -1,14 +1,14 @@
 // --- source of truth ---
-export const componentTypes = [
-  "Framework",
-  "Database",
-  "Package",
-  "Tool",
-  "Service",
-  "Platform",
-  "Webapp",
-  "API",
-] as const;
+// export const componentTypes = [
+//   "Framework",
+//   "Database",
+//   "Package",
+//   "Tool",
+//   "Service",
+//   "Platform",
+//   "Webapp",
+//   "API",
+// ] as const;
 
 export const componentStatuses = [
   "Experimental",
@@ -23,6 +23,6 @@ export const relationTypes = [
 ] as const;
 
 // --- inferred types ---
-export type ComponentType = (typeof componentTypes)[number];
+// export type ComponentType = (typeof componentTypes)[number];
 export type ComponentStatus = (typeof componentStatuses)[number];
 export type ComponentRelation = (typeof relationTypes)[number];

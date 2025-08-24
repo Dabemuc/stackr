@@ -37,7 +37,8 @@ export const findComponentsGroupedByTagThenTypeHandler = async () => {
     .leftJoin(
       sql /*sql*/ `
         (
-          SELECT ct.tag_id, unnest(c.type) as type,
+          SELECT ct.tag_id,
+                 t.name as type,
                  json_agg(
                    json_build_object(
                      'id', c.id,
@@ -46,10 +47,13 @@ export const findComponentsGroupedByTagThenTypeHandler = async () => {
                      'links', c.links,
                      'status', c.status
                    )
+                   ORDER BY c.name
                  ) as components
           FROM components_tags ct
           JOIN components c ON c.id = ct.component_id
-          GROUP BY ct.tag_id, unnest(c.type)
+          JOIN components_types ctt ON ctt.component_id = c.id
+          JOIN types t ON t.id = ctt.type_id
+          GROUP BY ct.tag_id, t.name
         ) comp_group
       `,
       sql`comp_group.tag_id = ${tags.id}`,

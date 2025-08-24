@@ -6,14 +6,17 @@ import { Combobox } from "@/components/Combobox";
 
 import {
   type ComponentStatus,
-  type ComponentType,
   type ComponentRelation,
-  componentTypes,
   componentStatuses,
   relationTypes,
 } from "@/db/types";
 import { MultiTagSelect } from "./MultiTagSelect";
-import { findComponents, findHierarchicalTags, insertComponent } from "@/db/db";
+import {
+  findComponents,
+  findHierarchicalTags,
+  findTypes,
+  insertComponent,
+} from "@/db/db";
 
 // Helper to show validation state
 function FieldInfo({ field }: { field: AnyFieldApi }) {
@@ -33,11 +36,6 @@ function FieldInfo({ field }: { field: AnyFieldApi }) {
   );
 }
 
-const componentTypeOptions = componentTypes.map((value) => ({
-  value,
-  label: value,
-}));
-
 const componentStatusOptions = componentStatuses.map((value) => ({
   value,
   label: value,
@@ -50,7 +48,7 @@ const relationTypeOptions = relationTypes.map((value) => ({
 
 const defFormVals = {
   name: "",
-  type: [] as ComponentType[],
+  type: [] as string[],
   description: "",
   links: [] as string[],
   status: "Production-ready" as ComponentStatus,
@@ -65,6 +63,7 @@ export default function ComponentForm() {
   const [components, setComponents] = useState<
     { value: string; label: string }[]
   >([]);
+  const [types, setTypes] = useState<{ value: string; label: string }[]>([]);
 
   // Fetch tags and components from API/db
   useEffect(() => {
@@ -76,6 +75,9 @@ export default function ComponentForm() {
       setComponents(
         compsRes.map((c) => ({ value: String(c.id), label: c.name })),
       );
+
+      const typesRes = await findTypes();
+      setTypes(typesRes.map((t) => ({ value: String(t.id), label: t.name })));
     }
     fetchData();
   }, []);
@@ -154,7 +156,7 @@ export default function ComponentForm() {
             <div>
               <label className="block font-medium mb-1">Type(s)</label>
               <div className="flex flex-wrap gap-2">
-                {componentTypeOptions.map((t) => (
+                {types.map((t) => (
                   <Button
                     key={t.value}
                     type="button"

@@ -1,4 +1,4 @@
-import { components, componentsTags, relations, tags } from "./schema";
+import { components, componentsTags, relations, tags, types } from "./schema";
 import { createServerFn } from "@tanstack/react-start";
 import { ComponentFormData } from "@/components/ComponentForm";
 import { upsertHierarchicalTag } from "./db_helper";
@@ -26,12 +26,11 @@ export const insertComponent = createServerFn({ method: "POST" })
         .values({
           name: ctx.data.name,
           status: ctx.data.status,
-          type: ctx.data.type,
           description: ctx.data.description,
           links: ctx.data.links,
         })
         .returning({ id: components.id });
-      // Insert new tags and get tags ids
+      // Insert new tags and get tag ids
       const tagIds = [];
       for (const tag of ctx.data.tags) {
         // Split on '/' and upsert
@@ -107,3 +106,10 @@ export const findHierarchicalTags = createServerFn({ method: "GET" }).handler(
     return result.rows as { id: number; name: string; path: string }[];
   },
 );
+
+export const findTypes = createServerFn({ method: "GET" }).handler(async () => {
+  console.log("Finding types");
+  const result = await db.select().from(types);
+  console.log("Found", result.length, "types");
+  return result;
+});

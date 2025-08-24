@@ -1,5 +1,5 @@
-import { ComponentRelation, ComponentStatus, ComponentType } from "@/db/types";
-import { InferInsertModel, InferSelectModel, sql } from "drizzle-orm";
+import { ComponentRelation, ComponentStatus } from "@/db/types";
+import { InferInsertModel, InferSelectModel } from "drizzle-orm";
 import {
   pgTable,
   unique,
@@ -13,41 +13,26 @@ import {
 export const components = pgTable(
   "components",
   {
-    id: integer().primaryKey().generatedAlwaysAsIdentity({
-      name: "components_id_seq",
-      startWith: 1,
-      increment: 1,
-      minValue: 1,
-      maxValue: 2147483647,
-      cache: 1,
-    }),
+    id: integer().primaryKey().generatedAlwaysAsIdentity(),
     name: varchar({ length: 255 }).notNull(),
-    type: varchar({ length: 255 }).$type<ComponentType>().array().notNull(),
     description: text(),
     links: text().array(),
     status: varchar({ length: 255 }).$type<ComponentStatus>().notNull(),
   },
-  (table) => [
-    unique("components_name_unique").on(table.name),
-    sql`CHECK (cardinality(${table.type}) > 0)`,
-  ],
+  (table) => [unique("components_name_unique").on(table.name)],
 );
 
 export type Component = InferSelectModel<typeof components>;
 export type NewComponent = InferInsertModel<typeof components>;
 
 // ------------------ Tags ------------------
-export const tags = pgTable(
-  "tags",
-  {
-    id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
-    name: varchar("name", { length: 255 }).notNull(),
-    parentTagId: integer("parent_tag_id").references((): any => tags.id, {
-      onDelete: "set null",
-    }),
-  },
-  // (table) => [unique("tags_name_unique").on(table.name)],
-);
+export const tags = pgTable("tags", {
+  id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
+  name: varchar("name", { length: 255 }).notNull(),
+  parentTagId: integer("parent_tag_id").references((): any => tags.id, {
+    onDelete: "set null",
+  }),
+});
 
 export type Tag = InferSelectModel<typeof tags>;
 export type NewTag = InferInsertModel<typeof tags>;
@@ -65,6 +50,25 @@ export const componentsTags = pgTable(
   },
   (table) => [primaryKey({ columns: [table.componentId, table.tagId] })],
 );
+
+// ------------------ Types ------------------
+export const types = pgTable("types", {
+  id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
+  name: varchar("name", { length: 255 }).notNull(),
+});
+
+export type Type = InferSelectModel<typeof types>;
+export type NewType = InferInsertModel<typeof types>;
+
+// ------------------ Components ↔ Types (many-to-many) ------------------
+export const componentsTypes = pgTable("components_types", {
+  componentId: integer("component_id")
+    .notNull()
+    .references(() => components.id, { onDelete: "cascade" }),
+  typeId: integer("type_id")
+    .notNull()
+    .references(() => types.id, { onDelete: "cascade" }),
+});
 
 // ------------------ Relations (component ↔ component) ------------------
 export const relations = pgTable(
