@@ -11,12 +11,8 @@ import {
   relationTypes,
 } from "@/db/types";
 import { MultiTagSelect } from "./MultiTagSelect";
-import {
-  findComponents,
-  findHierarchicalTags,
-  findTypes,
-  insertComponent,
-} from "@/db/db";
+import { findComponents, findHierarchicalTags, insertComponent } from "@/db/db";
+import TypesFormSection from "./TypesFormSection";
 
 // Helper to show validation state
 function FieldInfo({ field }: { field: AnyFieldApi }) {
@@ -48,7 +44,7 @@ const relationTypeOptions = relationTypes.map((value) => ({
 
 const defFormVals = {
   name: "",
-  type: [] as string[],
+  type: [] as number[],
   description: "",
   links: [] as string[],
   status: "Production-ready" as ComponentStatus,
@@ -63,7 +59,6 @@ export default function ComponentForm() {
   const [components, setComponents] = useState<
     { value: string; label: string }[]
   >([]);
-  const [types, setTypes] = useState<{ value: string; label: string }[]>([]);
 
   // Fetch tags and components from API/db
   useEffect(() => {
@@ -75,9 +70,6 @@ export default function ComponentForm() {
       setComponents(
         compsRes.map((c) => ({ value: String(c.id), label: c.name })),
       );
-
-      const typesRes = await findTypes();
-      setTypes(typesRes.map((t) => ({ value: String(t.id), label: t.name })));
     }
     fetchData();
   }, []);
@@ -155,27 +147,10 @@ export default function ComponentForm() {
           {(field) => (
             <div>
               <label className="block font-medium mb-1">Type(s)</label>
-              <div className="flex flex-wrap gap-2">
-                {types.map((t) => (
-                  <Button
-                    key={t.value}
-                    type="button"
-                    variant={
-                      field.state.value.includes(t.value)
-                        ? "default"
-                        : "outline"
-                    }
-                    onClick={() => {
-                      const selected = field.state.value.includes(t.value)
-                        ? field.state.value.filter((v) => v !== t.value)
-                        : [...field.state.value, t.value];
-                      field.handleChange(selected);
-                    }}
-                  >
-                    {t.label}
-                  </Button>
-                ))}
-              </div>
+              <TypesFormSection
+                selected={field.state.value}
+                onChange={field.handleChange}
+              />
               <FieldInfo field={field} />
             </div>
           )}
