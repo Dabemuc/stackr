@@ -43,7 +43,10 @@ export default function TagCard({ tag }: Props) {
                   <HoverCard>
                     <HoverCardTrigger>
                       <Link
-                        to={"/view?id=" + component.id}
+                        to="/view"
+                        search={{
+                          id: component.id,
+                        }}
                         className="text-accent-foreground hover:underline font-medium"
                       >
                         {component.name}
@@ -53,7 +56,10 @@ export default function TagCard({ tag }: Props) {
                       <div className="flex justify-between gap-4">
                         <div className="space-y-1">
                           <Link
-                            to={"/view?id=" + component.id}
+                            to="/view"
+                            search={{
+                              id: component.id,
+                            }}
                             className="text-sm font-semibold hover:underline"
                           >
                             {component.name}
