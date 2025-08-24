@@ -6,7 +6,6 @@ import { matchStatusToColor } from "./utils/matchStatusToColor";
 import { ComponentStatus } from "@/db/types";
 import { HoverCard, HoverCardTrigger } from "./ui/hover-card";
 import { HoverCardContent } from "@radix-ui/react-hover-card";
-import { components } from "@/db/schema";
 
 type Props = {
   tag: {
