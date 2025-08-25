@@ -1,45 +1,55 @@
 import { findTypes } from "@/db/db";
 import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import AutoWidthInput from "./AutoWidthInput";
 
 export default function TypesFormSection({
   selected,
   onChange,
 }: {
-  selected: number[];
-  onChange: (newSelected: number[]) => void;
+  selected: { id: number | null; name: string }[];
+  onChange: (newSelected: { id: number | null; name: string }[]) => void;
 }) {
-  const [types, setTypes] = useState<{ id: number; name: string }[]>([]);
-
-  // Helper to load types and set state
-  async function fetchTypes() {
-    const typesRes = await findTypes();
-    setTypes(typesRes);
-  }
+  const [types, setTypes] = useState<{ id: number | null; name: string }[]>([]);
 
   // Fetch Data on initial load
   useEffect(() => {
+    async function fetchTypes() {
+      const typesRes = await findTypes();
+      setTypes(typesRes);
+    }
+
     fetchTypes();
-  });
+  }, []);
+
+  function handleAdd(input: string) {
+    console.log("Adding", input);
+    const newType = { id: null, name: input };
+    setTypes([...types, newType]);
+    handleSelect(newType);
+  }
+
+  function handleSelect(t: { id: number | null; name: string }) {
+    const newSelected = selected.includes(t)
+      ? selected.filter((v) => v !== t)
+      : [...selected, t];
+    onChange(newSelected);
+  }
 
   return (
     <div className="flex flex-wrap gap-2">
-      {types.map((t) => (
+      {types.map((t, index) => (
         <Button
-          key={t.id}
+          key={"type-" + index}
           type="button"
-          variant={selected.includes(t.id) ? "default" : "outline"}
-          onClick={() => {
-            const newSelected = selected.includes(t.id)
-              ? selected.filter((v) => v !== t.id)
-              : [...selected, t.id];
-            onChange(newSelected);
-          }}
+          variant={selected.includes(t) ? "default" : "outline"}
+          onClick={() => handleSelect(t)}
         >
           {t.name}
         </Button>
       ))}
-      <Button variant={"outline"}>+</Button>
+      <AutoWidthInput handleEnter={handleAdd} placeholder="+ Add" />
     </div>
   );
 }

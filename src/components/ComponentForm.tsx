@@ -44,10 +44,10 @@ const relationTypeOptions = relationTypes.map((value) => ({
 
 const defFormVals = {
   name: "",
-  type: [] as number[],
+  type: [] as { id: number | null; name: string }[],
   description: "",
   links: [] as string[],
-  status: "Production-ready" as ComponentStatus,
+  status: undefined as undefined | ComponentStatus,
   tags: [] as string[],
   relations: [] as { targetId: string; relationType: ComponentRelation }[],
 };

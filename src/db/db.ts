@@ -1,4 +1,11 @@
-import { components, componentsTags, relations, tags, types } from "./schema";
+import {
+  components,
+  componentsTags,
+  componentsTypes,
+  relations,
+  tags,
+  types,
+} from "./schema";
 import { createServerFn } from "@tanstack/react-start";
 import { ComponentFormData } from "@/components/ComponentForm";
 import { upsertHierarchicalTag } from "./db_helper";
@@ -25,7 +32,7 @@ export const insertComponent = createServerFn({ method: "POST" })
         .insert(components)
         .values({
           name: ctx.data.name,
-          status: ctx.data.status,
+          status: ctx.data.status!,
           description: ctx.data.description,
           links: ctx.data.links,
         })
@@ -42,6 +49,33 @@ export const insertComponent = createServerFn({ method: "POST" })
           componentId: compId[0].id,
           tagId: tagId,
         });
+      }
+      // Insert new types and get their ids
+      const newTypes = ctx.data.type
+        .filter((type) => type.id === null)
+        .map((type) => ({ name: type.name }));
+      let newTypeIds: { id: number }[] = [];
+      if (newTypes.length > 0) {
+        newTypeIds = await tx
+          .insert(types)
+          .values(newTypes)
+          .returning({ id: types.id }); // <-- fixed
+      }
+      // Insert componentsTypes
+      const compTypes = [
+        ...newTypeIds.map(({ id }) => ({
+          componentId: compId[0].id,
+          typeId: id,
+        })),
+        ...ctx.data.type
+          .filter((type) => type.id !== null)
+          .map((type) => ({
+            componentId: compId[0].id,
+            typeId: type.id!,
+          })),
+      ];
+      if (compTypes.length > 0) {
+        await tx.insert(componentsTypes).values(compTypes);
       }
       // Insert relations
       for (const rel of ctx.data.relations) {

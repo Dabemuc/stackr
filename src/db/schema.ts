@@ -52,10 +52,15 @@ export const componentsTags = pgTable(
 );
 
 // ------------------ Types ------------------
-export const types = pgTable("types", {
-  id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
-  name: varchar("name", { length: 255 }).notNull(),
-});
+export const types = pgTable(
+  "types",
+  {
+    id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
+    name: varchar("name", { length: 255 }).notNull(),
+  },
+
+  (table) => [unique("types_name_unique").on(table.name)],
+);
 
 export type Type = InferSelectModel<typeof types>;
 export type NewType = InferInsertModel<typeof types>;
