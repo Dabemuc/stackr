@@ -40,7 +40,7 @@ export default function TagCard({ tag }: Props) {
                   className="flex items-center justify-between bg-bg-light hover:bg-bg-light-hover p-2 rounded-lg transition"
                 >
                   <HoverCard>
-                    <HoverCardTrigger>
+                    <HoverCardTrigger asChild>
                       <Link
                         to="/view"
                         search={{
