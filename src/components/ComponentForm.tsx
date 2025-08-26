@@ -2,7 +2,7 @@ import { useForm } from "@tanstack/react-form";
 import type { AnyFieldApi } from "@tanstack/react-form";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Combobox } from "@/components/Combobox";
+import { Combobox } from "@/components/common/Combobox";
 
 import {
   type ComponentStatus,

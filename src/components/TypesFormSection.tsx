@@ -1,8 +1,7 @@
 import { findTypes } from "@/db/db";
 import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import AutoWidthInput from "./AutoWidthInput";
+import AutoWidthInput from "./common/AutoWidthInput";
 
 export default function TypesFormSection({
   selected,
