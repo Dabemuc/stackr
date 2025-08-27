@@ -2,12 +2,15 @@ import { Link } from "@tanstack/react-router";
 
 import ClerkHeader from "../integrations/clerk/clerk-header.tsx";
 import { ModeToggle } from "./ModeToggle.tsx";
+import { useAuth } from "@clerk/clerk-react";
 
 export default function Header() {
   const headerElems: { name: string; to: string }[] = [
     { name: "Overview", to: "/" },
     { name: "Build your stack", to: "/stack" },
   ];
+  if (useAuth().isSignedIn)
+    headerElems.push({ name: "Add Component", to: "/add" });
 
   return (
     <header className="flex items-center justify-between px-6 py-3 shadow-sm bg-background">
