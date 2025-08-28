@@ -18,8 +18,8 @@ type Props = {
 
 export default function TagCard({ tag }: Props) {
   return (
-    <Card className="relative rounded-2xl shadow-custom bg-bg overflow-hidden border-t-highlight">
-      <div className="top-0 w-full h-1/3 absolute bg-gradient-to-b from-highlight/20 to-transparent"></div>
+    <Card className="relative rounded-2xl gap-1 shadow-custom bg-bg overflow-hidden border-t-highlight">
+      <div className="top-0 w-full h-1/4 absolute bg-gradient-to-b from-highlight/15 to-transparent"></div>
 
       <CardHeader className="pb-2">
         <CardTitle className="text-xl font-semibold text-text">
