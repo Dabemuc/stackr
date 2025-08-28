@@ -6,6 +6,7 @@ import { drizzle } from "drizzle-orm/neon-serverless";
 import { seed } from "./testData/seedTestData";
 import { findComponentsGroupedByTagThenTypeHandler } from "./handlers/findComponentsGroupedByTagThenTypeHandler";
 import { insertComponentHandler } from "./handlers/insertComponentHandler";
+import { findComponentByIdHandler } from "./handlers/findComponentByIdHandler";
 
 export const db = drizzle(process.env.DATABASE_URL!);
 
@@ -18,6 +19,10 @@ export const seedDb = createServerFn({ method: "POST" }).handler(async () => {
 export const insertComponent = createServerFn({ method: "POST" })
   .validator((component: ComponentFormData) => component)
   .handler(insertComponentHandler);
+
+export const findComponentById = createServerFn({ method: "GET" })
+  .validator((id: number) => id)
+  .handler(findComponentByIdHandler);
 
 export const findComponents = createServerFn({ method: "GET" }).handler(
   async () => {
