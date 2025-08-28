@@ -42,7 +42,7 @@ export default function TypesFormSection({
         <Button
           key={"type-" + index}
           type="button"
-          variant={selected.includes(t) ? "default" : "outline"}
+          variant={selected.includes(t) ? "default" : "secondary"}
           onClick={() => handleSelect(t)}
         >
           {t.name}

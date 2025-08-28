@@ -31,7 +31,7 @@ export default function AutoWidthInput({
 
       <Input
         ref={inputRef}
-        className="min-w-18 max-w-40"
+        className="min-w-18 max-w-40 bg-secondary"
         placeholder={placeholder}
         formNoValidate
         value={inputText}

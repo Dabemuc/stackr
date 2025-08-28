@@ -13,6 +13,8 @@ import {
 import { MultiTagSelect } from "./MultiTagSelect";
 import { findComponents, findHierarchicalTags, insertComponent } from "@/db/db";
 import TypesFormSection from "./TypesFormSection";
+import { Input } from "./ui/input";
+import { Textarea } from "./ui/textarea";
 
 // Helper to show validation state
 function FieldInfo({ field }: { field: AnyFieldApi }) {
@@ -110,8 +112,8 @@ export default function ComponentForm() {
           {(field) => (
             <div>
               <label className="block font-medium">Name</label>
-              <input
-                className="border rounded w-full p-2"
+              <Input
+                className="bg-secondary"
                 value={field.state.value}
                 onChange={(e) => field.handleChange(e.target.value)}
                 onBlur={field.handleBlur}
@@ -126,8 +128,8 @@ export default function ComponentForm() {
           {(field) => (
             <div>
               <label className="block font-medium">Description</label>
-              <textarea
-                className="border rounded w-full p-2"
+              <Textarea
+                className="bg-secondary"
                 value={field.state.value}
                 onChange={(e) => field.handleChange(e.target.value)}
                 onBlur={field.handleBlur}
@@ -184,8 +186,8 @@ export default function ComponentForm() {
               <label className="block font-medium mb-1">Links</label>
               {field.state.value.map((link, idx) => (
                 <div key={idx} className="flex gap-2 mb-2">
-                  <input
-                    className="border rounded flex-1 p-2"
+                  <Input
+                    className="bg-secondary"
                     value={link}
                     onChange={(e) => {
                       const newLinks = [...field.state.value];
@@ -209,6 +211,7 @@ export default function ComponentForm() {
               ))}
               <Button
                 type="button"
+                variant="secondary"
                 onClick={() => field.handleChange([...field.state.value, ""])}
               >
                 + Add Link
@@ -274,6 +277,7 @@ export default function ComponentForm() {
                 </div>
               ))}
               <Button
+                variant="secondary"
                 type="button"
                 onClick={() =>
                   field.handleChange([

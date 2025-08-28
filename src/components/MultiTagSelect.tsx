@@ -37,7 +37,7 @@ function AutocompleteSearchbox({
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverAnchor asChild>
         <Input
-          className="w-[200px]"
+          className="w-[200px] bg-secondary"
           placeholder={placeholder}
           formNoValidate
           value={query}

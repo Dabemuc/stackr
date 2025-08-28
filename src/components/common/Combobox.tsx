@@ -39,7 +39,10 @@ export function Combobox(props: ComboboxProps) {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[200px] justify-between"
+          className={cn(
+            "w-[200px] justify-between dark:bg-input/30 bg-secondary",
+            value === "" ? "text-muted-foreground" : null,
+          )}
         >
           {value
             ? props.selectables.find((prop) => prop.value === value)?.label
