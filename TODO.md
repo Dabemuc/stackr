@@ -5,7 +5,7 @@
 - /view page
   - [x] render every property
   - [x] Correct source/target differentiation on relations
-  - [] Fix link rendering
+  - [x] Fix link rendering
   - [] md rendering
 
 ## TODO
@@ -13,3 +13,4 @@
 - /stack page
 - Overview Filter
 - Error when db empty?
+- Background gradient issue

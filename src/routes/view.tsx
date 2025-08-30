@@ -53,8 +53,6 @@ function RouteComponent() {
     return acc;
   }, {});
 
-  console.log(groupedRelations);
-
   return (
     <div className="p-8 max-w-6xl mx-auto">
       {/* Header Section */}
@@ -115,21 +113,20 @@ function RouteComponent() {
             ? data.links?.length > 0 && (
                 <div>
                   <h3 className="font-semibold mb-2">Links</h3>
-                  <ul className="list-disc list-inside space-y-1">
+                  <div className="space-y-1">
                     {data.links.map((link, idx) => (
-                      <li key={idx}>
-                        <a
-                          href={link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-1 text-blue-600 hover:underline"
-                        >
-                          {link}
-                          <ExternalLink className="w-4 h-4" />
-                        </a>
-                      </li>
+                      <a
+                        href={link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1 text-accent-gradiant-from hover:underline"
+                        key={idx}
+                      >
+                        {link}
+                        <ExternalLink className="w-4 h-4" />
+                      </a>
                     ))}
-                  </ul>
+                  </div>
                 </div>
               )
             : null}
