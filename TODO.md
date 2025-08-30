@@ -6,7 +6,6 @@
 
 ## TODO
 
-- Background gradient issue
 - Protect endpoints that need protection
 - implement updating components
 - Error when db empty?
@@ -19,3 +18,4 @@
   - [x] Correct source/target differentiation on relations
   - [x] Fix link rendering
   - [x] md rendering
+- [x] Background gradient issue

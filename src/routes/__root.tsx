@@ -53,12 +53,12 @@ export const Route = createRootRoute({
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className="h-full">
       <head>
         <HeadContent />
         <NoThemeFlashScript />
       </head>
-      <body>
+      <body className="h-full">
         <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
           <ClerkProvider>
             <Header />
