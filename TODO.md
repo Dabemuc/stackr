@@ -1,6 +1,15 @@
-# TODO
+# TODO Tracker
+
+## WIP
+
+- /view page
+  - [x] render every property
+  - [] Correct source/target differentiation on relations
+  - [] Fix link rendering
+  - [] md rendering
+
+## TODO
 
 - /stack page
-- /view page
 - Overview Filter
 - Error when db empty?

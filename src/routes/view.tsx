@@ -37,6 +37,8 @@ function RouteComponent() {
     return acc;
   }, {});
 
+  console.log(groupedRelations);
+
   return (
     <div className="p-8 max-w-6xl mx-auto">
       {/* Header Section */}
@@ -51,12 +53,15 @@ function RouteComponent() {
             ))}
           </div>
         )}
-        <p className="text-lg text-muted-foreground">{data.description}</p>
       </header>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* Main content column */}
         <div className="md:col-span-2 space-y-6">
+          {/* Description */}
+          <p className="text-lg text-muted-foreground">{data.description}</p>
+          {/* Article */}
+          {data.article && <div className="space-y-6">{data.article}</div>}
           {/* Relations */}
           {groupedRelations && (
             <div className="space-y-6">

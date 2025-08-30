@@ -16,6 +16,7 @@ export const components = pgTable(
     id: integer().primaryKey().generatedAlwaysAsIdentity(),
     name: varchar({ length: 255 }).notNull(),
     description: text(),
+    article: text(),
     links: text().array(),
     status: varchar({ length: 255 }).$type<ComponentStatus>().notNull(),
     updated_at: text("updated_at")

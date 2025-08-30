@@ -7,7 +7,6 @@ import {
 } from "../schema";
 import { upsertHierarchicalTag } from "../db_helper";
 import { db } from "../db";
-import { ComponentRelation, ComponentStatus } from "../types";
 import { ServerFnCtx } from "@tanstack/react-start";
 import { ComponentFormData } from "@/components/ComponentForm";
 
@@ -16,21 +15,7 @@ export const insertComponentHandler = async (
     "POST",
     "data",
     undefined,
-    (component: ComponentFormData) => {
-      name: string;
-      type: {
-        id: number | null;
-        name: string;
-      }[];
-      description: string;
-      links: string[];
-      status: undefined | ComponentStatus;
-      tags: string[];
-      relations: {
-        targetId: string;
-        relationType: ComponentRelation;
-      }[];
-    }
+    (component: ComponentFormData) => ComponentFormData
   >,
 ) => {
   console.log("Inserting component", ctx.data);
@@ -42,6 +27,7 @@ export const insertComponentHandler = async (
         name: ctx.data.name,
         status: ctx.data.status!,
         description: ctx.data.description,
+        article: ctx.data.article,
         links: ctx.data.links,
       })
       .returning({ id: components.id });

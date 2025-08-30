@@ -48,6 +48,7 @@ const defFormVals = {
   name: "",
   type: [] as { id: number | null; name: string }[],
   description: "",
+  article: "",
   links: [] as string[],
   status: undefined as undefined | ComponentStatus,
   tags: [] as string[],
@@ -128,6 +129,21 @@ export default function ComponentForm() {
           {(field) => (
             <div>
               <label className="block font-medium">Description</label>
+              <Textarea
+                className="bg-secondary"
+                value={field.state.value}
+                onChange={(e) => field.handleChange(e.target.value)}
+                onBlur={field.handleBlur}
+              />
+            </div>
+          )}
+        </form.Field>
+
+        {/* Article */}
+        <form.Field name="article">
+          {(field) => (
+            <div>
+              <label className="block font-medium">Article</label>
               <Textarea
                 className="bg-secondary"
                 value={field.state.value}
