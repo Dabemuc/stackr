@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { ExternalLink } from "lucide-react";
 import LinkWithHoverCard from "@/components/common/LinkWithHoverCard";
+import ReactMarkdown from "react-markdown";
 
 export const Route = createFileRoute("/view")({
   validateSearch: (search) => ({
@@ -75,7 +76,7 @@ function RouteComponent() {
           {/* Description */}
           <p className="text-lg text-muted-foreground">{data.description}</p>
           {/* Article */}
-          {data.article && <div className="space-y-6">{data.article}</div>}
+          {data.article ? <ReactMarkdown>{data.article}</ReactMarkdown> : null}
           {/* Relations */}
           {groupedRelations && (
             <div className="space-y-6">

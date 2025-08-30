@@ -143,7 +143,15 @@ export default function ComponentForm() {
         <form.Field name="article">
           {(field) => (
             <div>
-              <label className="block font-medium">Article</label>
+              <div className="flex items-center gap-3">
+                <label className="block font-medium">Article</label>
+                <div
+                  className="top-1 right-2 text-xs text-muted-foreground"
+                  title="MarkDown-enabled!"
+                >
+                  md
+                </div>
+              </div>
               <Textarea
                 className="bg-secondary"
                 value={field.state.value}

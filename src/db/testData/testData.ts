@@ -31,9 +31,7 @@ export const componentsData: NewComponent[] = [
     description: "JavaScript UI library",
     links: ["https://react.dev"],
     article: `
-# React
-React is a **JavaScript library** for building user interfaces.  
-It emphasizes a declarative, component-driven approach and powers some of the largest apps on the web.
+React emphasizes a declarative, component-driven approach and powers some of the largest apps on the web.
 
 ## Key Features
 - Component-based architecture
@@ -51,8 +49,7 @@ Use React when building interactive UIs where state management and reusable comp
     description: "Fullstack React framework",
     links: ["https://nextjs.org"],
     article: `
-# Next.js
-Next.js is a **fullstack framework** built on top of React.  
+Built on top of React, it provides everything needed for production-ready apps.
 
 ## Features
 - File-based routing
@@ -61,7 +58,7 @@ Next.js is a **fullstack framework** built on top of React.
 - Excellent developer experience with hot reloads and TypeScript support
 
 ## Use Cases
-Perfect for production-ready apps that need SEO, fast load times, or a hybrid SSR/SSG approach.
+Perfect for apps that need SEO, fast load times, or a hybrid SSR/SSG approach.
     `,
   },
   {
@@ -70,8 +67,7 @@ Perfect for production-ready apps that need SEO, fast load times, or a hybrid SS
     description: "TypeScript-based frontend framework",
     links: ["https://angular.io"],
     article: `
-# Angular
-Angular is a **TypeScript-based web framework** developed by Google.
+Developed by Google, it offers a powerful ecosystem for building web apps.
 
 ## Key Features
 - Two-way data binding
@@ -89,8 +85,7 @@ Large-scale enterprise applications with complex requirements and long-term supp
     description: "Progressive frontend framework",
     links: ["https://vuejs.org"],
     article: `
-# Vue.js
-Vue.js is a **progressive frontend framework** that balances simplicity with powerful tooling.
+Balances simplicity with powerful tooling.
 
 ## Highlights
 - Lightweight and fast
@@ -107,8 +102,7 @@ Great for teams who want flexibility, simplicity, and fast onboarding.
     description: "Relational database",
     links: ["https://www.postgresql.org"],
     article: `
-# PostgreSQL
-PostgreSQL is an **open-source relational database** known for reliability and standards compliance.
+Known for reliability and standards compliance.
 
 ## Features
 - ACID-compliant transactions
@@ -126,11 +120,9 @@ Perfect for structured data, analytics, and applications needing strong data int
     description: "NoSQL document database",
     links: ["https://www.mongodb.com"],
     article: `
-# MongoDB
-MongoDB is a **NoSQL document-oriented database**.
+Stores data in flexible JSON-like documents.
 
 ## Features
-- Stores data as flexible JSON-like documents
 - Horizontal scaling via sharding
 - Powerful query language with aggregation pipeline
 - Atlas cloud service for managed deployments
@@ -145,17 +137,13 @@ Applications with flexible schemas or unstructured data.
     description: "Type-safe ORM for Node.js",
     links: ["https://www.prisma.io"],
     article: `
-# Prisma
-Prisma is a **type-safe ORM** for Node.js and TypeScript.
+Speeds up backend development with type safety and excellent developer tooling.
 
 ## Features
 - Auto-generated TypeScript client
 - Declarative data modeling with Prisma Schema
 - Migration system
 - Works with PostgreSQL, MySQL, MongoDB, SQLite, and more
-
-## Why Prisma?
-Speeds up backend development with type safety and excellent developer tooling.
     `,
   },
   {
@@ -164,8 +152,7 @@ Speeds up backend development with type safety and excellent developer tooling.
     description: "ORM supporting multiple databases",
     links: ["https://typeorm.io"],
     article: `
-# TypeORM
-TypeORM is a **database ORM** for Node.js written in TypeScript.
+A TypeScript-native ORM with flexible architecture options.
 
 ## Features
 - Active Record and Data Mapper patterns
@@ -183,8 +170,7 @@ Good for developers who prefer a TypeScript-native ORM with flexibility in archi
     description: "Authentication as a service",
     links: ["https://firebase.google.com/docs/auth"],
     article: `
-# Firebase Auth
-Firebase Auth is an **authentication-as-a-service** solution.
+Provides managed authentication out of the box.
 
 ## Features
 - Email/password, phone, and OAuth providers
@@ -202,8 +188,7 @@ Mobile and web apps that need fast, scalable, and low-maintenance auth.
     description: "Open source Firebase alternative with Postgres",
     links: ["https://supabase.com"],
     article: `
-# Supabase
-Supabase is an **open-source Firebase alternative** built on PostgreSQL.
+Offers Firebase-like DX but built on open standards.
 
 ## Features
 - Instant APIs from database schema
@@ -221,12 +206,10 @@ Developers who want Firebase-like DX but with SQL and open standards.
     description: "Identity and authentication platform",
     links: ["https://auth0.com"],
     article: `
-# Auth0
-Auth0 is an **identity and authentication platform**.
+Enterprise-ready authentication and identity federation.
 
 ## Features
 - OAuth2, OpenID Connect, SAML support
-- Enterprise-grade identity federation
 - Role-based access control
 - SDKs for many languages and frameworks
 
@@ -240,8 +223,7 @@ Best for production apps that need secure, enterprise-ready authentication.
     description: "JavaScript testing framework",
     links: ["https://jestjs.io"],
     article: `
-# Jest
-Jest is a **JavaScript testing framework**.
+Provides fast and reliable testing with great integration in the JS ecosystem.
 
 ## Features
 - Snapshot testing
@@ -259,8 +241,7 @@ Unit and integration testing in JavaScript/TypeScript projects.
     description: "End-to-end testing framework",
     links: ["https://playwright.dev"],
     article: `
-# Playwright
-Playwright is a **modern end-to-end testing framework** by Microsoft.
+Developed by Microsoft for modern, cross-browser automation.
 
 ## Features
 - Cross-browser (Chromium, Firefox, WebKit)
@@ -278,11 +259,9 @@ Automated UI tests across browsers with consistent APIs.
     description: "Containerization platform",
     links: ["https://www.docker.com"],
     article: `
-# Docker
-Docker is a **containerization platform**.
+Packages apps with dependencies in lightweight, portable containers.
 
 ## Highlights
-- Package apps with dependencies in containers
 - Portable across environments
 - Large ecosystem of images (Docker Hub)
 - Works well with CI/CD
@@ -297,8 +276,7 @@ Developers wanting consistent environments across dev, test, and production.
     description: "Container orchestration system",
     links: ["https://kubernetes.io"],
     article: `
-# Kubernetes
-Kubernetes is a **container orchestration system**.
+Automates container deployment and scaling across clusters.
 
 ## Features
 - Automated scaling and deployment
@@ -316,8 +294,7 @@ Best for teams deploying microservices or complex container-based systems.
     description: "Payments API",
     links: ["https://stripe.com/docs/api"],
     article: `
-# Stripe API
-Stripe provides a **payments API** for developers.
+Handles global payments with developer-friendly APIs.
 
 ## Features
 - Secure payment processing
@@ -335,8 +312,7 @@ Perfect for apps needing payments, subscriptions, or marketplaces.
     description: "Analytics and data pipeline",
     links: ["https://segment.com"],
     article: `
-# Segment
-Segment is an **analytics and customer data platform**.
+Centralizes data collection and routing for analytics and marketing tools.
 
 ## Features
 - Collects events from multiple sources
@@ -354,8 +330,7 @@ Centralizing data pipelines and analytics integrations.
     description: "CI/CD for GitHub repositories",
     links: ["https://github.com/features/actions"],
     article: `
-# GitHub Actions
-GitHub Actions provides **CI/CD pipelines** built into GitHub.
+Automates workflows directly inside GitHub repositories.
 
 ## Features
 - Workflow automation with YAML
@@ -373,8 +348,7 @@ Automating builds, tests, and deployments directly in GitHub repos.
     description: "Continuous integration & delivery",
     links: ["https://circleci.com"],
     article: `
-# CircleCI
-CircleCI is a **continuous integration and delivery platform**.
+Flexible, cloud-first CI/CD pipelines.
 
 ## Features
 - Cloud and self-hosted runners
@@ -392,8 +366,7 @@ Teams that want flexible, cloud-first CI/CD pipelines.
     description: "Infrastructure as Code",
     links: ["https://www.terraform.io"],
     article: `
-# Terraform
-Terraform is an **Infrastructure as Code (IaC)** tool.
+Provides reproducible infrastructure management at scale.
 
 ## Features
 - Declarative configuration with HCL
