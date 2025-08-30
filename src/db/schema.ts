@@ -1,5 +1,5 @@
 import { ComponentRelation, ComponentStatus } from "@/db/types";
-import { InferInsertModel, InferSelectModel } from "drizzle-orm";
+import { InferInsertModel, InferSelectModel, sql } from "drizzle-orm";
 import {
   pgTable,
   unique,
@@ -18,6 +18,10 @@ export const components = pgTable(
     description: text(),
     links: text().array(),
     status: varchar({ length: 255 }).$type<ComponentStatus>().notNull(),
+    updated_at: text("updated_at")
+      .notNull()
+      .default(sql`(CURRENT_TIMESTAMP)`)
+      .$onUpdate(() => sql`(CURRENT_TIMESTAMP)`),
   },
   (table) => [unique("components_name_unique").on(table.name)],
 );
@@ -32,6 +36,10 @@ export const tags = pgTable("tags", {
   parentTagId: integer("parent_tag_id").references((): any => tags.id, {
     onDelete: "set null",
   }),
+  updated_at: text("updated_at")
+    .notNull()
+    .default(sql`(CURRENT_TIMESTAMP)`)
+    .$onUpdate(() => sql`(CURRENT_TIMESTAMP)`),
 });
 
 export type Tag = InferSelectModel<typeof tags>;
@@ -47,6 +55,10 @@ export const componentsTags = pgTable(
     tagId: integer("tag_id")
       .notNull()
       .references(() => tags.id, { onDelete: "cascade" }),
+    updated_at: text("updated_at")
+      .notNull()
+      .default(sql`(CURRENT_TIMESTAMP)`)
+      .$onUpdate(() => sql`(CURRENT_TIMESTAMP)`),
   },
   (table) => [primaryKey({ columns: [table.componentId, table.tagId] })],
 );
@@ -57,6 +69,10 @@ export const types = pgTable(
   {
     id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
     name: varchar("name", { length: 255 }).notNull(),
+    updated_at: text("updated_at")
+      .notNull()
+      .default(sql`(CURRENT_TIMESTAMP)`)
+      .$onUpdate(() => sql`(CURRENT_TIMESTAMP)`),
   },
 
   (table) => [unique("types_name_unique").on(table.name)],
@@ -73,6 +89,10 @@ export const componentsTypes = pgTable("components_types", {
   typeId: integer("type_id")
     .notNull()
     .references(() => types.id, { onDelete: "cascade" }),
+  updated_at: text("updated_at")
+    .notNull()
+    .default(sql`(CURRENT_TIMESTAMP)`)
+    .$onUpdate(() => sql`(CURRENT_TIMESTAMP)`),
 });
 
 // ------------------ Relations (component ↔ component) ------------------
@@ -89,6 +109,10 @@ export const relations = pgTable(
       .notNull()
       .references(() => components.id, { onDelete: "cascade" }),
     relationType: varchar({ length: 255 }).$type<ComponentRelation>().notNull(),
+    updated_at: text("updated_at")
+      .notNull()
+      .default(sql`(CURRENT_TIMESTAMP)`)
+      .$onUpdate(() => sql`(CURRENT_TIMESTAMP)`),
   },
   (table) => [
     unique("relations_unique").on(
