@@ -5,6 +5,7 @@ import { FindComponentByIdResult } from "@/db/handlers/findComponentByIdHandler"
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { ExternalLink } from "lucide-react";
+import LinkWithHoverCard from "@/components/common/LinkWithHoverCard";
 
 export const Route = createFileRoute("/view")({
   validateSearch: (search) => ({
@@ -28,12 +29,27 @@ function RouteComponent() {
 
   if (!data) return <p className="p-4 text-muted-foreground">Loading...</p>;
 
-  // Group relations by relationType
+  // ---- Group relations with direction awareness ----
   const groupedRelations = data.relations?.reduce<
     Record<string, typeof data.relations>
   >((acc, rel) => {
-    if (!acc[rel.relationType]) acc[rel.relationType] = [];
-    acc[rel.relationType].push(rel);
+    if (rel.relationType === "Depends on") {
+      if (rel.source) {
+        // source depends on current entity
+        if (!acc["Depended on by"]) acc["Depended on by"] = [];
+        acc["Depended on by"].push(rel);
+      } else if (rel.target) {
+        // current entity depends on target
+        if (!acc["Depends on"]) acc["Depends on"] = [];
+        acc["Depends on"].push(rel);
+      }
+    } else if (rel.relationType === "Alternative to") {
+      if (!acc["Alternative to"]) acc["Alternative to"] = [];
+      acc["Alternative to"].push(rel);
+    } else {
+      if (!acc[rel.relationType]) acc[rel.relationType] = [];
+      acc[rel.relationType].push(rel);
+    }
     return acc;
   }, {});
 
@@ -69,13 +85,22 @@ function RouteComponent() {
                 <div key={type}>
                   <h2 className="text-xl font-semibold mb-2">{type}</h2>
                   <ul className="list-disc list-inside space-y-1">
-                    {rels.map((rel) => (
-                      <li key={rel.id}>
-                        <span className="text-muted-foreground">
-                          {rel.target?.name ?? "Unknown"}
-                        </span>
-                      </li>
-                    ))}
+                    {rels.map((rel) => {
+                      const entity = rel.source ?? rel.target; // always one or the other
+                      if (!entity) return null;
+
+                      return (
+                        <li key={rel.id}>
+                          <LinkWithHoverCard
+                            to="/view"
+                            search={{ id: entity.id }}
+                            name={entity.name}
+                            description={entity.description ?? ""}
+                            status={entity.status}
+                          />{" "}
+                        </li>
+                      );
+                    })}
                   </ul>
                 </div>
               ))}
