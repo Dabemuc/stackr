@@ -58,7 +58,9 @@ function RouteComponent() {
     <div className="p-8 max-w-6xl mx-auto">
       {/* Header Section */}
       <header className="mb-6">
-        <h1 className="text-4xl font-bold mb-2">{data.name}</h1>
+        <h1 className="text-4xl font-bold mb-2 text-accent-gradiant-to/80">
+          {data.name}
+        </h1>
         {data.types?.length > 0 && (
           <div className="flex gap-2 mb-4">
             {data.types.map((type) => (
@@ -83,7 +85,7 @@ function RouteComponent() {
               {Object.entries(groupedRelations).map(([type, rels]) => (
                 <div key={type}>
                   <h2 className="text-xl font-semibold mb-2">{type}</h2>
-                  <ul className="list-disc list-inside space-y-1">
+                  <ul className="list-disc list-inside space-y-1 marker:text-accent-gradiant-to/80">
                     {rels.map((rel) => {
                       const entity = rel.source ?? rel.target; // always one or the other
                       if (!entity) return null;
@@ -110,43 +112,45 @@ function RouteComponent() {
         {/* Sidebar */}
         <aside className="space-y-8">
           {/* Links */}
-          {data.links
-            ? data.links?.length > 0 && (
-                <div>
-                  <h3 className="font-semibold mb-2">Links</h3>
-                  <div className="space-y-1">
-                    {data.links.map((link, idx) => (
-                      <a
-                        href={link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-1 text-accent-gradiant-from hover:underline"
-                        key={idx}
-                      >
-                        {link}
-                        <ExternalLink className="w-4 h-4" />
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              )
-            : null}
+          <div>
+            <h3 className="font-semibold mb-2">Links</h3>
+            {data.links && data.links.length > 0 ? (
+              <div className="space-y-1">
+                {data.links.map((link, idx) => (
+                  <a
+                    href={link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1 text-accent-gradiant-from/90 hover:underline"
+                    key={idx}
+                  >
+                    {link}
+                    <ExternalLink className="w-4 h-4" />
+                  </a>
+                ))}
+              </div>
+            ) : (
+              <p className="text-muted-foreground text-xs">No Links</p>
+            )}
+          </div>
 
           <Separator />
 
           {/* Tags */}
-          {data.tags?.length > 0 && (
-            <div>
-              <h3 className="font-semibold mb-2">Tags</h3>
+          <div>
+            <h3 className="font-semibold mb-2">Tags</h3>
+            {data.tags?.length > 0 ? (
               <div className="flex flex-wrap gap-2">
                 {data.tags.map((tag) => (
-                  <Badge key={tag.id} variant="outline">
+                  <Badge key={tag.id} variant="outline" className="bg-bg">
                     {tag.name}
                   </Badge>
                 ))}
               </div>
-            </div>
-          )}
+            ) : (
+              <p className="text-muted-foreground text-xs">No Tags</p>
+            )}
+          </div>
         </aside>
       </div>
     </div>

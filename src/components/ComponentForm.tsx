@@ -25,7 +25,7 @@ function FieldInfo({ field }: { field: AnyFieldApi }) {
   return (
     <>
       {showError ? (
-        <em className="text-red-500 text-sm">
+        <em className="text-accent-gradiant-to/80 text-sm">
           {field.state.meta.errors.join(", ")}
         </em>
       ) : null}
@@ -94,7 +94,7 @@ export default function ComponentForm() {
 
   return (
     <div className="p-4 max-w-2xl mx-auto">
-      <h1 className="text-xl font-bold mb-4">Create Component</h1>
+      <h1 className="text-2xl font-bold mb-4">Create Component</h1>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -324,7 +324,7 @@ export default function ComponentForm() {
             <Button
               type="submit"
               disabled={!canSubmit}
-              className="bg-gradient-to-tl from-accent-gradiant-from via-accent-gradiant-from to-accent-gradiant-to"
+              className="bg-accent-gradiant-to/90 hover:bg-accent-gradiant-to/80"
             >
               {isSubmitting ? "..." : "Submit"}
             </Button>

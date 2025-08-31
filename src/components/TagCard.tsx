@@ -23,9 +23,7 @@ export default function TagCard({ tag }: Props) {
       <div className="top-0 w-full h-1/4 absolute bg-gradient-to-b from-highlight/15 to-transparent"></div>
 
       <CardHeader className="pb-2">
-        <CardTitle className="text-xl font-semibold text-text">
-          {tag.tagName}
-        </CardTitle>
+        <CardTitle className="text-xl font-semibold">{tag.tagName}</CardTitle>
       </CardHeader>
 
       <CardContent className="text-left space-y-4">

@@ -10,6 +10,7 @@
 - implement updating components
 - Error when db empty?
 - /stack page
+- /add notification on submit. Clear form if successful
 
 ## Done
 

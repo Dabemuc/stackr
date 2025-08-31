@@ -32,7 +32,7 @@ export default function LinkWithHoverCard({
             <Link
               to={to}
               search={search}
-              className="text-sm font-semibold hover:underline"
+              className="text-sm font-semibold hover:underline text-accent-gradiant-to"
             >
               {name}
             </Link>
