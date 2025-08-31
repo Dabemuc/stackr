@@ -1,11 +1,8 @@
-import { Link } from "@tanstack/react-router";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { GroupedByTypeJson } from "@/db/handlers/findComponentsGroupedByTagThenTypeHandler";
 import { cn } from "@/lib/utils";
 import { matchStatusToColor } from "./utils/matchStatusToColor";
 import { ComponentStatus } from "@/db/types";
-import { HoverCard, HoverCardTrigger } from "./ui/hover-card";
-import { HoverCardContent } from "@radix-ui/react-hover-card";
 import LinkWithHoverCard from "./common/LinkWithHoverCard";
 
 type Props = {
