@@ -2,14 +2,14 @@
 
 ## WIP
 
+- [ ] Validate incoming data in endpoints
+
+## TODO
+
 - [ ] Overview Filter
   - [ ] Implement filter ui
   - [ ] Implement filter functionality on backend
   - [ ] Extend /view so tags and types can be clicked to filter for them
-
-## TODO
-
-- Protect endpoints that need protection
 - implement updating components
 - Error when db empty?
 - /add notification on submit. Clear form if successful
@@ -28,3 +28,4 @@
   - [x] md rendering
 - [x] Background gradient issue
 - [x] / card styling rework
+- [x] Protect endpoints that need protection

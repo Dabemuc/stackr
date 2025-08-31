@@ -18,7 +18,13 @@ export const seedDb = createServerFn({ method: "POST" }).handler(async () => {
 
 export const insertComponent = createServerFn({ method: "POST" })
   .validator((component: ComponentFormData) => component)
-  .handler(insertComponentHandler);
+  .handler(async (ctx) => {
+    const { requireAuth } = await import(
+      "@/integrations/clerk/requireAuth.server"
+    );
+    await requireAuth({ mode: "api" });
+    return insertComponentHandler(ctx);
+  });
 
 export const findComponentById = createServerFn({ method: "GET" })
   .validator((id: number) => id)
