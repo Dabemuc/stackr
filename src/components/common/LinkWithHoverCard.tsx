@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { HoverCard, HoverCardTrigger } from "../ui/hover-card";
 import { HoverCardContent } from "@radix-ui/react-hover-card";
+import { cn } from "@/lib/utils";
 
 export default function LinkWithHoverCard({
   to,
@@ -8,12 +9,14 @@ export default function LinkWithHoverCard({
   name,
   description,
   status,
+  className,
 }: {
   to: string;
   search: any;
   name: string;
   description: string;
   status: string;
+  className?: string;
 }) {
   return (
     <HoverCard>
@@ -21,7 +24,10 @@ export default function LinkWithHoverCard({
         <Link
           to={to}
           search={search}
-          className="text-accent-foreground hover:underline font-medium"
+          className={cn(
+            "text-accent-foreground hover:underline font-medium",
+            className,
+          )}
         >
           {name}
         </Link>

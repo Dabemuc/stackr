@@ -27,3 +27,4 @@
   - [x] Fix link rendering
   - [x] md rendering
 - [x] Background gradient issue
+- [x] / card styling rework
