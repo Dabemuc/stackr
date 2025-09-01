@@ -25,7 +25,7 @@ export default function ComponentsVisualizer() {
         initialData={initialData}
         setFiltered={setFilteredData}
       />
-      <div className="p-6 columns-1 sm:columns-2 lg:columns-3 gap-6">
+      <div className="p-6 columns-1 sm:columns-2 lg:columns-3 gap-6 mx-auto max-w-[100rem]">
         {filteredData.map((t, index) => (
           <div key={"tag" + index} className="mb-6 break-inside-avoid">
             <TagCard tag={t} />
