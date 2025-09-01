@@ -3,15 +3,55 @@ import type { ComponentRelation } from "@/db/types";
 
 // ---------------- Tags ----------------
 export const tagsData: NewTag[] = [
-  { name: "UI" },
-  { name: "ORM" },
-  { name: "Cloud" },
-  { name: "Authentication" },
-  { name: "Analytics" },
-  { name: "DevOps" },
-  { name: "Testing" },
-  { name: "Payments" },
-  { name: "CICD" },
+  // Top-level
+  { id: 1, name: "UI" },
+  { id: 2, name: "Backend" },
+  { id: 3, name: "Cloud" },
+  { id: 4, name: "Authentication" },
+  { id: 5, name: "Analytics" },
+  { id: 6, name: "DevOps" },
+  { id: 7, name: "Testing" },
+  { id: 8, name: "Payments" },
+
+  // UI hierarchy
+  { id: 9, name: "Frontend Frameworks", parentTagId: 1 },
+  { id: 10, name: "State Management", parentTagId: 1 },
+
+  // Backend hierarchy
+  { id: 11, name: "ORM", parentTagId: 2 },
+  { id: 12, name: "API", parentTagId: 2 },
+
+  // Cloud hierarchy
+  { id: 13, name: "Database", parentTagId: 3 },
+  { id: 14, name: "Relational Database", parentTagId: 13 },
+  { id: 15, name: "NoSQL Database", parentTagId: 13 },
+  { id: 16, name: "Serverless", parentTagId: 3 },
+  { id: 17, name: "Hosting", parentTagId: 3 },
+
+  // Authentication hierarchy
+  { id: 18, name: "OAuth2", parentTagId: 4 },
+  { id: 19, name: "Federated Identity", parentTagId: 4 },
+  { id: 20, name: "RBAC", parentTagId: 4 },
+
+  // Analytics hierarchy
+  { id: 21, name: "Event Tracking", parentTagId: 5 },
+  { id: 22, name: "Data Pipeline", parentTagId: 5 },
+  { id: 23, name: "BI Integration", parentTagId: 5 },
+
+  // DevOps hierarchy
+  { id: 24, name: "CICD", parentTagId: 6 },
+  { id: 25, name: "Containerization", parentTagId: 6 },
+  { id: 26, name: "Infrastructure as Code", parentTagId: 6 },
+  { id: 27, name: "Monitoring", parentTagId: 6 },
+
+  // Testing hierarchy
+  { id: 28, name: "Unit Testing", parentTagId: 7 },
+  { id: 29, name: "Integration Testing", parentTagId: 7 },
+  { id: 30, name: "E2E Testing", parentTagId: 7 },
+
+  // Payments hierarchy
+  { id: 31, name: "Subscriptions", parentTagId: 8 },
+  { id: 32, name: "Invoicing", parentTagId: 8 },
 ];
 
 // ---------------- Types ----------------
@@ -382,26 +422,43 @@ Best for managing infrastructure at scale with reproducibility and version contr
 
 // ---------------- Components ↔ Tags ----------------
 export const componentsTagsLinks = [
-  { comp: "React", tags: ["UI"] },
-  { comp: "Next.js", tags: ["UI", "Authentication"] },
-  { comp: "Angular", tags: ["UI"] },
-  { comp: "Vue.js", tags: ["UI"] },
-  { comp: "PostgreSQL", tags: ["Cloud"] },
-  { comp: "MongoDB", tags: ["Cloud"] },
-  { comp: "Prisma", tags: ["ORM"] },
-  { comp: "TypeORM", tags: ["ORM"] },
-  { comp: "Firebase Auth", tags: ["Authentication"] },
-  { comp: "Supabase", tags: ["Cloud", "Authentication"] },
-  { comp: "Auth0", tags: ["Authentication"] },
-  { comp: "Jest", tags: ["Testing"] },
-  { comp: "Playwright", tags: ["Testing"] },
-  { comp: "Docker", tags: ["DevOps"] },
-  { comp: "Kubernetes", tags: ["DevOps"] },
-  { comp: "Stripe API", tags: ["Payments"] },
-  { comp: "Segment", tags: ["Analytics"] },
-  { comp: "GitHub Actions", tags: ["CICD"] },
-  { comp: "CircleCI", tags: ["CICD"] },
-  { comp: "Terraform", tags: ["DevOps"] },
+  // --- UI Frameworks ---
+  { comp: "React", tags: [1, 9] }, // UI > Frontend Frameworks
+  { comp: "Next.js", tags: [1, 9, 12] }, // UI, Frontend Frameworks, API
+  { comp: "Angular", tags: [1, 9] }, // UI > Frontend Frameworks
+  { comp: "Vue.js", tags: [1, 9] }, // UI > Frontend Frameworks
+
+  // --- Databases ---
+  { comp: "PostgreSQL", tags: [3, 13, 14] }, // Cloud > Database > Relational
+  { comp: "MongoDB", tags: [3, 13, 15] }, // Cloud > Database > NoSQL
+
+  // --- ORMs ---
+  { comp: "Prisma", tags: [2, 11] }, // Backend > ORM
+  { comp: "TypeORM", tags: [2, 11] }, // Backend > ORM
+
+  // --- Authentication ---
+  { comp: "Firebase Auth", tags: [4, 18] }, // Authentication > OAuth2
+  { comp: "Supabase", tags: [3, 13, 14, 4, 18] }, // Cloud > DB > Relational + Auth > OAuth2
+  { comp: "Auth0", tags: [4, 19, 20] }, // Authentication > Federated Identity + RBAC
+
+  // --- Testing ---
+  { comp: "Jest", tags: [7, 28] }, // Testing > Unit Testing
+  { comp: "Playwright", tags: [7, 30] }, // Testing > E2E Testing
+
+  // --- DevOps ---
+  { comp: "Docker", tags: [6, 25] }, // DevOps > Containerization
+  { comp: "Kubernetes", tags: [6, 25, 27] }, // DevOps > Containerization + Monitoring
+  { comp: "Terraform", tags: [6, 26] }, // DevOps > Infra as Code
+
+  // --- Payments ---
+  { comp: "Stripe API", tags: [8, 31, 32] }, // Payments > Subscriptions + Invoicing
+
+  // --- Analytics ---
+  { comp: "Segment", tags: [5, 21, 22, 23] }, // Analytics > Event Tracking, Data Pipeline, BI
+
+  // --- CI/CD ---
+  { comp: "GitHub Actions", tags: [6, 24] }, // DevOps > CI/CD
+  { comp: "CircleCI", tags: [6, 24] }, // DevOps > CI/CD
 ];
 
 // ---------------- Components ↔ Types ----------------

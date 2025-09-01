@@ -35,7 +35,7 @@ export async function seed(
 
   console.log("🌱 Inserting tags...");
   const insertedTags = await db.insert(tags).values(tagsData).returning();
-  const tagMap = Object.fromEntries(insertedTags.map((t) => [t.name, t.id]));
+  const tagMap = Object.fromEntries(insertedTags.map((t) => [t.id, t.id]));
 
   console.log("🌱 Inserting types...");
   const insertedTypes = await db.insert(types).values(typesData).returning();
@@ -53,9 +53,9 @@ export async function seed(
   console.log("🔗 Linking tags to components...");
   await db.insert(componentsTags).values(
     componentsTagsLinks.flatMap(({ comp, tags }) =>
-      tags.map((t) => ({
+      tags.map((tagId) => ({
         componentId: compMap[comp],
-        tagId: tagMap[t],
+        tagId: tagMap[tagId],
       })),
     ),
   );

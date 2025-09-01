@@ -33,7 +33,7 @@ export type NewComponent = InferInsertModel<typeof components>;
 
 // ------------------ Tags ------------------
 export const tags = pgTable("tags", {
-  id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
+  id: integer("id").primaryKey().generatedByDefaultAsIdentity(),
   name: varchar("name", { length: 255 }).notNull(),
   parentTagId: integer("parent_tag_id").references((): any => tags.id, {
     onDelete: "set null",
