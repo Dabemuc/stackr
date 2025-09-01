@@ -128,7 +128,7 @@ function MultiSelectPopover({
           <ChevronDown className="w-4 h-4" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="max-h-60 overflow-y-auto w-max min-w-[160px]">
+      <PopoverContent className="max-h-60 overflow-y-auto w-max min-w-[160px] dark:bg-bg-dark">
         <div className="flex flex-col gap-1">
           {items.map((item) => (
             <label
@@ -145,6 +145,7 @@ function MultiSelectPopover({
                     onChange([...selected, item.value]);
                   }
                 }}
+                className="bg-bg dark:bg-bg-light"
               />
               <span>{item.label}</span>
             </label>
