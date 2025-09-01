@@ -7,6 +7,7 @@ import {
   varchar,
   text,
   primaryKey,
+  timestamp,
 } from "drizzle-orm/pg-core";
 
 // ------------------ Components ------------------
@@ -19,7 +20,7 @@ export const components = pgTable(
     article: text(),
     links: text().array(),
     status: varchar({ length: 255 }).$type<ComponentStatus>().notNull(),
-    updated_at: text("updated_at")
+    updated_at: timestamp("updated_at", { withTimezone: true, mode: "date" })
       .notNull()
       .default(sql`(CURRENT_TIMESTAMP)`)
       .$onUpdate(() => sql`(CURRENT_TIMESTAMP)`),
@@ -37,7 +38,7 @@ export const tags = pgTable("tags", {
   parentTagId: integer("parent_tag_id").references((): any => tags.id, {
     onDelete: "set null",
   }),
-  updated_at: text("updated_at")
+  updated_at: timestamp("updated_at", { withTimezone: true, mode: "date" })
     .notNull()
     .default(sql`(CURRENT_TIMESTAMP)`)
     .$onUpdate(() => sql`(CURRENT_TIMESTAMP)`),
@@ -56,7 +57,7 @@ export const componentsTags = pgTable(
     tagId: integer("tag_id")
       .notNull()
       .references(() => tags.id, { onDelete: "cascade" }),
-    updated_at: text("updated_at")
+    updated_at: timestamp("updated_at", { withTimezone: true, mode: "date" })
       .notNull()
       .default(sql`(CURRENT_TIMESTAMP)`)
       .$onUpdate(() => sql`(CURRENT_TIMESTAMP)`),
@@ -70,7 +71,7 @@ export const types = pgTable(
   {
     id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
     name: varchar("name", { length: 255 }).notNull(),
-    updated_at: text("updated_at")
+    updated_at: timestamp("updated_at", { withTimezone: true, mode: "date" })
       .notNull()
       .default(sql`(CURRENT_TIMESTAMP)`)
       .$onUpdate(() => sql`(CURRENT_TIMESTAMP)`),
@@ -90,7 +91,7 @@ export const componentsTypes = pgTable("components_types", {
   typeId: integer("type_id")
     .notNull()
     .references(() => types.id, { onDelete: "cascade" }),
-  updated_at: text("updated_at")
+  updated_at: timestamp("updated_at", { withTimezone: true, mode: "date" })
     .notNull()
     .default(sql`(CURRENT_TIMESTAMP)`)
     .$onUpdate(() => sql`(CURRENT_TIMESTAMP)`),
@@ -110,7 +111,7 @@ export const relations = pgTable(
       .notNull()
       .references(() => components.id, { onDelete: "cascade" }),
     relationType: varchar({ length: 255 }).$type<ComponentRelation>().notNull(),
-    updated_at: text("updated_at")
+    updated_at: timestamp("updated_at", { withTimezone: true, mode: "date" })
       .notNull()
       .default(sql`(CURRENT_TIMESTAMP)`)
       .$onUpdate(() => sql`(CURRENT_TIMESTAMP)`),

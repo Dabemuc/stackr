@@ -31,6 +31,7 @@ export const findComponentByIdHandler = async (
       id: tags.id,
       name: tags.name,
       parentTagId: tags.parentTagId,
+      updated_at: tags.updated_at,
     })
     .from(componentsTags)
     .innerJoin(tags, eq(componentsTags.tagId, tags.id))
@@ -41,6 +42,7 @@ export const findComponentByIdHandler = async (
     .select({
       id: types.id,
       name: types.name,
+      updated_at: types.updated_at,
     })
     .from(componentsTypes)
     .innerJoin(types, eq(componentsTypes.typeId, types.id))
@@ -55,6 +57,7 @@ export const findComponentByIdHandler = async (
     .select({
       id: relations.id,
       relationType: relations.relationType,
+      updated_at: relations.updated_at,
 
       source: {
         id: sourceComponent.id,
@@ -62,6 +65,7 @@ export const findComponentByIdHandler = async (
         description: sourceComponent.description,
         links: sourceComponent.links,
         status: sourceComponent.status,
+        updated_at: sourceComponent.updated_at,
       },
 
       target: {
@@ -70,6 +74,7 @@ export const findComponentByIdHandler = async (
         description: targetComponent.description,
         links: targetComponent.links,
         status: targetComponent.status,
+        updated_at: targetComponent.updated_at,
       },
     })
     .from(relations)
@@ -85,27 +90,44 @@ export const findComponentByIdHandler = async (
   // --- Strip out redundant side
   const relationRows = relationRowsRaw.map((rel) => {
     if (rel.source.id === componentId) {
-      // main component is the source → keep only target
       return {
         id: rel.id,
         relationType: rel.relationType,
         target: rel.target,
+        updated_at: rel.updated_at,
       };
     } else {
-      // main component is the target → keep only source
       return {
         id: rel.id,
         relationType: rel.relationType,
         source: rel.source,
+        updated_at: rel.updated_at,
       };
     }
   });
+
+  // --- Collect updated_at values
+  const updatedAts: Date[] = [
+    component.updated_at,
+    ...tagRows.map((t) => t.updated_at),
+    ...typeRows.map((t) => t.updated_at),
+    ...relationRows.map((r) => r.updated_at),
+    ...relationRows.map((r) =>
+      r.source ? r.source.updated_at : r.target.updated_at,
+    ),
+  ].filter(Boolean) as Date[];
+
+  const mostRecentUpdatedAt =
+    updatedAts.length > 0
+      ? new Date(Math.max(...updatedAts.map((d) => +d)))
+      : null;
 
   const result = {
     ...component,
     tags: tagRows,
     types: typeRows,
     relations: relationRows,
+    most_recent_update: mostRecentUpdatedAt,
   };
 
   console.log("Found component with id", componentId, ":", result);

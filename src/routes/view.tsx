@@ -151,6 +151,20 @@ function RouteComponent() {
               <p className="text-muted-foreground text-xs">No Tags</p>
             )}
           </div>
+
+          <Separator />
+
+          {/* Last update */}
+          <div>
+            <h3 className="font-semibold mb-2">Last updated</h3>
+
+            <p className="text-muted-foreground">
+              {new Intl.DateTimeFormat(undefined, {
+                dateStyle: "medium",
+                timeStyle: "short",
+              }).format(data.updated_at)}
+            </p>
+          </div>
         </aside>
       </div>
     </div>

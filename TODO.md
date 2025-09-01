@@ -4,13 +4,11 @@
 
 ## TODO
 
-- [ ] Fetch and display 'updated at' property
 - [ ] Overview Filter
   - [ ] Implement filter ui
   - [ ] Implement filter functionality on backend
   - [ ] Extend /view so tags and types can be clicked to filter for them
 - [ ] implement updating components
-- [ ] Add 'created by' property
 - [ ] Error when db empty?
 - [ ] Validate incoming data in endpoints (Needed?)
 - [ ] /add notification on submit. Clear form if successful
@@ -19,6 +17,10 @@
 
 - [ ] /stack page
 - [ ] AI assistance on creating components
+
+## Maybe
+
+- [ ] Add 'created by' property
 
 ## Done
 
@@ -30,3 +32,4 @@
 - [x] Background gradient issue
 - [x] / card styling rework
 - [x] Protect endpoints that need protection
+- [x] Fetch and display 'updated at' property
