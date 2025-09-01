@@ -8,8 +8,7 @@ import LinkWithHoverCard from "./common/LinkWithHoverCard";
 type Props = {
   tag: {
     tagId: number;
-    tagName: string;
-    parentTagId: number | null;
+    tagPath: string;
     types: GroupedByTypeJson[];
   };
 };
@@ -20,7 +19,7 @@ export default function TagCard({ tag }: Props) {
       <div className="top-0 w-full h-1/4 absolute bg-gradient-to-b from-highlight/15 to-transparent"></div>
 
       <CardHeader className="pb-2">
-        <CardTitle className="text-xl font-semibold">{tag.tagName}</CardTitle>
+        <CardTitle className="text-xl font-semibold">{tag.tagPath}</CardTitle>
       </CardHeader>
 
       <CardContent className="text-left">
@@ -31,7 +30,7 @@ export default function TagCard({ tag }: Props) {
 
             return (
               <div
-                key={tag.tagName + "-type-" + i}
+                key={tag.tagPath + "-type-" + i}
                 className={cn(
                   "border rounded-xl p-4 bg-bg-light",
                   isLastOdd && "md:col-span-2",
@@ -43,7 +42,7 @@ export default function TagCard({ tag }: Props) {
                 <ul className="space-y-2">
                   {type.components.map((component, j) => (
                     <li
-                      key={tag.tagName + "-" + type.type + "-component-" + j}
+                      key={tag.tagPath + "-" + type.type + "-component-" + j}
                       className="flex items-center justify-between hover:bg-bg-light-hover p-2 rounded-lg transition"
                     >
                       <LinkWithHoverCard

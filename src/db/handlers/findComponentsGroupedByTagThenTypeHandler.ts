@@ -18,9 +18,8 @@ export type GroupedByTypeJson = {
 export const findComponentsGroupedByTagThenTypeHandler = async () => {
   const result = await db
     .select({
-      tagId: tags.id,
-      tagName: tags.name,
-      parentTagId: tags.parentTagId,
+      tagId: sql<number>`tags.id`.as("tagId"),
+      tagPath: sql<string>`tag_hierarchy.path`.as("tagPath"),
       types: sql<GroupedByTypeJson[]> /*sql*/ `
         COALESCE(
           json_agg(
@@ -33,7 +32,26 @@ export const findComponentsGroupedByTagThenTypeHandler = async () => {
         )
       `.as("types"),
     })
-    .from(tags)
+    .from(
+      sql`
+    (
+      WITH RECURSIVE tag_hierarchy AS (
+        SELECT id, name, parent_tag_id, name::text AS path  -- cast here
+        FROM tags
+        WHERE parent_tag_id IS NULL
+        UNION ALL
+        SELECT t.id, t.name, t.parent_tag_id, th.path || '/' || t.name
+        FROM tags t
+        JOIN tag_hierarchy th ON t.parent_tag_id = th.id
+      )
+      SELECT * FROM tag_hierarchy
+    ) tag_hierarchy
+  `,
+    )
+    .leftJoin(
+      tags, // join real table to subquery if needed
+      sql`tags.id = tag_hierarchy.id`,
+    )
     .leftJoin(
       sql /*sql*/ `
         (
@@ -58,12 +76,11 @@ export const findComponentsGroupedByTagThenTypeHandler = async () => {
       `,
       sql`comp_group.tag_id = ${tags.id}`,
     )
-    .groupBy(tags.id);
+    .groupBy(tags.id, sql`tag_hierarchy.path`);
 
   return result;
 };
 
-// infer return type
 export type FindComponentsGroupedByTagThenTypeResult = Awaited<
   ReturnType<typeof findComponentsGroupedByTagThenTypeHandler>
 >;

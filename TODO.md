@@ -2,12 +2,13 @@
 
 ## WIP
 
+- [x] Overview Filter
+  - [x] Implement filter ui
+  - [x] Implement filter functionality
+  - [ ] Extend /view so tags and types can be clicked to filter for them
+
 ## TODO
 
-- [ ] Overview Filter
-  - [ ] Implement filter ui
-  - [ ] Implement filter functionality on backend
-  - [ ] Extend /view so tags and types can be clicked to filter for them
 - [ ] implement updating components
 - [ ] Error when db empty?
 - [ ] Validate incoming data in endpoints (Needed?)
@@ -33,3 +34,4 @@
 - [x] / card styling rework
 - [x] Protect endpoints that need protection
 - [x] Fetch and display 'updated at' property
+- [x] Fix tags not getting shipped to frontend as hierarchical versions + handle correctly in overview

@@ -50,7 +50,7 @@ export default function ComponentsFilter({
     new Set(initialData.flatMap((t) => t.types.map((ty) => ty.type))),
   );
 
-  const allTags = initialData.map((t) => ({ id: t.tagId, name: t.tagName }));
+  const allTags = initialData.map((t) => ({ id: t.tagId!, name: t.tagPath }));
 
   return (
     <div className="flex flex-wrap gap-4 items-center p-4 border rounded-b-2xl shadow-sm">
@@ -61,7 +61,6 @@ export default function ComponentsFilter({
         onChange={(e) => setFilter({ ...filter, search: e.target.value })}
         className="w-60 bg-bg dark:bg-bg-light dark:hover:bg-bg-light-hover"
       />
-
       {/* Status filter */}
       <MultiSelectPopover
         items={allStatuses.map((s) => ({ value: s, label: s }))}
@@ -69,7 +68,6 @@ export default function ComponentsFilter({
         placeholder="Filter by status"
         onChange={(vals) => setFilter({ ...filter, status: vals })}
       />
-
       {/* Type filter */}
       <MultiSelectPopover
         items={allTypes.map((t) => ({ value: t, label: t }))}
@@ -77,15 +75,21 @@ export default function ComponentsFilter({
         placeholder="Filter by type"
         onChange={(vals) => setFilter({ ...filter, type: vals })}
       />
-
       {/* Tag filter */}
       <MultiSelectPopover
-        items={allTags.map((t) => ({ value: t.id.toString(), label: t.name }))}
+        items={allTags.map((t) => {
+          const parts = t.name.split("/"); // Split by hierarchy
+          const depth = parts.length - 1; // Root = 0, subtag = 1, etc.
+          return {
+            value: t.id.toString(),
+            label: parts[parts.length - 1], // Show only last part
+            depth,
+          };
+        })}
         selected={filter.tag.map(String)}
         placeholder="Filter by tag"
         onChange={(vals) => setFilter({ ...filter, tag: vals.map(Number) })}
       />
-
       {/* Clear button */}
       <Button
         variant="outline"
@@ -106,7 +110,7 @@ function MultiSelectPopover({
   placeholder,
   onChange,
 }: {
-  items: { value: string; label: string }[];
+  items: { value: string; label: string; depth?: number }[];
   selected: string[];
   placeholder: string;
   onChange: (vals: string[]) => void;
@@ -124,10 +128,14 @@ function MultiSelectPopover({
           <ChevronDown className="w-4 h-4" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-40">
-        <div className="flex flex-col gap-1 max-h-60 overflow-y-auto">
+      <PopoverContent className="max-h-60 overflow-y-auto w-max min-w-[160px]">
+        <div className="flex flex-col gap-1">
           {items.map((item) => (
-            <label key={item.value} className="flex items-center gap-2">
+            <label
+              key={item.value}
+              className="flex items-center gap-2 whitespace-nowrap overflow-hidden text-ellipsis"
+              style={{ paddingLeft: `${(item.depth ?? 0) * 12}px` }}
+            >
               <Checkbox
                 checked={selected.includes(item.value)}
                 onCheckedChange={() => {
@@ -152,7 +160,16 @@ function applyFilter(
   filter: Filter,
 ): FindComponentsGroupedByTagThenTypeResult {
   return data
-    .filter((tg) => (filter.tag.length ? filter.tag.includes(tg.tagId) : true))
+    .filter((tg) => {
+      if (!filter.tag.length) return true;
+
+      // Check if the tagPath starts with any selected tag's path
+      return filter.tag.some((selectedTagId) => {
+        const selectedTag = data.find((t) => t.tagId === selectedTagId);
+        if (!selectedTag) return false;
+        return tg.tagPath.startsWith(selectedTag.tagPath);
+      });
+    })
     .map((tagGroup) => ({
       ...tagGroup,
       types: tagGroup.types

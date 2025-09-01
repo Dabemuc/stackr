@@ -13,7 +13,7 @@ export default function ComponentsVisualizer() {
   useEffect(() => {
     async function fetch() {
       const fetchedData = await findComponentsGroupedByTag();
-      fetchedData.sort((a, b) => a.tagName.localeCompare(b.tagName));
+      fetchedData.sort((a, b) => a.tagPath.localeCompare(b.tagPath));
       setInitialData(fetchedData);
     }
     fetch();
