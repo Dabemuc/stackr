@@ -2,13 +2,14 @@
 
 ## WIP
 
+- [x] / background tiling issue
 - [ ] implement updating components
 
 ## TODO
 
-- [ ] Error when db empty?
-- [ ] Validate incoming data in endpoints (Needed?)
 - [ ] /add notification on submit. Clear form if successful
+- [ ] Validate incoming data in endpoints (Needed?)
+- [ ] Error when db empty?
 
 ## Planned
 

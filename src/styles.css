@@ -179,8 +179,11 @@ code {
     @apply border-border outline-ring/50;
   }
   body {
-    /* @apply bg-background text-foreground; */
+    /* Use gradient above background-color */
     background-image: var(--background-image);
+    background-repeat: no-repeat; /* prevent tiling */
+    background-attachment: fixed; /* optional: makes it stay fixed while scrolling */
+    background-size: cover; /* scale to cover entire viewport */
     background-color: var(--background);
     color: var(--foreground);
   }
