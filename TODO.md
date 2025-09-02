@@ -5,6 +5,8 @@
 - [x] Overview Filter
   - [x] Implement filter ui
   - [x] Implement filter functionality
+  - [x] Include filter in url
+  - [ ] update filter dropdown options based on current filter
   - [ ] Extend /view so tags and types can be clicked to filter for them
 
 ## TODO
