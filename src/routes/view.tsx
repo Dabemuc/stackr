@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { createFileRoute, useSearch } from "@tanstack/react-router";
+import { createFileRoute, Link, useSearch } from "@tanstack/react-router";
 import { findComponentById } from "@/db/db";
 import { FindComponentByIdResult } from "@/db/handlers/findComponentByIdHandler";
 import { Badge } from "@/components/ui/badge";
@@ -64,9 +64,11 @@ function RouteComponent() {
         {data.types?.length > 0 && (
           <div className="flex gap-2 mb-4">
             {data.types.map((type) => (
-              <Badge key={type.id} variant="secondary">
-                {type.name}
-              </Badge>
+              <Link to={"/"} search={{ type: [type.name] }}>
+                <Badge key={type.id} variant="secondary">
+                  {type.name}
+                </Badge>
+              </Link>
             ))}
           </div>
         )}
@@ -142,9 +144,11 @@ function RouteComponent() {
             {data.tags?.length > 0 ? (
               <div className="flex flex-wrap gap-2">
                 {data.tags.map((tag) => (
-                  <Badge key={tag.id} variant="outline" className="bg-bg">
-                    {tag.name}
-                  </Badge>
+                  <Link to={"/"} search={{ tag: [tag.id] }}>
+                    <Badge key={tag.id} variant="outline" className="bg-bg">
+                      {tag.name}
+                    </Badge>
+                  </Link>
                 ))}
               </div>
             ) : (
