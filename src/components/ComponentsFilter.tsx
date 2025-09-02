@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSearch, useNavigate } from "@tanstack/react-router";
 import { Route } from "@/routes/index";
 import { Input } from "@/components/ui/input";
@@ -32,24 +32,62 @@ export default function ComponentsFilter({
   const filter = useSearch({ from: Route.id });
   const navigate = useNavigate();
 
-  // Apply filtering logic when search/filter changes
+  // Popover options
+  const [allStatuses, setAllStatuses] = useState<string[]>([]);
+  const [allTypes, setAllTypes] = useState<string[]>([]);
+  const [allTags, setAllTags] = useState<{ id: number; name: string }[]>([]);
+
+  // On change of filter or initialData apply filter to data and popover options
   useEffect(() => {
     setFiltered(applyFilter(initialData, filter));
+
+    const statusOptions = (() => {
+      const tempFilter = { ...filter };
+      delete tempFilter.status;
+      const relevantData = applyFilter(initialData, tempFilter);
+      const options = Array.from(
+        new Set(
+          relevantData.flatMap((t) =>
+            t.types.flatMap((ty) => ty.components.map((c) => c.status)),
+          ),
+        ),
+      );
+      return Array.from(new Set([...options, ...(filter.status ?? [])]));
+    })();
+    setAllStatuses(statusOptions);
+
+    const typeOptions = (() => {
+      const tempFilter = { ...filter };
+      delete tempFilter.type;
+      const relevantData = applyFilter(initialData, tempFilter);
+      const options = Array.from(
+        new Set(relevantData.flatMap((t) => t.types.map((ty) => ty.type))),
+      );
+      return Array.from(new Set([...options, ...(filter.type ?? [])]));
+    })();
+    setAllTypes(typeOptions);
+
+    const tagOptions = (() => {
+      const tempFilter = { ...filter };
+      delete tempFilter.tag;
+      const relevantData = applyFilter(initialData, tempFilter);
+      const options = relevantData.map((t) => ({
+        id: t.tagId!,
+        name: t.tagPath,
+      }));
+      const selectedTags = (filter.tag ?? []).map((id) => {
+        const existing = options.find((t) => t.id === id);
+        return existing ?? { id, name: `Unknown (#${id})` };
+      });
+      const merged = [...options, ...selectedTags];
+      // Remove duplicates by id
+      const unique = merged.filter(
+        (t, i, arr) => arr.findIndex((x) => x.id === t.id) === i,
+      );
+      return unique;
+    })();
+    setAllTags(tagOptions);
   }, [initialData, filter]);
-
-  const allStatuses = Array.from(
-    new Set(
-      initialData.flatMap((t) =>
-        t.types.flatMap((ty) => ty.components.map((c) => c.status)),
-      ),
-    ),
-  );
-
-  const allTypes = Array.from(
-    new Set(initialData.flatMap((t) => t.types.map((ty) => ty.type))),
-  );
-
-  const allTags = initialData.map((t) => ({ id: t.tagId!, name: t.tagPath }));
 
   // Helper to update URL search
   const updateFilter = (newValues: Partial<Filter>) => {
