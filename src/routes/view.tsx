@@ -4,9 +4,11 @@ import { findComponentById } from "@/db/db";
 import { FindComponentByIdResult } from "@/db/handlers/findComponentByIdHandler";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, Pencil } from "lucide-react";
 import LinkWithHoverCard from "@/components/common/LinkWithHoverCard";
 import ReactMarkdown from "react-markdown";
+import { SignedIn } from "@clerk/clerk-react";
+import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/view")({
   validateSearch: (search) => ({
@@ -58,9 +60,22 @@ function RouteComponent() {
     <div className="p-8 max-w-6xl mx-auto">
       {/* Header Section */}
       <header className="mb-6">
-        <h1 className="text-4xl font-bold mb-2 text-accent-gradiant-to/80">
-          {data.name}
-        </h1>
+        <div className="flex gap-3 items-center justify-between">
+          <h1 className="text-4xl font-bold mb-2 text-accent-gradiant-to/80">
+            {data.name}
+          </h1>
+          <SignedIn>
+            <Link to={"/edit"} search={{ id: data.id }} title="Edit">
+              <Button
+                variant="ghost"
+                className="aspect-square hover:cursor-pointer"
+                size="lg"
+              >
+                <Pencil className="scale-125" />
+              </Button>
+            </Link>
+          </SignedIn>
+        </div>
         {data.types?.length > 0 && (
           <div className="flex gap-2 mb-4">
             {data.types.map((type) => (

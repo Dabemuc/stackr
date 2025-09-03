@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Check, ChevronsUpDown } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -26,11 +26,16 @@ type ComboboxProps = {
     label: string;
   }[];
   callback: (selected_val: string) => void;
+  initialValue?: string;
 };
 
 export function Combobox(props: ComboboxProps) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
+
+  useEffect(() => {
+    if (props.initialValue) setValue(props.initialValue);
+  }, [props.initialValue]);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>

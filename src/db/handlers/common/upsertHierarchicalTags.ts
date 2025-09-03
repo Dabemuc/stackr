@@ -1,4 +1,4 @@
-import { tags } from "./schema";
+import { tags } from "../../schema";
 import { and, eq, ExtractTablesWithRelations, isNull } from "drizzle-orm";
 import { PgTransaction } from "drizzle-orm/pg-core";
 import { NeonQueryResultHKT } from "drizzle-orm/neon-serverless";

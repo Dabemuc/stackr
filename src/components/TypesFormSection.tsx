@@ -30,8 +30,8 @@ export default function TypesFormSection({
   }
 
   function handleSelect(t: { id: number | null; name: string }) {
-    const newSelected = selected.includes(t)
-      ? selected.filter((v) => v !== t)
+    const newSelected = selected.find((s) => s.id === t.id && s.name === t.name)
+      ? selected.filter((v) => v.id !== t.id && v.name !== t.name)
       : [...selected, t];
     onChange(newSelected);
   }
@@ -42,7 +42,11 @@ export default function TypesFormSection({
         <Button
           key={"type-" + index}
           type="button"
-          variant={selected.includes(t) ? "default" : "secondary"}
+          variant={
+            selected.find((s) => s.id === t.id && s.name === t.name)
+              ? "default"
+              : "secondary"
+          }
           onClick={() => handleSelect(t)}
         >
           {t.name}

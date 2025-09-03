@@ -29,7 +29,10 @@ export const components = pgTable(
 );
 
 export type Component = InferSelectModel<typeof components>;
-export type NewComponent = InferInsertModel<typeof components>;
+export type NewComponent = Omit<
+  InferInsertModel<typeof components>,
+  "updated_at"
+>;
 
 // ------------------ Tags ------------------
 export const tags = pgTable("tags", {
@@ -45,7 +48,7 @@ export const tags = pgTable("tags", {
 });
 
 export type Tag = InferSelectModel<typeof tags>;
-export type NewTag = InferInsertModel<typeof tags>;
+export type NewTag = Omit<InferInsertModel<typeof tags>, "updated_at">;
 
 // ------------------ Components ↔ Tags (many-to-many) ------------------
 export const componentsTags = pgTable(
@@ -81,7 +84,7 @@ export const types = pgTable(
 );
 
 export type Type = InferSelectModel<typeof types>;
-export type NewType = InferInsertModel<typeof types>;
+export type NewType = Omit<InferInsertModel<typeof types>, "updated_at">;
 
 // ------------------ Components ↔ Types (many-to-many) ------------------
 export const componentsTypes = pgTable("components_types", {

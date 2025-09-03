@@ -7,6 +7,9 @@ import { seed } from "./testData/seedTestData";
 import { findComponentsGroupedByTagThenTypeHandler } from "./handlers/findComponentsGroupedByTagThenTypeHandler";
 import { insertComponentHandler } from "./handlers/insertComponentHandler";
 import { findComponentByIdHandler } from "./handlers/findComponentByIdHandler";
+import { updateComponentHandler } from "./handlers/updateComponentHandler";
+import insertComponentValidator from "./validators/insertComponentValidator";
+import updateComponentValidator from "./validators/updateComponentValidator";
 
 export const db = drizzle(process.env.DATABASE_URL!);
 
@@ -17,13 +20,23 @@ export const seedDb = createServerFn({ method: "POST" }).handler(async () => {
 });
 
 export const insertComponent = createServerFn({ method: "POST" })
-  .validator((component: ComponentFormData) => component)
+  .validator(insertComponentValidator)
   .handler(async (ctx) => {
     const { requireAuth } = await import(
       "@/integrations/clerk/requireAuth.server"
     );
     await requireAuth({ mode: "api" });
     return insertComponentHandler(ctx);
+  });
+
+export const updateComponent = createServerFn({ method: "POST" })
+  .validator(updateComponentValidator)
+  .handler(async (ctx) => {
+    const { requireAuth } = await import(
+      "@/integrations/clerk/requireAuth.server"
+    );
+    await requireAuth({ mode: "api" });
+    return updateComponentHandler(ctx);
   });
 
 export const findComponentById = createServerFn({ method: "GET" })

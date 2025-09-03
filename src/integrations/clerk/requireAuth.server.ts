@@ -25,7 +25,6 @@ export async function requireAuth(options: { mode?: "redirect" | "api" } = {}) {
       // For page navigations
       throw redirect({
         to: "/",
-        search: { redirect_url: request.url },
       });
     }
   }

@@ -16,6 +16,7 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import { NoThemeFlashScript } from "@/components/NoThemeFlashScript";
 import { Button } from "@/components/ui/button";
 import { seedDb } from "@/db/db";
+import { Toaster } from "@/components/ui/sonner";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -62,6 +63,12 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
           <ClerkProvider>
             <Header />
+            <Toaster
+              position="bottom-center"
+              visibleToasts={1}
+              closeButton={true}
+              expand={false}
+            />
             {children}
             <TanstackDevtools
               config={{

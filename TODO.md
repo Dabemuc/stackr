@@ -2,13 +2,14 @@
 
 ## WIP
 
-- [x] / background tiling issue
 - [ ] implement updating components
+  - [ ] Frontend route
+  - [ ] Backend server function
+- [ ] /add & /edit notification on submit. Navigate to /view on success
+- [ ] Validate incoming data in endpoints
 
 ## TODO
 
-- [ ] /add notification on submit. Clear form if successful
-- [ ] Validate incoming data in endpoints (Needed?)
 - [ ] Error when db empty?
 
 ## Planned
@@ -38,3 +39,4 @@
   - [x] Include filter in url
   - [x] update filter popover options based on current filter
   - [x] Extend /view so tags and types can be clicked to filter for them
+- [x] / background tiling issue

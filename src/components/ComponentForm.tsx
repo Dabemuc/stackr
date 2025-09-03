@@ -11,10 +11,12 @@ import {
   relationTypes,
 } from "@/db/types";
 import { MultiTagSelect } from "./MultiTagSelect";
-import { findComponents, findHierarchicalTags, insertComponent } from "@/db/db";
+import { findComponents, findHierarchicalTags } from "@/db/db";
 import TypesFormSection from "./TypesFormSection";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
+import { toast } from "sonner";
+import { useNavigate } from "@tanstack/react-router";
 
 // Helper to show validation state
 function FieldInfo({ field }: { field: AnyFieldApi }) {
@@ -44,24 +46,32 @@ const relationTypeOptions = relationTypes.map((value) => ({
   label: value,
 }));
 
-const defFormVals = {
-  name: "",
-  type: [] as { id: number | null; name: string }[],
-  description: "",
-  article: "",
-  links: [] as string[],
-  status: undefined as undefined | ComponentStatus,
-  tags: [] as string[],
-  relations: [] as { targetId: string; relationType: ComponentRelation }[],
+export type ComponentFormData = {
+  name: string;
+  type: { id: number | null; name: string }[];
+  description: string;
+  article: string;
+  links: string[];
+  status: ComponentStatus;
+  tags: string[];
+  relations: { targetId: string; relationType: ComponentRelation }[];
 };
 
-export type ComponentFormData = typeof defFormVals;
-
-export default function ComponentForm() {
+export default function ComponentForm({
+  defaultVals,
+  handleSubmit,
+}: {
+  defaultVals: ComponentFormData;
+  handleSubmit: (
+    submittedData: ComponentFormData,
+  ) => Promise<{ success: boolean; id?: number; error?: string }>;
+}) {
   const [tags, setTags] = useState<{ value: string; label: string }[]>([]);
   const [components, setComponents] = useState<
     { value: string; label: string }[]
   >([]);
+
+  const navigate = useNavigate();
 
   // Fetch tags and components from API/db
   useEffect(() => {
@@ -78,7 +88,7 @@ export default function ComponentForm() {
   }, []);
 
   const form = useForm({
-    defaultValues: defFormVals,
+    defaultValues: defaultVals,
     onSubmit: async ({ value }) => {
       console.log("Form submitted:", value);
 
@@ -88,13 +98,28 @@ export default function ComponentForm() {
         );
       }
 
-      insertComponent({ data: value });
+      // Show appropriate toast
+      const res = await handleSubmit(value);
+      if (res.success)
+        toast.success("🎉Form submitted successfully🎉", {
+          description: "Yey",
+          duration: 4000,
+          className: "bg-bg bg-accent-gradiant-from/50! scale-120!",
+        });
+      else
+        toast.error("💥Error submitting form💥", {
+          description: res.error,
+          duration: 10000,
+          className: "bg-destructive! scale-120!",
+        });
+
+      // Navigate to component on success
+      if (res.id) navigate({ to: "/view", search: { id: res.id } });
     },
   });
 
   return (
-    <div className="p-4 max-w-2xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Create Component</h1>
+    <div>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -197,6 +222,7 @@ export default function ComponentForm() {
                 selectableName="status"
                 selectables={componentStatusOptions}
                 callback={(val) => field.handleChange(val as ComponentStatus)}
+                initialValue={field.state.value}
               />
               <FieldInfo field={field} />
             </div>
@@ -263,7 +289,7 @@ export default function ComponentForm() {
           {(field) => (
             <div>
               <label className="block font-medium mb-1">Relations</label>
-              {field.state.value.map((_rel, idx) => (
+              {field.state.value.map((rel, idx) => (
                 <div key={idx} className="flex gap-2 mb-2 items-center">
                   <Combobox
                     selectableName="type"
@@ -276,6 +302,7 @@ export default function ComponentForm() {
                       };
                       field.handleChange(newRels);
                     }}
+                    initialValue={rel.relationType}
                   />
                   <Combobox
                     selectableName="component"
@@ -285,6 +312,7 @@ export default function ComponentForm() {
                       newRels[idx] = { ...newRels[idx], targetId: val };
                       field.handleChange(newRels);
                     }}
+                    initialValue={rel.targetId}
                   />
                   <Button
                     type="button"
