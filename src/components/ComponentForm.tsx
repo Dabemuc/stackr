@@ -230,7 +230,15 @@ export default function ComponentForm({
         </form.Field>
 
         {/* Links (array of strings) */}
-        <form.Field name="links">
+        <form.Field
+          name="links"
+          validators={{
+            onSubmit: ({ value }) => {
+              const issue = value.find((link) => link.trim() === "");
+              return issue !== undefined ? "No empty links allowed" : undefined;
+            },
+          }}
+        >
           {(field) => (
             <div>
               <label className="block font-medium mb-1">Links</label>
@@ -259,19 +267,29 @@ export default function ComponentForm({
                   </Button>
                 </div>
               ))}
-              <Button
-                type="button"
-                variant="secondary"
-                onClick={() => field.handleChange([...field.state.value, ""])}
-              >
-                + Add Link
-              </Button>
+              <div className="flex flex-col gap-2">
+                <FieldInfo field={field} />
+                <Button
+                  type="button"
+                  className="w-fit"
+                  variant="secondary"
+                  onClick={() => field.handleChange([...field.state.value, ""])}
+                >
+                  + Add Link
+                </Button>
+              </div>
             </div>
           )}
         </form.Field>
 
         {/* Tags (multi-select with AutocompleteSearchbox) */}
-        <form.Field name="tags">
+        <form.Field
+          name="tags"
+          validators={{
+            onChange: ({ value }) =>
+              value.length === 0 ? "At least one tag is required" : undefined,
+          }}
+        >
           {(field) => (
             <div>
               <label className="block font-medium mb-1">Tags</label>
@@ -280,12 +298,23 @@ export default function ComponentForm({
                 selected={field.state.value}
                 onChange={field.handleChange}
               />
+              <FieldInfo field={field} />
             </div>
           )}
         </form.Field>
 
         {/* Relations */}
-        <form.Field name="relations">
+        <form.Field
+          name="relations"
+          validators={{
+            onSubmit: ({ value }) => {
+              const issue = value.find((rel) => rel.targetId === "");
+              return issue !== undefined
+                ? "No empty relations allowed"
+                : undefined;
+            },
+          }}
+        >
           {(field) => (
             <div>
               <label className="block font-medium mb-1">Relations</label>
@@ -328,18 +357,22 @@ export default function ComponentForm({
                   </Button>
                 </div>
               ))}
-              <Button
-                variant="secondary"
-                type="button"
-                onClick={() =>
-                  field.handleChange([
-                    ...field.state.value,
-                    { targetId: "", relationType: "Depends on" },
-                  ])
-                }
-              >
-                + Add Relation
-              </Button>
+              <div className="flex flex-col gap-2">
+                <FieldInfo field={field} />
+                <Button
+                  variant="secondary"
+                  type="button"
+                  onClick={() =>
+                    field.handleChange([
+                      ...field.state.value,
+                      { targetId: "", relationType: "Depends on" },
+                    ])
+                  }
+                  className="w-fit"
+                >
+                  + Add Relation
+                </Button>
+              </div>
             </div>
           )}
         </form.Field>

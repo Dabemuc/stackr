@@ -2,9 +2,11 @@
 
 ## WIP
 
+- [ ] /add dont allow empty links or relations -> validate
+- [ ] /add make tags mandatory
+
 ## TODO
 
-- [ ] /add dont allow empty links or relations -> validate
 - [ ] Error when db empty?
 
 ## Planned
