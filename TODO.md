@@ -4,7 +4,6 @@
 
 ## TODO
 
-- [ ] /add Search in releations component combobox not working
 - [ ] /view display status
 - [ ] /add dont allow empty links or relations -> validate
 - [ ] Error when db empty?
@@ -43,3 +42,4 @@
   - [x] Backend server function
 - [x] /add & /edit notification on submit. Navigate to /view on success
 - [x] Validate incoming data in endpoints
+- [x] /add Search in releations component combobox not working

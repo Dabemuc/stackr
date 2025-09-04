@@ -67,10 +67,10 @@ export function Combobox(props: ComboboxProps) {
               {props.selectables.map((prop) => (
                 <CommandItem
                   key={prop.value}
-                  value={prop.value}
-                  onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue);
-                    props.callback(currentValue === value ? "" : currentValue);
+                  value={prop.label}
+                  onSelect={() => {
+                    setValue(prop.value);
+                    props.callback(prop.value);
                     setOpen(false);
                   }}
                 >

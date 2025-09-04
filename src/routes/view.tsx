@@ -79,11 +79,11 @@ function RouteComponent() {
         {data.types?.length > 0 && (
           <div className="flex gap-2 mb-4">
             {data.types.map((type) => (
-              <Link to={"/"} search={{ type: [type.name] }}>
-                <Badge key={type.id} variant="secondary">
+              <Badge key={type.id} variant="secondary">
+                <Link to={"/"} search={{ type: [type.name] }}>
                   {type.name}
-                </Badge>
-              </Link>
+                </Link>
+              </Badge>
             ))}
           </div>
         )}
@@ -159,11 +159,11 @@ function RouteComponent() {
             {data.tags?.length > 0 ? (
               <div className="flex flex-wrap gap-2">
                 {data.tags.map((tag) => (
-                  <Link to={"/"} search={{ tag: [tag.id] }}>
-                    <Badge key={tag.id} variant="outline" className="bg-bg">
+                  <Badge key={tag.id} variant="outline" className="bg-bg">
+                    <Link to={"/"} search={{ tag: [tag.id] }}>
                       {tag.name}
-                    </Badge>
-                  </Link>
+                    </Link>
+                  </Badge>
                 ))}
               </div>
             ) : (
