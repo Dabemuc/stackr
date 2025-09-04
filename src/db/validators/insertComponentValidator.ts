@@ -1,6 +1,5 @@
-import { ComponentFormData } from "@/components/ComponentForm";
-import { ComponentInsertSchema } from "./zodSchemas";
+import { ComponentInsertSchema, ComponentInsertType } from "./zodSchemas";
 
-export default function insertComponentValidator(data: ComponentFormData) {
+export default function insertComponentValidator(data: ComponentInsertType) {
   return ComponentInsertSchema.parse(data);
 }

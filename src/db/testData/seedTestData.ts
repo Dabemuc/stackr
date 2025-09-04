@@ -16,6 +16,7 @@ import {
 } from "./testData";
 import { NeonDatabase } from "drizzle-orm/neon-serverless";
 import { Pool } from "@neondatabase/serverless";
+import { sql } from "drizzle-orm";
 
 export async function seed(
   db: NeonDatabase<Record<string, never>> & { $client: Pool },
@@ -36,6 +37,10 @@ export async function seed(
   console.log("🌱 Inserting tags...");
   const insertedTags = await db.insert(tags).values(tagsData).returning();
   const tagMap = Object.fromEntries(insertedTags.map((t) => [t.id, t.id]));
+  // Reset sequence after manual insert
+  await db.execute(
+    sql`SELECT setval('tags_id_seq', (SELECT COALESCE(MAX(id), 0) FROM tags) + 1, false);`,
+  );
 
   console.log("🌱 Inserting types...");
   const insertedTypes = await db.insert(types).values(typesData).returning();

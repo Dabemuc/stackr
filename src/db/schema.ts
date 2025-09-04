@@ -22,8 +22,7 @@ export const components = pgTable(
     status: varchar({ length: 255 }).$type<ComponentStatus>().notNull(),
     updated_at: timestamp("updated_at", { withTimezone: true, mode: "date" })
       .notNull()
-      .default(sql`(CURRENT_TIMESTAMP)`)
-      .$onUpdate(() => sql`(CURRENT_TIMESTAMP)`),
+      .default(sql`(CURRENT_TIMESTAMP)`),
   },
   (table) => [unique("components_name_unique").on(table.name)],
 );
@@ -35,17 +34,22 @@ export type NewComponent = Omit<
 >;
 
 // ------------------ Tags ------------------
-export const tags = pgTable("tags", {
-  id: integer("id").primaryKey().generatedByDefaultAsIdentity(),
-  name: varchar("name", { length: 255 }).notNull(),
-  parentTagId: integer("parent_tag_id").references((): any => tags.id, {
-    onDelete: "set null",
-  }),
-  updated_at: timestamp("updated_at", { withTimezone: true, mode: "date" })
-    .notNull()
-    .default(sql`(CURRENT_TIMESTAMP)`)
-    .$onUpdate(() => sql`(CURRENT_TIMESTAMP)`),
-});
+export const tags = pgTable(
+  "tags",
+  {
+    id: integer("id").primaryKey().generatedByDefaultAsIdentity(),
+    name: varchar("name", { length: 255 }).notNull(),
+    parentTagId: integer("parent_tag_id").references((): any => tags.id, {
+      onDelete: "set null",
+    }),
+    updated_at: timestamp("updated_at", { withTimezone: true, mode: "date" })
+      .notNull()
+      .default(sql`(CURRENT_TIMESTAMP)`),
+  },
+  (table) => [
+    unique("tags_name_parent_unique").on(table.name, table.parentTagId),
+  ],
+);
 
 export type Tag = InferSelectModel<typeof tags>;
 export type NewTag = Omit<InferInsertModel<typeof tags>, "updated_at">;
@@ -62,8 +66,7 @@ export const componentsTags = pgTable(
       .references(() => tags.id, { onDelete: "cascade" }),
     updated_at: timestamp("updated_at", { withTimezone: true, mode: "date" })
       .notNull()
-      .default(sql`(CURRENT_TIMESTAMP)`)
-      .$onUpdate(() => sql`(CURRENT_TIMESTAMP)`),
+      .default(sql`(CURRENT_TIMESTAMP)`),
   },
   (table) => [primaryKey({ columns: [table.componentId, table.tagId] })],
 );
@@ -76,8 +79,7 @@ export const types = pgTable(
     name: varchar("name", { length: 255 }).notNull(),
     updated_at: timestamp("updated_at", { withTimezone: true, mode: "date" })
       .notNull()
-      .default(sql`(CURRENT_TIMESTAMP)`)
-      .$onUpdate(() => sql`(CURRENT_TIMESTAMP)`),
+      .default(sql`(CURRENT_TIMESTAMP)`),
   },
 
   (table) => [unique("types_name_unique").on(table.name)],
@@ -96,8 +98,7 @@ export const componentsTypes = pgTable("components_types", {
     .references(() => types.id, { onDelete: "cascade" }),
   updated_at: timestamp("updated_at", { withTimezone: true, mode: "date" })
     .notNull()
-    .default(sql`(CURRENT_TIMESTAMP)`)
-    .$onUpdate(() => sql`(CURRENT_TIMESTAMP)`),
+    .default(sql`(CURRENT_TIMESTAMP)`),
 });
 
 // ------------------ Relations (component ↔ component) ------------------
@@ -116,8 +117,7 @@ export const relations = pgTable(
     relationType: varchar({ length: 255 }).$type<ComponentRelation>().notNull(),
     updated_at: timestamp("updated_at", { withTimezone: true, mode: "date" })
       .notNull()
-      .default(sql`(CURRENT_TIMESTAMP)`)
-      .$onUpdate(() => sql`(CURRENT_TIMESTAMP)`),
+      .default(sql`(CURRENT_TIMESTAMP)`),
   },
   (table) => [
     unique("relations_unique").on(

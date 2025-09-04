@@ -1,0 +1,1 @@
+ALTER TABLE "tags" ADD CONSTRAINT "tags_name_parent_unique" UNIQUE("name","parent_tag_id");

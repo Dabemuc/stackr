@@ -1,8 +1,5 @@
-import { ComponentFormData } from "@/components/ComponentForm";
-import { ComponentUpdateSchema } from "./zodSchemas";
+import { ComponentUpdateSchema, ComponentUpdateType } from "./zodSchemas";
 
-export default function updateComponentValidator(
-  data: ComponentFormData & { id: number },
-) {
+export default function updateComponentValidator(data: ComponentUpdateType) {
   return ComponentUpdateSchema.parse(data);
 }

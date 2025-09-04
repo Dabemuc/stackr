@@ -2,14 +2,11 @@
 
 ## WIP
 
-- [ ] implement updating components
-  - [ ] Frontend route
-  - [ ] Backend server function
-- [ ] /add & /edit notification on submit. Navigate to /view on success
-- [ ] Validate incoming data in endpoints
-
 ## TODO
 
+- [ ] /add Search in releations component combobox not working
+- [ ] /view display status
+- [ ] /add dont allow empty links or relations -> validate
 - [ ] Error when db empty?
 
 ## Planned
@@ -40,3 +37,8 @@
   - [x] update filter popover options based on current filter
   - [x] Extend /view so tags and types can be clicked to filter for them
 - [x] / background tiling issue
+- [x] implement updating components
+  - [x] Frontend route
+  - [x] Backend server function
+- [x] /add & /edit notification on submit. Navigate to /view on success
+- [x] Validate incoming data in endpoints

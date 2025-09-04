@@ -8,15 +8,15 @@ import {
 import { upsertHierarchicalTag } from "./common/upsertHierarchicalTags";
 import { db } from "../db";
 import { ServerFnCtx } from "@tanstack/react-start";
-import { ComponentFormData } from "@/components/ComponentForm";
 import { Tx } from "./common/Tx";
+import { ComponentInsertType } from "../validators/zodSchemas";
 
 export const insertComponentHandler = async (
   ctx: ServerFnCtx<
     "POST",
     "data",
     undefined,
-    (component: ComponentFormData) => ComponentFormData
+    (component: ComponentInsertType) => ComponentInsertType
   >,
 ): Promise<{ success: boolean; id?: number; error?: string }> => {
   try {

@@ -31,6 +31,10 @@ export const ComponentBaseSchema = z
 
 export const ComponentInsertSchema = ComponentBaseSchema;
 
+export type ComponentInsertType = z.infer<typeof ComponentInsertSchema>;
+
 export const ComponentUpdateSchema = ComponentBaseSchema.extend({
   id: z.number(),
 });
+
+export type ComponentUpdateType = z.infer<typeof ComponentUpdateSchema>;
