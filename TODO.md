@@ -2,12 +2,7 @@
 
 ## WIP
 
-- [ ] Skeletons, Loaders, ...
-
 ## TODO
-
-- [ ] Mobile
-  - [ ] Header
 
 ## Planned
 
@@ -48,3 +43,5 @@
 - [x] /view display status
 - [x] /add dont allow empty links or relations -> validate
 - [x] /add make tags mandatory
+- [x] Skeletons
+- [x] Mobile Header and Filter

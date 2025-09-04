@@ -14,7 +14,7 @@ export default function ClerkHeader() {
       </SignedIn>
       <SignedOut>
         <SignInButton>
-          <Button variant={"outline"}>Sign in</Button>
+          <Button variant={"secondary"}>Sign in</Button>
         </SignInButton>
       </SignedOut>
     </>

@@ -2,7 +2,6 @@ import { findComponentById } from "@/db/db";
 import { FindComponentByIdResult } from "@/db/handlers/findComponentByIdHandler";
 import { cn } from "@/lib/utils";
 import { SignedIn } from "@clerk/clerk-react";
-import { Separator } from "@radix-ui/react-dropdown-menu";
 import { useSearch } from "@tanstack/react-router";
 import { Pencil, ExternalLink } from "lucide-react";
 import { useState, useEffect } from "react";
@@ -13,6 +12,7 @@ import { Link } from "@tanstack/react-router";
 import { Badge } from "./ui/badge";
 import ReactMarkdown from "react-markdown";
 import { ViewSkeleton } from "./skeletons/ViewSkeleton";
+import { Separator } from "./ui/separator";
 
 export default function View() {
   const routeSearch = useSearch({ from: "/view" });

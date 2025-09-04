@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/popover";
 import { X, ChevronDown } from "lucide-react";
 import { FindComponentsGroupedByTagThenTypeResult } from "@/db/handlers/findComponentsGroupedByTagThenTypeHandler";
+import { cn } from "@/lib/utils";
 
 export type Filter = {
   search?: string;
@@ -28,6 +29,9 @@ export default function ComponentsFilter({
     React.SetStateAction<FindComponentsGroupedByTagThenTypeResult>
   >;
 }) {
+  // Mobile variant
+  const [accordionOpen, setAccordionOpen] = useState(false);
+
   // URL search params are source of truth
   const filter = useSearch({ from: Route.id });
   const navigate = useNavigate();
@@ -117,55 +121,95 @@ export default function ComponentsFilter({
     });
   };
 
+  function FilterElems() {
+    return (
+      <div className="flex flex-wrap gap-4 items-center">
+        {/* Status filter */}
+        <MultiSelectPopover
+          items={allStatuses.map((s) => ({ value: s, label: s }))}
+          selected={filter.status ?? []}
+          placeholder="Filter by status"
+          onChange={(vals) => updateFilter({ status: vals })}
+        />
+        {/* Type filter */}
+        <MultiSelectPopover
+          items={allTypes.map((t) => ({ value: t, label: t }))}
+          selected={filter.type ?? []}
+          placeholder="Filter by type"
+          onChange={(vals) => updateFilter({ type: vals })}
+        />
+        {/* Tag filter */}
+        <MultiSelectPopover
+          items={allTags.map((t) => {
+            const parts = t.name.split("/");
+            const depth = parts.length - 1;
+            return {
+              value: t.id.toString(),
+              label: parts[parts.length - 1],
+              depth,
+            };
+          })}
+          selected={(filter.tag ?? []).map(String)}
+          placeholder="Filter by tag"
+          onChange={(vals) => updateFilter({ tag: vals.map(Number) })}
+        />
+        {/* Clear button */}
+        <Button
+          variant="outline"
+          size="default"
+          onClick={() =>
+            updateFilter({ search: "", status: [], type: [], tag: [] })
+          }
+          className="flex items-center gap-1 bg-bg dark:bg-bg-light dark:hover:bg-bg-light-hover"
+        >
+          <X className="w-4 h-4" /> Clear
+        </Button>
+      </div>
+    );
+  }
   return (
-    <div className="flex flex-wrap gap-4 items-center p-4 border rounded-b-2xl shadow-sm">
-      {/* Search */}
-      <Input
-        placeholder="Search components..."
-        value={filter.search ?? ""}
-        onChange={(e) => updateFilter({ search: e.target.value })}
-        className="w-60 bg-bg dark:bg-bg-light dark:hover:bg-bg-light-hover"
-      />
-      {/* Status filter */}
-      <MultiSelectPopover
-        items={allStatuses.map((s) => ({ value: s, label: s }))}
-        selected={filter.status ?? []}
-        placeholder="Filter by status"
-        onChange={(vals) => updateFilter({ status: vals })}
-      />
-      {/* Type filter */}
-      <MultiSelectPopover
-        items={allTypes.map((t) => ({ value: t, label: t }))}
-        selected={filter.type ?? []}
-        placeholder="Filter by type"
-        onChange={(vals) => updateFilter({ type: vals })}
-      />
-      {/* Tag filter */}
-      <MultiSelectPopover
-        items={allTags.map((t) => {
-          const parts = t.name.split("/");
-          const depth = parts.length - 1;
-          return {
-            value: t.id.toString(),
-            label: parts[parts.length - 1],
-            depth,
-          };
-        })}
-        selected={(filter.tag ?? []).map(String)}
-        placeholder="Filter by tag"
-        onChange={(vals) => updateFilter({ tag: vals.map(Number) })}
-      />
-      {/* Clear button */}
-      <Button
-        variant="outline"
-        size="sm"
-        onClick={() =>
-          updateFilter({ search: "", status: [], type: [], tag: [] })
-        }
-        className="flex items-center gap-1 bg-bg dark:bg-bg-light dark:hover:bg-bg-light-hover"
+    <div
+      className={"p-4 border rounded-b-2xl shadow-sm md:flex md:items-center"}
+    >
+      <div className="flex justify-between">
+        {/* Search */}
+        <Input
+          placeholder="Search components..."
+          value={filter.search ?? ""}
+          onChange={(e) => updateFilter({ search: e.target.value })}
+          className="w-60 md:mr-4 bg-bg dark:bg-bg-light dark:hover:bg-bg-light-hover"
+        />
+
+        {/* Mobile accordion open button */}
+        <Button
+          variant="outline"
+          onClick={() => setAccordionOpen(!accordionOpen)}
+          className="md:hidden"
+        >
+          Filter
+          <ChevronDown
+            className={cn(
+              "w-4 h-4",
+              `transition-transform duration-300 ${
+                accordionOpen ? "rotate-180" : "rotate-0"
+              }`,
+            )}
+          />
+        </Button>
+      </div>
+      {/* Use css to instantly hide on md+ screens. Avoids flicker */}
+      <div className="hidden md:flex">
+        <FilterElems />
+      </div>
+      <div
+        className={`flex md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+          accordionOpen
+            ? "max-h-96 opacity-100 pt-3 md:pt-0"
+            : "max-h-0 opacity-0"
+        }`}
       >
-        <X className="w-4 h-4" /> Clear
-      </Button>
+        {accordionOpen && <FilterElems />}
+      </div>
     </div>
   );
 }
