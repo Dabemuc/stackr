@@ -29,7 +29,8 @@
 - [x] / card styling rework
 - [x] Protect endpoints that need protection
 - [x] Fetch and display 'updated at' property
-- [x] Fix tags not getting shipped to frontend as hierarchical versions + handle correctly in overview
+- [x] Fix tags not getting shipped to frontend as hierarchical versions + handle
+      correctly in overview
 - [x] Overview Filter
   - [x] Implement filter ui
   - [x] Implement filter functionality

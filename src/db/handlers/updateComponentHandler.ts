@@ -9,13 +9,11 @@ import buildUpdateStoredDiff, {
 import { eq, and } from "drizzle-orm";
 import {
   components,
-  tags,
   componentsTags,
   types,
   componentsTypes,
   relations,
 } from "@/db/schema";
-import util from "util";
 import { upsertHierarchicalTag } from "./common/upsertHierarchicalTags";
 
 export const updateComponentHandler = async (

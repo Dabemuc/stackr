@@ -1,6 +1,5 @@
 import { components, tags, types } from "./schema";
 import { createServerFn } from "@tanstack/react-start";
-import { ComponentFormData } from "@/components/ComponentForm";
 import { sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/neon-serverless";
 import { seed } from "./testData/seedTestData";
