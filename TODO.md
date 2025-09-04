@@ -2,9 +2,6 @@
 
 ## WIP
 
-- [ ] /add dont allow empty links or relations -> validate
-- [ ] /add make tags mandatory
-
 ## TODO
 
 - [ ] Error when db empty?
@@ -45,3 +42,5 @@
 - [x] Validate incoming data in endpoints
 - [x] /add Search in releations component combobox not working
 - [x] /view display status
+- [x] /add dont allow empty links or relations -> validate
+- [x] /add make tags mandatory
