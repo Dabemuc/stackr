@@ -9,6 +9,8 @@ import LinkWithHoverCard from "@/components/common/LinkWithHoverCard";
 import ReactMarkdown from "react-markdown";
 import { SignedIn } from "@clerk/clerk-react";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { matchStatusToColor } from "@/components/utils/matchStatusToColor";
 
 export const Route = createFileRoute("/view")({
   validateSearch: (search) => ({
@@ -128,6 +130,44 @@ function RouteComponent() {
 
         {/* Sidebar */}
         <aside className="space-y-8">
+          {/* Tags */}
+          <div>
+            <h3 className="font-semibold mb-2">Tags</h3>
+            {data.tags?.length > 0 ? (
+              <div className="flex flex-wrap gap-2">
+                {data.tags.map((tag) => (
+                  <Badge key={tag.id} variant="outline" className="bg-bg">
+                    <Link to={"/"} search={{ tag: [tag.id] }}>
+                      {tag.name}
+                    </Link>
+                  </Badge>
+                ))}
+              </div>
+            ) : (
+              <p className="text-muted-foreground text-xs">No Tags</p>
+            )}
+          </div>
+
+          <Separator />
+
+          {/* Status */}
+          <div>
+            <h3 className="font-semibold mb-2">Status</h3>
+            <div className="flex items-center gap-3">
+              <Link to={"/"} search={{ status: [data.status] }}>
+                <Badge variant="outline">{data.status}</Badge>
+              </Link>
+              <div
+                className={cn(
+                  "rounded-full w-3 h-3 flex-shrink-0",
+                  matchStatusToColor(data.status),
+                )}
+              />
+            </div>
+          </div>
+
+          <Separator />
+
           {/* Links */}
           <div>
             <h3 className="font-semibold mb-2">Links</h3>
@@ -148,26 +188,6 @@ function RouteComponent() {
               </div>
             ) : (
               <p className="text-muted-foreground text-xs">No Links</p>
-            )}
-          </div>
-
-          <Separator />
-
-          {/* Tags */}
-          <div>
-            <h3 className="font-semibold mb-2">Tags</h3>
-            {data.tags?.length > 0 ? (
-              <div className="flex flex-wrap gap-2">
-                {data.tags.map((tag) => (
-                  <Badge key={tag.id} variant="outline" className="bg-bg">
-                    <Link to={"/"} search={{ tag: [tag.id] }}>
-                      {tag.name}
-                    </Link>
-                  </Badge>
-                ))}
-              </div>
-            ) : (
-              <p className="text-muted-foreground text-xs">No Tags</p>
             )}
           </div>
 
