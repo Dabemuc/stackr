@@ -2,9 +2,12 @@
 
 ## WIP
 
+- [ ] Skeletons, Loaders, ...
+
 ## TODO
 
-- [ ] Error when db empty?
+- [ ] Mobile
+  - [ ] Header
 
 ## Planned
 
@@ -14,6 +17,7 @@
 ## Maybe
 
 - [ ] Add 'created by' property
+- [ ] Error when db empty? -> not anymore???
 
 ## Done
 
