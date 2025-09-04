@@ -12,6 +12,7 @@ import { matchStatusToColor } from "./utils/matchStatusToColor";
 import { Link } from "@tanstack/react-router";
 import { Badge } from "./ui/badge";
 import ReactMarkdown from "react-markdown";
+import { ViewSkeleton } from "./skeletons/ViewSkeleton";
 
 export default function View() {
   const routeSearch = useSearch({ from: "/view" });
@@ -26,7 +27,7 @@ export default function View() {
     fetchData();
   }, [routeSearch.id]);
 
-  if (!data) return <p className="p-4 text-muted-foreground">Loading...</p>;
+  if (!data) return <ViewSkeleton />;
 
   // ---- Group relations with direction awareness ----
   const groupedRelations = data.relations?.reduce<
