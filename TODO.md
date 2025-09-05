@@ -47,3 +47,5 @@
 - [x] Mobile Header and Filter
 - [x] Custom md rendering
   - [x] code syntax highlighting
+- [x] Get Build running
+- [x] /stack add wip notification
