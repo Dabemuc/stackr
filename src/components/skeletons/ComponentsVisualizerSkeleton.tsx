@@ -1,4 +1,3 @@
-import { cn } from "@/lib/utils";
 import { Skeleton } from "../ui/skeleton";
 
 export default function ComponentsVisualizerSkeleton() {
@@ -7,7 +6,10 @@ export default function ComponentsVisualizerSkeleton() {
 
   const CardSkeleton = ({ height }: { height: number }) => {
     return (
-      <Skeleton className={cn(`h-[${height}rem]`, commonCardClassNames)} />
+      <Skeleton
+        style={{ height: `${height}rem` }}
+        className={commonCardClassNames}
+      />
     );
   };
 
