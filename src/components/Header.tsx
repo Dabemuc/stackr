@@ -116,16 +116,15 @@ function MobileNav({ headerElems }: { headerElems: HeaderElem[] }) {
     <div className="flex flex-col gap-4 items-start w-full mt-3 rounded-b-2xl">
       <div className="flex flex-col gap-4 pt-4 w-full">
         {Array.from(headerElems).map((elem, index) => (
-          <>
+          <div key={"header-" + index}>
             <Link
-              key={"header-" + index}
               to={elem.to}
               className="pl-4 font-medium transition-colors hover:text-primary hover:underline"
             >
               {elem.name}
             </Link>
             <Separator />
-          </>
+          </div>
         ))}
       </div>
       <div className="flex justify-end w-full gap-4">
