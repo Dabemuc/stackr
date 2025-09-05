@@ -6,6 +6,7 @@
 
 ## Planned
 
+- [ ] Progressive Web App support
 - [ ] /stack page
 - [ ] AI assistance on creating components
 
@@ -49,3 +50,4 @@
   - [x] code syntax highlighting
 - [x] Get Build running
 - [x] /stack add wip notification
+- [x] Dockerfile
