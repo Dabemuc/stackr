@@ -51,3 +51,4 @@
 - [x] Get Build running
 - [x] /stack add wip notification
 - [x] Dockerfile
+- [x] Favicon, title

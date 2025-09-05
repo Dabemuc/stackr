@@ -5,7 +5,7 @@ export function matchStatusToColor(statusToMatch: ComponentStatus) {
     case "Experimental":
       return "bg-yellow-500";
     case "Production-ready":
-      return "bg-green-500";
+      return "bg-gradient-to-br from-accent-gradiant-from to-accent-gradiant-to";
     case "Deprecated":
       return "bg-red-500";
   }

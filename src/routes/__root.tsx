@@ -4,8 +4,6 @@ import {
   Scripts,
   createRootRoute,
 } from "@tanstack/react-router";
-import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
-import { TanstackDevtools } from "@tanstack/react-devtools";
 
 import Header from "../components/Header";
 
@@ -14,8 +12,6 @@ import ClerkProvider from "../integrations/clerk/provider";
 import appCss from "../styles.css?url";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { NoThemeFlashScript } from "@/components/NoThemeFlashScript";
-import { Button } from "@/components/ui/button";
-import { seedDb } from "@/db/db";
 import { Toaster } from "@/components/ui/sonner";
 import { DevtoolsWrapper } from "@/components/Devtools";
 import { Suspense } from "react";
@@ -31,10 +27,14 @@ export const Route = createRootRoute({
         content: "width=device-width, initial-scale=1",
       },
       {
-        title: "TanStack Start Starter",
+        title: "Stackr",
       },
     ],
     links: [
+      {
+        rel: "icon",
+        href: "/favicon.svg",
+      },
       {
         rel: "stylesheet",
         href: appCss,

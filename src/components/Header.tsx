@@ -24,9 +24,13 @@ export default function Header() {
   return (
     <header className="px-6 py-3 shadow-sm bg-background flex flex-col">
       <div className="flex items-center justify-between">
-        {/* Left section: Logo + Nav */}
+        {/* Left section: Name + Nav */}
         <div className="flex items-center gap-8">
-          <div className="text-xl font-extrabold tracking-tight">Stackr</div>
+          <div className="flex items-center">
+            {/* Logo */}
+            <img src={"/logo.svg"} className="w-auto h-8 mr-1" />
+            <div className="text-xl font-extrabold tracking-tight">Stackr</div>
+          </div>
           <div className="hidden md:block">
             <DesktopNav headerElems={headerElems} />
           </div>
