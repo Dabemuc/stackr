@@ -4,6 +4,12 @@ FROM node:22-alpine AS builder
 # Set working dir
 WORKDIR /app
 
+# Define build-time argument
+ARG VITE_CLERK_PUBLISHABLE_KEY
+
+# Make it available as an environment variable during build
+ENV VITE_CLERK_PUBLISHABLE_KEY=$VITE_CLERK_PUBLISHABLE_KEY
+
 # Install deps
 COPY package.json package-lock.json ./
 RUN npm ci
