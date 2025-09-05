@@ -2,6 +2,9 @@
 
 ## WIP
 
+- [x] Custom md rendering
+  - [ ] code syntax highlighting
+
 ## TODO
 
 ## Planned

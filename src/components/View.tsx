@@ -10,9 +10,9 @@ import { Button } from "./ui/button";
 import { matchStatusToColor } from "./utils/matchStatusToColor";
 import { Link } from "@tanstack/react-router";
 import { Badge } from "./ui/badge";
-import ReactMarkdown from "react-markdown";
 import { ViewSkeleton } from "./skeletons/ViewSkeleton";
 import { Separator } from "./ui/separator";
+import CustomMdRenderer from "./md/CustomMdRenderer";
 
 export default function View() {
   const routeSearch = useSearch({ from: "/view" });
@@ -58,7 +58,7 @@ export default function View() {
       {/* Header Section */}
       <header className="mb-6">
         <div className="flex gap-3 items-center justify-between">
-          <h1 className="text-4xl font-bold mb-2 text-accent-gradiant-to/80">
+          <h1 className="text-4xl font-bold mb-2 text-accent-gradiant-to/90">
             {data.name}
           </h1>
           <SignedIn>
@@ -92,7 +92,9 @@ export default function View() {
           {/* Description */}
           <p className="text-lg text-muted-foreground">{data.description}</p>
           {/* Article */}
-          {data.article ? <ReactMarkdown>{data.article}</ReactMarkdown> : null}
+          {data.article ? (
+            <CustomMdRenderer>{data.article}</CustomMdRenderer>
+          ) : null}
           {/* Relations */}
           {groupedRelations && (
             <div className="space-y-6">
