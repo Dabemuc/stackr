@@ -1,8 +1,15 @@
 import ReactMarkdown, { Components } from "react-markdown";
 import { cn } from "@/lib/utils";
 import Code from "./Code";
+import hljs from "highlight.js/lib/common";
+import { useEffect } from "react";
 
 export default function CustomMdRenderer({ children }: { children: string }) {
+  useEffect(() => {
+    console.log("Startin highlighter");
+    hljs.highlightAll();
+  }, []);
+
   const components: Components = {
     h1: ({ node, ...props }) => (
       <h1

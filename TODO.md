@@ -2,9 +2,6 @@
 
 ## WIP
 
-- [x] Custom md rendering
-  - [ ] code syntax highlighting
-
 ## TODO
 
 ## Planned
@@ -48,3 +45,5 @@
 - [x] /add make tags mandatory
 - [x] Skeletons
 - [x] Mobile Header and Filter
+- [x] Custom md rendering
+  - [x] code syntax highlighting

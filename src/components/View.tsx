@@ -54,7 +54,7 @@ export default function View() {
   }, {});
 
   return (
-    <div className="p-8 max-w-6xl mx-auto">
+    <div className="p-8 max-w-7xl mx-auto">
       {/* Header Section */}
       <header className="mb-6">
         <div className="flex gap-3 items-center justify-between">
@@ -86,9 +86,9 @@ export default function View() {
         )}
       </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
         {/* Main content column */}
-        <div className="md:col-span-2 space-y-6">
+        <div className="md:col-span-3 space-y-6">
           {/* Description */}
           <p className="text-lg text-muted-foreground">{data.description}</p>
           {/* Article */}
@@ -133,7 +133,7 @@ export default function View() {
             {data.tags?.length > 0 ? (
               <div className="flex flex-wrap gap-2">
                 {data.tags.map((tag) => (
-                  <Badge key={tag.id} variant="outline" className="bg-bg">
+                  <Badge key={tag.id} variant="secondary">
                     <Link to={"/"} search={{ tag: [tag.id] }}>
                       {tag.name}
                     </Link>

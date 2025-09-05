@@ -1,5 +1,5 @@
 import { ReactNode, useState } from "react";
-import { cn } from "@/lib/utils"; // your classnames utility
+import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
 
 export default function Code({
@@ -49,7 +49,6 @@ export default function Code({
       >
         {copied ? "Copied!" : className.replace("language-", "")}
       </Button>
-
       <pre
         className="overflow-x-auto rounded-xl p-4 text-sm pt-10!"
         style={{
@@ -57,7 +56,9 @@ export default function Code({
           color: "var(--color-md-code)",
         }}
       >
-        <code {...props}>{children}</code>
+        <code {...props} className={className}>
+          {children}
+        </code>
       </pre>
     </div>
   );

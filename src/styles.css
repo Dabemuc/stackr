@@ -50,7 +50,7 @@ code {
   --accent-foreground: oklch(0.21 0.006 285.885);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.577 0.245 27.325);
-  --border: oklch(0.92 0.004 286.32);
+  --border: oklch(0.85 0.004 286.32);
   --input: oklch(0.92 0.004 286.32);
   --ring: oklch(0.871 0.006 286.286);
   --chart-1: oklch(0.646 0.222 41.116);
@@ -77,7 +77,11 @@ code {
   --color-md-link: var(--primary);
   --color-md-inline-code-bg: var(--bg);
   --color-md-inline-code-bg-hover: var(--bg-light);
-  --color-md-inline-code: var(--text);
+  --color-md-inline-code: color-mix(
+    in srgb,
+    var(--accent-gradiant-to) 90%,
+    transparent
+  );
   --color-md-code-bg: var(--bg);
   --color-md-code: var(--text);
   --color-md-article-bg: transparent;
@@ -117,7 +121,7 @@ code {
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.396 0.141 25.723);
   --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: oklch(0.274 0.006 286.033);
+  --border: oklch(0.374 0.006 286.033);
   --input: oklch(0.274 0.006 286.033);
   --ring: oklch(0.442 0.017 285.786);
   --chart-1: oklch(0.488 0.243 264.376);
@@ -143,11 +147,24 @@ code {
   --color-md-link: var(--primary);
   --color-md-inline-code-bg: var(--bg);
   --color-md-inline-code-bg-hover: var(--bg-light);
-  --color-md-inline-code: var(--text);
+  --color-md-inline-code: color-mix(
+    in srgb,
+    var(--accent-gradiant-to) 80%,
+    transparent
+  );
   --color-md-code-bg: var(--bg);
   --color-md-code: var(--text);
   --color-md-article-bg: transparent;
   --color-md-article-border: transparent;
+}
+
+/* Code highlighting theme */
+:root .hljs {
+  @import "highlight.js/styles/github.css";
+}
+
+.dark .hljs {
+  @import "highlight.js/styles/github-dark.css";
 }
 
 @theme inline {
