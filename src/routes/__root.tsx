@@ -17,6 +17,8 @@ import { NoThemeFlashScript } from "@/components/NoThemeFlashScript";
 import { Button } from "@/components/ui/button";
 import { seedDb } from "@/db/db";
 import { Toaster } from "@/components/ui/sonner";
+import { DevtoolsWrapper } from "@/components/Devtools";
+import { Suspense } from "react";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -70,25 +72,11 @@ function RootDocument({ children }: { children: React.ReactNode }) {
               expand={false}
             />
             {children}
-            <TanstackDevtools
-              config={{
-                position: "bottom-left",
-              }}
-              plugins={[
-                {
-                  name: "Tanstack Router",
-                  render: <TanStackRouterDevtoolsPanel />,
-                },
-                {
-                  name: "Stackr DevTools",
-                  render: (
-                    <div className="p-3">
-                      <Button onClick={() => seedDb()}>Seed db</Button>
-                    </div>
-                  ),
-                },
-              ]}
-            />
+            {import.meta.env.DEV && (
+              <Suspense fallback={null}>
+                <DevtoolsWrapper />
+              </Suspense>
+            )}
           </ClerkProvider>
         </ThemeProvider>
         <Scripts />
