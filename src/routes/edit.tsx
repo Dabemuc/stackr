@@ -1,10 +1,13 @@
 import ComponentForm, { ComponentFormData } from "@/components/ComponentForm";
 import { findComponentById, updateComponent } from "@/db/db";
 import { FindComponentByIdResult } from "@/db/handlers/findComponentByIdHandler";
+import { authStateFn } from "@/integrations/clerk/authStateFn";
 import { createFileRoute, useSearch } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 
 export const Route = createFileRoute("/edit")({
+  beforeLoad: async () => await authStateFn(),
+  loader: async ({ context }) => ({ userId: context.userId }),
   component: RouteComponent,
   validateSearch: (search) => ({
     id: search.id ? Number(search.id) : undefined,

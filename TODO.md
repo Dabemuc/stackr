@@ -4,6 +4,8 @@
 
 ## TODO
 
+- [ ] About Modal
+
 ## Planned
 
 - [ ] Progressive Web App support
@@ -52,3 +54,5 @@
 - [x] /stack add wip notification
 - [x] Dockerfile
 - [x] Favicon, title
+- [x] Fix Clerk in prod
+- [x] Role based access control

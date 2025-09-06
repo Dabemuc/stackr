@@ -12,13 +12,15 @@ import { Separator } from "./ui/separator.tsx";
 type HeaderElem = { name: string; to: string };
 
 export default function Header() {
-  const { isSignedIn } = useAuth();
+  const { isSignedIn, sessionClaims } = useAuth();
   const [accordionOpen, setAccordionOpen] = useState(false);
 
   const headerElems: HeaderElem[] = [
     { name: "Overview", to: "/" },
     { name: "Build your stack", to: "/stack" },
-    ...(isSignedIn ? [{ name: "Add Component", to: "/add" }] : []),
+    ...(isSignedIn && sessionClaims.metadata.role === "admin"
+      ? [{ name: "Add Component", to: "/add" }]
+      : []),
   ];
 
   return (

@@ -1,6 +1,7 @@
 import { getAuth } from "@clerk/tanstack-react-start/server";
 import { getWebRequest } from "@tanstack/react-start/server";
 import { redirect } from "@tanstack/react-router";
+import { Roles } from "@/global-types";
 
 /**
  * Enforces Clerk authentication on the current request. Server Side only!!!.
@@ -8,16 +9,17 @@ import { redirect } from "@tanstack/react-router";
  * @param options.mode "redirect" → redirect to sign-in
  *                     "api"      → throw 401 Response
  */
-export async function requireAuth(options: { mode?: "redirect" | "api" } = {}) {
+export async function requireAuth(
+  options: { mode?: "redirect" | "api"; role?: Roles } = {},
+) {
   const request = getWebRequest();
   if (!request) {
     throw new Error("No request found");
   }
 
-  const { userId, sessionId } = await getAuth(request);
+  const { userId, sessionId, sessionClaims } = await getAuth(request);
 
-  if (!userId) {
-    console.log("Unauthorized attempt to access", request.url);
+  function doBlock() {
     if (options.mode === "api") {
       // For API/server endpoints
       throw new Response("Unauthorized", { status: 401 });
@@ -29,6 +31,32 @@ export async function requireAuth(options: { mode?: "redirect" | "api" } = {}) {
     }
   }
 
-  console.log("Authorized request for", request.url);
+  if (!userId) {
+    console.log("Unauthenticated attempt to access", request.url);
+    doBlock();
+  }
+
+  if (options.role && sessionClaims?.metadata.role !== options.role) {
+    console.log(
+      "Unauthorized attempt to access",
+      request.url,
+      "\nUserid:",
+      userId,
+      "\nRole:",
+      sessionClaims?.metadata.role,
+    );
+    doBlock();
+  }
+
+  console.log(
+    "Authorized request for",
+    request.url,
+    "\nuserid:",
+    userId,
+    "\sessionId:",
+    sessionId,
+    "\sessionClaims:",
+    sessionClaims,
+  );
   return { userId, sessionId };
 }

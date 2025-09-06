@@ -24,7 +24,7 @@ export const insertComponent = createServerFn({ method: "POST" })
     const { requireAuth } = await import(
       "@/integrations/clerk/requireAuth.server"
     );
-    await requireAuth({ mode: "api" });
+    await requireAuth({ mode: "api", role: "admin" });
     return insertComponentHandler(ctx);
   });
 
@@ -34,7 +34,7 @@ export const updateComponent = createServerFn({ method: "POST" })
     const { requireAuth } = await import(
       "@/integrations/clerk/requireAuth.server"
     );
-    await requireAuth({ mode: "api" });
+    await requireAuth({ mode: "api", role: "admin" });
     return updateComponentHandler(ctx);
   });
 

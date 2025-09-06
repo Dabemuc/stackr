@@ -1,7 +1,7 @@
 import { findComponentById } from "@/db/db";
 import { FindComponentByIdResult } from "@/db/handlers/findComponentByIdHandler";
 import { cn } from "@/lib/utils";
-import { SignedIn } from "@clerk/clerk-react";
+import { SignedIn, useAuth } from "@clerk/clerk-react";
 import { useSearch } from "@tanstack/react-router";
 import { Pencil, ExternalLink } from "lucide-react";
 import { useState, useEffect } from "react";
@@ -17,6 +17,7 @@ import CustomMdRenderer from "./md/CustomMdRenderer";
 export default function View() {
   const routeSearch = useSearch({ from: "/view" });
   const [data, setData] = useState<FindComponentByIdResult>();
+  const { isSignedIn, sessionClaims } = useAuth();
 
   useEffect(() => {
     async function fetchData() {
@@ -54,14 +55,14 @@ export default function View() {
   }, {});
 
   return (
-    <div className="p-8 max-w-7xl mx-auto">
+    <div className="p-8 max-w-6xl mx-auto">
       {/* Header Section */}
       <header className="mb-6">
-        <div className="flex gap-3 items-center justify-between">
+        <div className="flex gap-6 justify-start">
           <h1 className="text-4xl font-bold mb-2 text-accent-gradiant-to/90">
             {data.name}
           </h1>
-          <SignedIn>
+          {isSignedIn && sessionClaims.metadata.role === "admin" && (
             <Link to={"/edit"} search={{ id: data.id }} title="Edit">
               <Button
                 variant="ghost"
@@ -71,7 +72,7 @@ export default function View() {
                 <Pencil className="scale-125" />
               </Button>
             </Link>
-          </SignedIn>
+          )}
         </div>
         {data.types?.length > 0 && (
           <div className="flex gap-2 mb-4">
