@@ -1,7 +1,7 @@
 import { findComponentById } from "@/db/db";
 import { FindComponentByIdResult } from "@/db/handlers/findComponentByIdHandler";
 import { cn } from "@/lib/utils";
-import { SignedIn, useAuth } from "@clerk/clerk-react";
+import { useAuth } from "@clerk/clerk-react";
 import { useSearch } from "@tanstack/react-router";
 import { Pencil, ExternalLink } from "lucide-react";
 import { useState, useEffect } from "react";

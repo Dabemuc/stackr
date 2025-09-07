@@ -5,10 +5,14 @@
 ## TODO
 
 - [ ] About Modal
+- [ ] Readme
+- [ ] Logging -> Posthog?
+- [ ] Analytics -> Posthog?
 
 ## Planned
 
 - [ ] Progressive Web App support
+- [ ] Custom clerk ui
 - [ ] /stack page
 - [ ] AI assistance on creating components
 
@@ -56,3 +60,4 @@
 - [x] Favicon, title
 - [x] Fix Clerk in prod
 - [x] Role based access control
+- [x] Md numbered list rendering

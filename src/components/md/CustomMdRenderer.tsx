@@ -50,6 +50,12 @@ export default function CustomMdRenderer({ children }: { children: string }) {
         {...props}
       />
     ),
+    ol: ({ node, ...props }) => (
+      <ol
+        className="list-decimal ml-5 mb-4 space-y-2 marker:text-[color:var(--color-md-bullet)]"
+        {...props}
+      />
+    ),
     li: ({ node, ...props }) => (
       <li className="text-[color:var(--color-md-li)] leading-relaxed">
         {props.children}
