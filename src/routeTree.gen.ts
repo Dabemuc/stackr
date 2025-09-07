@@ -13,6 +13,7 @@ import { Route as ViewRouteImport } from './routes/view'
 import { Route as StackRouteImport } from './routes/stack'
 import { Route as EditRouteImport } from './routes/edit'
 import { Route as AddRouteImport } from './routes/add'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
 const ViewRoute = ViewRouteImport.update({
@@ -35,6 +36,11 @@ const AddRoute = AddRouteImport.update({
   path: '/add',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -43,6 +49,7 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/add': typeof AddRoute
   '/edit': typeof EditRoute
   '/stack': typeof StackRoute
@@ -50,6 +57,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/add': typeof AddRoute
   '/edit': typeof EditRoute
   '/stack': typeof StackRoute
@@ -58,6 +66,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/add': typeof AddRoute
   '/edit': typeof EditRoute
   '/stack': typeof StackRoute
@@ -65,14 +74,15 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/add' | '/edit' | '/stack' | '/view'
+  fullPaths: '/' | '/about' | '/add' | '/edit' | '/stack' | '/view'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/add' | '/edit' | '/stack' | '/view'
-  id: '__root__' | '/' | '/add' | '/edit' | '/stack' | '/view'
+  to: '/' | '/about' | '/add' | '/edit' | '/stack' | '/view'
+  id: '__root__' | '/' | '/about' | '/add' | '/edit' | '/stack' | '/view'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
   AddRoute: typeof AddRoute
   EditRoute: typeof EditRoute
   StackRoute: typeof StackRoute
@@ -109,6 +119,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AddRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -121,6 +138,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
   AddRoute: AddRoute,
   EditRoute: EditRoute,
   StackRoute: StackRoute,

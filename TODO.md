@@ -4,7 +4,6 @@
 
 ## TODO
 
-- [ ] About Modal
 - [ ] Readme
 - [ ] Logging -> Posthog?
 - [ ] Analytics -> Posthog?
@@ -12,6 +11,8 @@
 ## Planned
 
 - [ ] Progressive Web App support
+- [ ] More Overview views support
+  - [ ] Component-oriented View
 - [ ] Custom clerk ui
 - [ ] /stack page
 - [ ] AI assistance on creating components
@@ -61,3 +62,4 @@
 - [x] Fix Clerk in prod
 - [x] Role based access control
 - [x] Md numbered list rendering
+- [x] About Modal

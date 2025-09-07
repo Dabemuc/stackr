@@ -18,6 +18,7 @@ export default function Header() {
   const headerElems: HeaderElem[] = [
     { name: "Overview", to: "/" },
     { name: "Build your stack", to: "/stack" },
+    { name: "About", to: "/about" },
     ...(isSignedIn && sessionClaims.metadata.role === "admin"
       ? [{ name: "Add Component", to: "/add" }]
       : []),
