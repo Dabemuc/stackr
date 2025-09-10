@@ -51,7 +51,7 @@ export type ComponentFormData = {
   type: { id: number | null; name: string }[];
   description: string;
   article: string;
-  links: string[];
+  links: { title: string; link: string }[];
   status: ComponentStatus;
   tags: string[];
   relations: { targetId: string; relationType: ComponentRelation }[];
@@ -234,7 +234,7 @@ export default function ComponentForm({
           name="links"
           validators={{
             onSubmit: ({ value }) => {
-              const issue = value.find((link) => link.trim() === "");
+              const issue = value.find((link) => link.link.trim() === "");
               return issue !== undefined ? "No empty links allowed" : undefined;
             },
           }}
@@ -246,12 +246,23 @@ export default function ComponentForm({
                 <div key={idx} className="flex gap-2 mb-2">
                   <Input
                     className="bg-secondary"
-                    value={link}
+                    value={link.title}
                     onChange={(e) => {
                       const newLinks = [...field.state.value];
-                      newLinks[idx] = e.target.value;
+                      newLinks[idx].title = e.target.value;
                       field.handleChange(newLinks);
                     }}
+                    placeholder="Titel"
+                  />
+                  <Input
+                    className="bg-secondary"
+                    value={link.link}
+                    onChange={(e) => {
+                      const newLinks = [...field.state.value];
+                      newLinks[idx].link = e.target.value;
+                      field.handleChange(newLinks);
+                    }}
+                    placeholder="Url"
                   />
                   <Button
                     type="button"
@@ -273,7 +284,12 @@ export default function ComponentForm({
                   type="button"
                   className="w-fit"
                   variant="secondary"
-                  onClick={() => field.handleChange([...field.state.value, ""])}
+                  onClick={() =>
+                    field.handleChange([
+                      ...field.state.value,
+                      { title: "", link: "" },
+                    ])
+                  }
                 >
                   + Add Link
                 </Button>

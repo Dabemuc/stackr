@@ -7,7 +7,14 @@ export const ComponentBaseSchema = z
     name: z.string(),
     description: z.string(),
     article: z.string(),
-    links: z.array(z.string()).default([]),
+    links: z
+      .array(
+        z.object({
+          title: z.string(),
+          link: z.string(),
+        }),
+      )
+      .default([]),
     status: z.enum(componentStatuses),
     tags: z.array(z.string()).default([]),
     type: z

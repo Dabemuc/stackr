@@ -50,6 +50,13 @@
       "when": 1756976391540,
       "tag": "0006_serious_gambit",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1757515610822,
+      "tag": "0007_fearless_retro_girl",
+      "breakpoints": true
     }
   ]
 }

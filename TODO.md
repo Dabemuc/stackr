@@ -4,6 +4,7 @@
 
 ## TODO
 
+- [ ] Auto fetch e.g. YT video name on pasting link
 - [ ] Make /add and /edit mobile friendly
 - [ ] Logging -> Posthog?
 - [ ] Analytics -> Posthog?
@@ -64,3 +65,4 @@
 - [x] Md numbered list rendering
 - [x] About page
 - [x] Readme
+- [x] Add title to link
