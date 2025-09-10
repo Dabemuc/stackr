@@ -173,13 +173,13 @@ export default function View() {
               <div className="space-y-1">
                 {data.links.map((link, idx) => (
                   <a
-                    href={link}
+                    href={link.link}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-1 text-accent-gradiant-from/90 hover:underline"
                     key={idx}
                   >
-                    {link}
+                    {link.title ? link.title : link.link}
                     <ExternalLink className="w-4 h-4" />
                   </a>
                 ))}

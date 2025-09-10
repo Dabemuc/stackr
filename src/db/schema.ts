@@ -8,6 +8,7 @@ import {
   text,
   primaryKey,
   timestamp,
+  jsonb,
 } from "drizzle-orm/pg-core";
 
 // ------------------ Components ------------------
@@ -18,7 +19,7 @@ export const components = pgTable(
     name: varchar({ length: 255 }).notNull(),
     description: text(),
     article: text(),
-    links: text().array(),
+    links: jsonb("links").$type<{ title: string; link: string }[]>(),
     status: varchar({ length: 255 }).$type<ComponentStatus>().notNull(),
     updated_at: timestamp("updated_at", { withTimezone: true, mode: "date" })
       .notNull()
