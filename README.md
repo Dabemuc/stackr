@@ -44,7 +44,7 @@ TODO: Add gif
 - Auth Provider: [Clerk](https://clerk.com/)
 - Component Library: [Shadcn](https://ui.shadcn.com/)
 
-Currently deployed on a always-free Oracle Cloud VM.Standard.E2.1.Micro
+Currently deployed on a always-free Oracle Cloud VM.Standard.E2.1.Micro and built using GitHub Actions.
 
 ## Develop
 

@@ -4,7 +4,7 @@
 
 ## TODO
 
-- [ ] Auto fetch e.g. YT video name on pasting link
+- [ ] Fix displayed "Last updated" not showing the latest date
 - [ ] Make /add and /edit mobile friendly
 - [ ] Logging -> Posthog?
 - [ ] Analytics -> Posthog?
@@ -66,3 +66,4 @@
 - [x] About page
 - [x] Readme
 - [x] Add title to link
+- [x] Auto fetch e.g. YT video name on pasting link
