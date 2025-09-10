@@ -21,7 +21,8 @@ function RouteComponent() {
 const mainParagraph = `# TLDR
 
 Stackr is my personal knowledge base for every thing in IT.  
-It’s a place to capture newly gained knowledge, while providing an interactive overview to make it easier to pick the right solution for the job at hand.
+It’s a place to capture newly gained knowledge, while providing an interactive overview to make it easier to pick the right solution for the job at hand.  
+Although you are welcome to use mine, you can [set up Stackr for yourself](https://github.com/Dabemuc/stackr) as well.
 # The Problem
 
 Imagine you are tasked with building a system from the ground up. Or maybe you are already managing a (maybe not so) well-oiled machine that needs some new gears, aftermarket parts, or special tuning.  

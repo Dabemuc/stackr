@@ -74,7 +74,7 @@ code {
   --color-md-p: var(--text);
   --color-md-bullet: var(--accent-gradiant-to);
   --color-md-li: var(--text);
-  --color-md-link: var(--primary);
+  --color-md-link: color-mix(in srgb, var(--accent-gradiant-from) 90%, black);
   --color-md-inline-code-bg: var(--bg);
   --color-md-inline-code-bg-hover: var(--bg-light);
   --color-md-inline-code: color-mix(
@@ -144,7 +144,7 @@ code {
   --color-md-p: var(--text);
   --color-md-bullet: var(--accent-gradiant-to);
   --color-md-li: var(--text);
-  --color-md-link: var(--primary);
+  --color-md-link: var(--accent-gradiant-from);
   --color-md-inline-code-bg: var(--bg);
   --color-md-inline-code-bg-hover: var(--bg-light);
   --color-md-inline-code: color-mix(
