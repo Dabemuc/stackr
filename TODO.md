@@ -4,7 +4,7 @@
 
 ## TODO
 
-- [ ] Readme
+- [ ] Make /add and /edit mobile friendly
 - [ ] Logging -> Posthog?
 - [ ] Analytics -> Posthog?
 
@@ -62,4 +62,5 @@
 - [x] Fix Clerk in prod
 - [x] Role based access control
 - [x] Md numbered list rendering
-- [x] About Modal
+- [x] About page
+- [x] Readme

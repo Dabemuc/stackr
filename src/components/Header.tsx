@@ -29,11 +29,11 @@ export default function Header() {
       <div className="flex items-center justify-between">
         {/* Left section: Name + Nav */}
         <div className="flex items-center gap-8">
-          <div className="flex items-center">
-            {/* Logo */}
+          {/* Logo */}
+          <Link to="/" className="flex items-center">
             <img src={"/logo.svg"} className="w-auto h-8 mr-1" />
             <div className="text-xl font-extrabold tracking-tight">Stackr</div>
-          </div>
+          </Link>
           <div className="hidden md:block">
             <DesktopNav headerElems={headerElems} />
           </div>
@@ -118,7 +118,13 @@ function MobileNavButton({
   );
 }
 
-function MobileNav({ headerElems }: { headerElems: HeaderElem[] }) {
+function MobileNav({
+  headerElems,
+  setAccordionOpen,
+}: {
+  headerElems: HeaderElem[];
+  setAccordionOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   return (
     <div className="flex flex-col gap-4 items-start w-full mt-3 rounded-b-2xl">
       <div className="flex flex-col gap-4 pt-4 w-full">
@@ -127,10 +133,11 @@ function MobileNav({ headerElems }: { headerElems: HeaderElem[] }) {
             <Link
               to={elem.to}
               className="pl-4 font-medium transition-colors hover:text-primary hover:underline"
+              onClick={() => setAccordionOpen(false)}
             >
               {elem.name}
             </Link>
-            <Separator />
+            <Separator className="mt-2" />
           </div>
         ))}
       </div>
