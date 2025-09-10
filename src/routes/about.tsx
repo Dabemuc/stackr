@@ -7,7 +7,7 @@ export const Route = createFileRoute("/about")({
 
 function RouteComponent() {
   return (
-    <div className="w-full flex flex-col items-center">
+    <div className="p-8 w-full flex flex-col items-center">
       <div>
         <h1 className="text-4xl font-bold mb-2 text-accent-gradiant-to/90">
           About Stackr

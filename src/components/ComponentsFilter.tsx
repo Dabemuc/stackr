@@ -167,10 +167,9 @@ export default function ComponentsFilter({
       </div>
     );
   }
+
   return (
-    <div
-      className={"p-4 border rounded-b-2xl shadow-sm md:flex md:items-center"}
-    >
+    <div className={"p-4 md:flex md:items-center"}>
       <div className="flex justify-between">
         {/* Search */}
         <Input

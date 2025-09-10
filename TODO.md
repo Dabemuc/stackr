@@ -4,6 +4,7 @@
 
 ## TODO
 
+- [ ] Make /add and /edit mobile friendly
 - [ ] Logging -> Posthog?
 - [ ] Analytics -> Posthog?
 
