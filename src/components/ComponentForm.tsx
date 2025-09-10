@@ -17,6 +17,7 @@ import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { toast } from "sonner";
 import { useNavigate } from "@tanstack/react-router";
+import fetchTitleForUrl from "./utils/fetchTitleForUrl";
 
 // Helper to show validation state
 function FieldInfo({ field }: { field: AnyFieldApi }) {
@@ -229,7 +230,7 @@ export default function ComponentForm({
           )}
         </form.Field>
 
-        {/* Links (array of strings) */}
+        {/* Links (array of {string, string}) */}
         <form.Field
           name="links"
           validators={{
@@ -262,6 +263,16 @@ export default function ComponentForm({
                       newLinks[idx].link = e.target.value;
                       field.handleChange(newLinks);
                     }}
+                    onPaste={async (e) =>
+                      fetchTitleForUrl(
+                        e.clipboardData.getData("text"),
+                        (title: string) => {
+                          const newLinks = [...field.state.value];
+                          newLinks[idx].title = title;
+                          field.handleChange(newLinks);
+                        },
+                      )
+                    }
                     placeholder="Url"
                   />
                   <Button
