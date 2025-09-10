@@ -6,7 +6,6 @@ import { useEffect } from "react";
 
 export default function CustomMdRenderer({ children }: { children: string }) {
   useEffect(() => {
-    console.log("Startin highlighter");
     hljs.highlightAll();
   }, []);
 
