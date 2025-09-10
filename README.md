@@ -54,7 +54,8 @@ Note: All following commands should be run from the projects root directory.
 
 1. Install packages: `npm install`
 2. Rename .example.env to .env and fill in secrets
-3. Run dev server: `npm run dev`
+3. Push schema to db: `npm run drizzle:dev:push`
+4. Run dev server: `npm run dev`
 
 ### Npm utils
 
@@ -80,7 +81,9 @@ Build image with public env vars:
 docker build --build-arg VITE_CLERK_PUBLISHABLE_KEY=[YOUR CLERK PUBLISHABLE KEY] -t stackr .
 ```
 
-How you procede with the image depends on the infrastructure you want to deploy on. You might want to push the image to a registry and have your orchestrator fetch it. For the sake of simplicity the following is an example on how to run the image on the same machine it was built on:
+Don't forget to push the schema to the prod db using the appropriate [npm script](#npm-utils).
+
+How you proceed with the image depends on the infrastructure you want to deploy on. You might want to push the image to a registry and have your orchestrator fetch it. For the sake of simplicity the following is an example on how to run the image on the same machine it was built on:
 
 ```sh
 docker run -p 3000:3000 \
