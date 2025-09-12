@@ -2,6 +2,7 @@ import { components, tags, types } from "./schema";
 import { createServerFn } from "@tanstack/react-start";
 import { sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/neon-serverless";
+import { upstashCache } from "drizzle-orm/cache/upstash";
 import { seed } from "./testData/seedTestData";
 import { findComponentsGroupedByTagThenTypeHandler } from "./handlers/findComponentsGroupedByTagThenTypeHandler";
 import { insertComponentHandler } from "./handlers/insertComponentHandler";
@@ -10,7 +11,23 @@ import { updateComponentHandler } from "./handlers/updateComponentHandler";
 import insertComponentValidator from "./validators/insertComponentValidator";
 import updateComponentValidator from "./validators/updateComponentValidator";
 
-export const db = drizzle(process.env.DATABASE_URL!);
+const cacheConf =
+  process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN
+    ? upstashCache({
+        url: process.env.UPSTASH_REDIS_REST_URL,
+        token: process.env.UPSTASH_REDIS_REST_TOKEN,
+        global: true,
+        config: {
+          ex: 60 * 60 * 24, // Ttl of 24 hours
+        },
+      })
+    : undefined;
+if (cacheConf) console.log("Utilizing Upstash Cache...");
+else console.log("Can't initialize Upstash Cache. Skipping!");
+
+export const db = drizzle(process.env.DATABASE_URL!, {
+  cache: cacheConf,
+});
 
 export const seedDb = createServerFn({ method: "POST" }).handler(async () => {
   console.log("🌱 Running seed data...");
