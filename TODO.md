@@ -2,6 +2,8 @@
 
 ## WIP
 
+- [ ] Caching
+
 ## TODO
 
 - [ ] Fix displayed "Last updated" not showing the latest date
@@ -67,3 +69,4 @@
 - [x] Readme
 - [x] Add title to link
 - [x] Auto fetch e.g. YT video name on pasting link
+- [x] Fix tags not being fetched hierarchically

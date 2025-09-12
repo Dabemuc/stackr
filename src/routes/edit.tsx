@@ -52,7 +52,7 @@ function RouteComponent() {
           type: data.types,
           status: data.status,
           links: data.links ?? [],
-          tags: data.tags ? data.tags.map((tag) => tag.name) : [],
+          tags: data.tags ? data.tags.map((tag) => tag.fullPath) : [],
           relations: data.relations
             ? data.relations
                 .filter((rel) => rel.target)

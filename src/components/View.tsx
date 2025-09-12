@@ -136,7 +136,7 @@ export default function View() {
                 {data.tags.map((tag) => (
                   <Badge key={tag.id} variant="secondary">
                     <Link to={"/"} search={{ tag: [tag.id] }}>
-                      {tag.name}
+                      {tag.fullPath}
                     </Link>
                   </Badge>
                 ))}

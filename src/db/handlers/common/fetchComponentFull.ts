@@ -19,8 +19,21 @@ export default async function fetchComponentFull(componentId: number, tx: Tx) {
 
   if (!component) return null;
 
-  // --- Fetch tags
-  const tagRows = await tx
+  // --- Fetch all tags into memory
+  const allTags = await tx
+    .select({
+      id: tags.id,
+      name: tags.name,
+      parentTagId: tags.parentTagId,
+      updated_at: tags.updated_at,
+    })
+    .from(tags);
+
+  // Index by id for quick lookup
+  const tagMap = new Map(allTags.map((t) => [t.id, t]));
+
+  // --- Fetch component tags
+  const tagRowsRaw = await tx
     .select({
       id: tags.id,
       name: tags.name,
@@ -30,6 +43,25 @@ export default async function fetchComponentFull(componentId: number, tx: Tx) {
     .from(componentsTags)
     .innerJoin(tags, eq(componentsTags.tagId, tags.id))
     .where(eq(componentsTags.componentId, componentId));
+
+  // --- Helper: resolve full path
+  function resolveFullPath(tag: (typeof tagRowsRaw)[number]): string {
+    const parts: string[] = [tag.name];
+    let current = tagMap.get(tag.parentTagId ?? -1);
+
+    while (current) {
+      parts.unshift(current.name);
+      current = tagMap.get(current.parentTagId ?? -1);
+    }
+
+    return parts.join("/");
+  }
+
+  // --- Add fullPath field
+  const tagRows = tagRowsRaw.map((tag) => ({
+    ...tag,
+    fullPath: resolveFullPath(tag),
+  }));
 
   // --- Fetch types
   const typeRows = await tx
