@@ -69,7 +69,7 @@ export const componentsData: NewComponent[] = [
     name: "React",
     status: "Production-ready",
     description: "JavaScript UI library",
-    links: ["https://react.dev"],
+    links: [{ title: "React", link: "https://react.dev" }],
     article: `
 React emphasizes a declarative, component-driven approach and powers some of the largest apps on the web.
 
@@ -87,7 +87,7 @@ Use React when building interactive UIs where state management and reusable comp
     name: "Next.js",
     status: "Production-ready",
     description: "Fullstack React framework",
-    links: ["https://nextjs.org"],
+    links: [{ title: "Next.js", link: "https://nextjs.org" }],
     article: `
 Built on top of React, it provides everything needed for production-ready apps.
 
@@ -105,7 +105,7 @@ Perfect for apps that need SEO, fast load times, or a hybrid SSR/SSG approach.
     name: "Angular",
     status: "Production-ready",
     description: "TypeScript-based frontend framework",
-    links: ["https://angular.io"],
+    links: [{ title: "Angular", link: "https://angular.io" }],
     article: `
 Developed by Google, it offers a powerful ecosystem for building web apps.
 
@@ -123,7 +123,7 @@ Large-scale enterprise applications with complex requirements and long-term supp
     name: "Vue.js",
     status: "Production-ready",
     description: "Progressive frontend framework",
-    links: ["https://vuejs.org"],
+    links: [{ title: "Vue.js", link: "https://vuejs.org" }],
     article: `
 Balances simplicity with powerful tooling.
 
@@ -140,7 +140,7 @@ Great for teams who want flexibility, simplicity, and fast onboarding.
     name: "PostgreSQL",
     status: "Production-ready",
     description: "Relational database",
-    links: ["https://www.postgresql.org"],
+    links: [{ title: "PostgreSQL", link: "https://www.postgresql.org" }],
     article: `
 Known for reliability and standards compliance.
 
@@ -158,7 +158,7 @@ Perfect for structured data, analytics, and applications needing strong data int
     name: "MongoDB",
     status: "Production-ready",
     description: "NoSQL document database",
-    links: ["https://www.mongodb.com"],
+    links: [{ title: "MongoDB", link: "https://www.mongodb.com" }],
     article: `
 Stores data in flexible JSON-like documents.
 
@@ -175,7 +175,7 @@ Applications with flexible schemas or unstructured data.
     name: "Prisma",
     status: "Production-ready",
     description: "Type-safe ORM for Node.js",
-    links: ["https://www.prisma.io"],
+    links: [{ title: "Prisma", link: "https://www.prisma.io" }],
     article: `
 Speeds up backend development with type safety and excellent developer tooling.
 
@@ -190,7 +190,7 @@ Speeds up backend development with type safety and excellent developer tooling.
     name: "TypeORM",
     status: "Production-ready",
     description: "ORM supporting multiple databases",
-    links: ["https://typeorm.io"],
+    links: [{ title: "TypeORM", link: "https://typeorm.io" }],
     article: `
 A TypeScript-native ORM with flexible architecture options.
 
@@ -208,7 +208,9 @@ Good for developers who prefer a TypeScript-native ORM with flexibility in archi
     name: "Firebase Auth",
     status: "Production-ready",
     description: "Authentication as a service",
-    links: ["https://firebase.google.com/docs/auth"],
+    links: [
+      { title: "Firebase Auth", link: "https://firebase.google.com/docs/auth" },
+    ],
     article: `
 Provides managed authentication out of the box.
 
@@ -226,7 +228,7 @@ Mobile and web apps that need fast, scalable, and low-maintenance auth.
     name: "Supabase",
     status: "Experimental",
     description: "Open source Firebase alternative with Postgres",
-    links: ["https://supabase.com"],
+    links: [{ title: "Supabase", link: "https://supabase.com" }],
     article: `
 Offers Firebase-like DX but built on open standards.
 
@@ -244,7 +246,7 @@ Developers who want Firebase-like DX but with SQL and open standards.
     name: "Auth0",
     status: "Production-ready",
     description: "Identity and authentication platform",
-    links: ["https://auth0.com"],
+    links: [{ title: "Auth0", link: "https://auth0.com" }],
     article: `
 Enterprise-ready authentication and identity federation.
 
@@ -261,7 +263,7 @@ Best for production apps that need secure, enterprise-ready authentication.
     name: "Jest",
     status: "Production-ready",
     description: "JavaScript testing framework",
-    links: ["https://jestjs.io"],
+    links: [{ title: "Jest", link: "https://jestjs.io" }],
     article: `
 Provides fast and reliable testing with great integration in the JS ecosystem.
 
@@ -279,7 +281,7 @@ Unit and integration testing in JavaScript/TypeScript projects.
     name: "Playwright",
     status: "Experimental",
     description: "End-to-end testing framework",
-    links: ["https://playwright.dev"],
+    links: [{ title: "Playwright", link: "https://playwright.dev" }],
     article: `
 Developed by Microsoft for modern, cross-browser automation.
 
@@ -297,7 +299,7 @@ Automated UI tests across browsers with consistent APIs.
     name: "Docker",
     status: "Production-ready",
     description: "Containerization platform",
-    links: ["https://www.docker.com"],
+    links: [{ title: "Docker", link: "https://www.docker.com" }],
     article: `
 Packages apps with dependencies in lightweight, portable containers.
 
@@ -314,7 +316,7 @@ Developers wanting consistent environments across dev, test, and production.
     name: "Kubernetes",
     status: "Production-ready",
     description: "Container orchestration system",
-    links: ["https://kubernetes.io"],
+    links: [{ title: "Kubernetes", link: "https://kubernetes.io" }],
     article: `
 Automates container deployment and scaling across clusters.
 
@@ -332,7 +334,7 @@ Best for teams deploying microservices or complex container-based systems.
     name: "Stripe API",
     status: "Production-ready",
     description: "Payments API",
-    links: ["https://stripe.com/docs/api"],
+    links: [{ title: "Stripe API", link: "https://stripe.com/docs/api" }],
     article: `
 Handles global payments with developer-friendly APIs.
 
@@ -350,7 +352,7 @@ Perfect for apps needing payments, subscriptions, or marketplaces.
     name: "Segment",
     status: "Production-ready",
     description: "Analytics and data pipeline",
-    links: ["https://segment.com"],
+    links: [{ title: "Segment", link: "https://segment.com" }],
     article: `
 Centralizes data collection and routing for analytics and marketing tools.
 
@@ -368,7 +370,9 @@ Centralizing data pipelines and analytics integrations.
     name: "GitHub Actions",
     status: "Production-ready",
     description: "CI/CD for GitHub repositories",
-    links: ["https://github.com/features/actions"],
+    links: [
+      { title: "GitHub Actions", link: "https://github.com/features/actions" },
+    ],
     article: `
 Automates workflows directly inside GitHub repositories.
 
@@ -386,7 +390,7 @@ Automating builds, tests, and deployments directly in GitHub repos.
     name: "CircleCI",
     status: "Production-ready",
     description: "Continuous integration & delivery",
-    links: ["https://circleci.com"],
+    links: [{ title: "CircleCI", link: "https://circleci.com" }],
     article: `
 Flexible, cloud-first CI/CD pipelines.
 
@@ -404,7 +408,7 @@ Teams that want flexible, cloud-first CI/CD pipelines.
     name: "Terraform",
     status: "Production-ready",
     description: "Infrastructure as Code",
-    links: ["https://www.terraform.io"],
+    links: [{ title: "Terraform", link: "https://www.terraform.io" }],
     article: `
 Provides reproducible infrastructure management at scale.
 

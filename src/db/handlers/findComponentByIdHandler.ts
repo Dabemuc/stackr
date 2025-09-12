@@ -7,7 +7,6 @@ export const findComponentByIdHandler = async (
   ctx: ServerFnCtx<"GET", "data", undefined, (id: number) => number>,
 ) => {
   const componentId = ctx.data;
-  console.log("Finding component with id:", componentId);
 
   const fetched = await db.transaction(async (tx: Tx) => {
     return await fetchComponentFull(componentId, tx);
