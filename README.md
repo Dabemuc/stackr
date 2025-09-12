@@ -41,6 +41,7 @@ TODO: Add gif
 - Fullstack Framework: [TanStack start](https://tanstack.com/start/latest) (Vite, React, TanStack Router, Typescript, Tailwind)
 - Database: [Neon Postgres](https://neon.com/)
 - ORM: [Drizzle](https://orm.drizzle.team/)
+- Cache: [Upstash](https://upstash.com/)
 - Auth Provider: [Clerk](https://clerk.com/)
 - Component Library: [Shadcn](https://ui.shadcn.com/)
 
