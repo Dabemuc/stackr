@@ -2,6 +2,7 @@ import { getAuth } from "@clerk/tanstack-react-start/server";
 import { getWebRequest } from "@tanstack/react-start/server";
 import { redirect } from "@tanstack/react-router";
 import { Roles } from "@/global-types";
+import { logger } from "@/logging/logger";
 
 /**
  * Enforces Clerk authentication on the current request. Server Side only!!!.
@@ -32,12 +33,12 @@ export async function requireAuth(
   }
 
   if (!userId) {
-    console.log("Unauthenticated attempt to access", request.url);
+    logger.warn("Unauthenticated attempt to access", request.url);
     doBlock();
   }
 
   if (options.role && sessionClaims?.metadata.role !== options.role) {
-    console.log(
+    logger.warn(
       "Unauthorized attempt to access",
       request.url,
       "\nUserid:",
@@ -48,7 +49,7 @@ export async function requireAuth(
     doBlock();
   }
 
-  console.log(
+  logger.info(
     "Authorized request for",
     request.url,
     "\nuserid:",

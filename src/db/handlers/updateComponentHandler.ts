@@ -15,6 +15,7 @@ import {
   relations,
 } from "@/db/schema";
 import { upsertHierarchicalTag } from "./common/upsertHierarchicalTags";
+import { logger } from "@/logging/logger";
 
 export const updateComponentHandler = async (
   ctx: ServerFnCtx<
@@ -44,7 +45,7 @@ export const updateComponentHandler = async (
 
     return { success: true, id: comp.id };
   } catch (err: any) {
-    console.error(
+    logger.error(
       "Error while updating component with id",
       comp.id,
       " in stage:",

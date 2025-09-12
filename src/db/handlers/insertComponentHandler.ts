@@ -10,6 +10,7 @@ import { db } from "../db";
 import { ServerFnCtx } from "@tanstack/react-start";
 import { Tx } from "./common/Tx";
 import { ComponentInsertType } from "../validators/zodSchemas";
+import { logger } from "@/logging/logger";
 
 export const insertComponentHandler = async (
   ctx: ServerFnCtx<
@@ -94,7 +95,7 @@ export const insertComponentHandler = async (
 
     return { success: true, id: compId };
   } catch (err: any) {
-    console.error("Error while inserting component", err);
+    logger.error("Error while inserting component", err);
     return { success: false, error: "Failed to insert component" };
   }
 };
