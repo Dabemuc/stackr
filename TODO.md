@@ -70,3 +70,5 @@
 - [x] Fix tags not being fetched hierarchically
 - [x] Caching
 - [x] Simple logger implementation
+- [x] Implement correct cache invalidation
+  - [x] Updating component does not invalidate overview cache
