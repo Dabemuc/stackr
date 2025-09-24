@@ -43,6 +43,11 @@ export const updateComponentHandler = async (
       await performUpdate(diff, tx, comp.id);
     });
 
+    // Invalidate Cache for special queries
+    await db.$cache.invalidate({
+      tags: ["findComponentsGroupedByTagThenType"],
+    });
+
     return { success: true, id: comp.id };
   } catch (err: any) {
     logger.error(

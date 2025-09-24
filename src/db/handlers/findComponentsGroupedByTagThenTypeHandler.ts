@@ -76,7 +76,8 @@ export const findComponentsGroupedByTagThenTypeHandler = async () => {
       `,
       sql`comp_group.tag_id = ${tags.id}`,
     )
-    .groupBy(tags.id, sql`tag_hierarchy.path`);
+    .groupBy(tags.id, sql`tag_hierarchy.path`)
+    .$withCache({ tag: "findComponentsGroupedByTagThenType" });
 
   return result;
 };

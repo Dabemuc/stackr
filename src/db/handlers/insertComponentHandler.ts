@@ -93,6 +93,11 @@ export const insertComponentHandler = async (
       return compId;
     });
 
+    // Invalidate Cache for special queries
+    await db.$cache.invalidate({
+      tags: ["findComponentsGroupedByTagThenType"],
+    });
+
     return { success: true, id: compId };
   } catch (err: any) {
     logger.error("Error while inserting component", err);
