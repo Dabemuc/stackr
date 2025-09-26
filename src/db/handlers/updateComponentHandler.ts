@@ -44,9 +44,11 @@ export const updateComponentHandler = async (
     });
 
     // Invalidate Cache for special queries
-    await db.$cache.invalidate({
-      tags: ["findComponentsGroupedByTagThenType"],
-    });
+    if (db.$cache) {
+      await db.$cache.invalidate({
+        tags: ["findComponentsGroupedByTagThenType"],
+      });
+    }
 
     return { success: true, id: comp.id };
   } catch (err: any) {

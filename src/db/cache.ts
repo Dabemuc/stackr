@@ -1,20 +1,40 @@
 import { logger } from "@/logging/logger";
 import { upstashCache } from "drizzle-orm/cache/upstash";
 
-export function getCacheConf() {
-  let cacheConfig = undefined;
-
-  // Use localdeployment cache if in dev env, else attempt to use upstash cache
-  if (process.env.NODE_ENV === "development") {
-    logger.info("Utilizing localdeployment cache ...");
-    cacheConfig = upstashCache({
-      url: "http://localhost:8079",
-      token: "example_token",
-      global: true,
-      config: {
-        ex: 60 * 60 * 24, // Ttl of 24 hours
-      },
+async function isReachable(url: string): Promise<boolean> {
+  try {
+    const res = await fetch(url, {
+      method: "HEAD",
+      signal: AbortSignal.timeout(2000),
     });
+    return res.ok;
+  } catch {
+    return false;
+  }
+}
+
+export async function getCacheConf() {
+  let cacheConfig;
+
+  if (process.env.NODE_ENV === "development") {
+    logger.info("Checking localdeployment cache availability...");
+
+    const localUrl = "http://localhost:8079";
+    const reachable = await isReachable(localUrl);
+
+    if (reachable) {
+      logger.info("Utilizing localdeployment cache ...");
+      cacheConfig = upstashCache({
+        url: localUrl,
+        token: "example_token",
+        global: true,
+        config: {
+          ex: 60 * 60 * 24, // 24h TTL
+        },
+      });
+    } else {
+      logger.warn("Local cache not reachable. Skipping!");
+    }
   } else if (
     process.env.UPSTASH_REDIS_REST_URL &&
     process.env.UPSTASH_REDIS_REST_TOKEN
@@ -25,10 +45,12 @@ export function getCacheConf() {
       token: process.env.UPSTASH_REDIS_REST_TOKEN,
       global: true,
       config: {
-        ex: 60 * 60 * 24, // Ttl of 24 hours
+        ex: 60 * 60 * 24,
       },
     });
-  } else logger.warn("Can't initialize cache. Skipping!");
+  } else {
+    logger.warn("Can't initialize cache. Skipping!");
+  }
 
   return cacheConfig;
 }

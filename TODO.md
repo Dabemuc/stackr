@@ -4,6 +4,8 @@
 
 ## TODO
 
+- [ ] Remove Scrollbars in hoverlink
+- [ ] /view Add not-found handling
 - [ ] Fix displayed "Last updated" not showing the latest date
 - [ ] Make /add and /edit mobile friendly
 - [ ] Logging -> Posthog?
