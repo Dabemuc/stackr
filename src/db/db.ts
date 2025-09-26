@@ -13,7 +13,7 @@ import { logger } from "@/logging/logger";
 import { getCacheConf } from "./cache";
 
 export const db = drizzle(process.env.DATABASE_URL!, {
-  cache: await getCacheConf(),
+  cache: getCacheConf(),
 });
 
 export const seedDb = createServerFn({ method: "POST" }).handler(async () => {
