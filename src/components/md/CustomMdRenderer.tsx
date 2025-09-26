@@ -3,6 +3,9 @@ import { cn } from "@/lib/utils";
 import Code from "./Code";
 import hljs from "highlight.js/lib/common";
 import { useEffect } from "react";
+import rehypeKatex from "rehype-katex";
+import remarkMath from "remark-math";
+import "katex/dist/katex.min.css";
 
 export default function CustomMdRenderer({ children }: { children: string }) {
   useEffect(() => {
@@ -79,7 +82,13 @@ export default function CustomMdRenderer({ children }: { children: string }) {
         borderColor: "var(--color-md-article-border)",
       }}
     >
-      <ReactMarkdown components={components}>{children}</ReactMarkdown>
+      <ReactMarkdown
+        components={components}
+        remarkPlugins={[remarkMath]}
+        rehypePlugins={[rehypeKatex]}
+      >
+        {children}
+      </ReactMarkdown>
     </article>
   );
 }
